@@ -10,6 +10,7 @@ import regionalSupplyDataset from "@/data/processed/regional-supply.json";
 import { matchesGeography, toggleComparison, comparableProjects, priceSampleLabel, paginateProjects, regionAfterMapNavigation } from "./catalogue";
 import InteractiveMap, { type MapCamera } from "./InteractiveMap";
 import MapExplorer from "./MapExplorer";
+import DecisionWorkspace from "./DecisionWorkspace";
 
 type PriceSummary = {
   median: number;
@@ -575,7 +576,7 @@ export default function Home() {
   const [sortBy, setSortBy] = useState<SortKey>("newest");
   const [listPage, setListPage] = useState({ key: "", number: 1 });
   const [viewMode, setViewMode] = useState<ViewMode>("list");
-  const [homeMode, setHomeMode] = useState<"sale" | "history">("sale");
+  const [homeMode, setHomeMode] = useState<"decision" | "sale" | "history">("decision");
   const [selectedId, setSelectedId] = useState(projects[0].id);
   const [mapPreviewId, setMapPreviewId] = useState<string | null>(null);
   const [builderMapFocus, setBuilderMapFocus] = useState<{ id: string; sequence: number; camera?: MapCamera } | null>(null);
@@ -729,12 +730,12 @@ export default function Home() {
     };
   }, [detailOpen, compareOpen, methodOpen, advancedFiltersOpen]);
 
-  // The server and first client render both start on the sale view. Apply the
+  // The server and first client render both start on the decision view. Apply the
   // fragment after hydration so direct links to history do not mismatch SSR.
   useEffect(() => {
     let cancelled = false;
     queueMicrotask(() => {
-      if (!cancelled) setHomeMode(window.location.hash === "#history" ? "history" : "sale");
+      if (!cancelled) setHomeMode(window.location.hash === "#history" ? "history" : window.location.hash === "#sale" ? "sale" : "decision");
     });
     return () => { cancelled = true; };
   }, []);
@@ -742,7 +743,7 @@ export default function Home() {
   useEffect(() => {
     function onHashChange() {
       if (detailOpen || compareOpen || methodOpen || advancedFiltersOpen) suppressModalScrollRestore.current = true;
-      setHomeMode(window.location.hash === "#history" ? "history" : "sale");
+      setHomeMode(window.location.hash === "#history" ? "history" : window.location.hash === "#sale" ? "sale" : "decision");
       setDetailOpen(false);
       setCompareOpen(false);
       setMethodOpen(false);
@@ -842,9 +843,9 @@ export default function Home() {
     requestAnimationFrame(() => document.querySelector(".list-workspace")?.scrollIntoView({ block: "start", behavior: "instant" }));
   }
 
-  function changeHomeMode(mode: "sale" | "history") {
-    const currentUrlMode = window.location.hash === "#history" ? "history" : "sale";
-    if (mode !== currentUrlMode) window.history.pushState(null, "", mode === "history" ? "#history" : "#sale");
+  function changeHomeMode(mode: "decision" | "sale" | "history") {
+    const currentUrlMode = window.location.hash === "#history" ? "history" : window.location.hash === "#sale" ? "sale" : "decision";
+    if (mode !== currentUrlMode) window.history.pushState(null, "", `#${mode}`);
     if (detailOpen || compareOpen || methodOpen || advancedFiltersOpen) suppressModalScrollRestore.current = true;
     setHomeMode(mode);
     setDetailOpen(false);
@@ -889,12 +890,13 @@ export default function Home() {
   return (
     <main className={`app-shell ${homeMode === "history" && viewMode === "map" ? "map-mode" : "list-mode"} ${homeMode === "history" && compareIds.length > 0 ? "has-compare" : ""}`}>
       <header className="site-header">
-        <a className="site-brand" href="#top" aria-label="居鑑首頁，找在售房屋" onClick={(event) => { event.preventDefault(); event.currentTarget.blur(); changeHomeMode("sale"); }}>
+        <a className="site-brand" href="#top" aria-label="居鑑首頁，看屋前的功課" onClick={(event) => { event.preventDefault(); event.currentTarget.blur(); changeHomeMode("decision"); }}>
           <span>居</span>
-          <div><strong>居鑑</strong><small>建案履歷資料庫</small></div>
+          <div><strong>居鑑</strong><small>看屋前的功課</small></div>
         </a>
         <nav className="home-navigation" aria-label="主要功能">
-          <button type="button" className={homeMode === "sale" ? "active" : ""} aria-current={homeMode === "sale" ? "page" : undefined} onClick={() => changeHomeMode("sale")}>找在售房屋</button>
+          <button type="button" className={homeMode === "decision" ? "active" : ""} aria-current={homeMode === "decision" ? "page" : undefined} onClick={() => changeHomeMode("decision")}>選屋工作台</button>
+          <button type="button" className={homeMode === "sale" ? "active" : ""} aria-current={homeMode === "sale" ? "page" : undefined} onClick={() => changeHomeMode("sale")}>外部房源</button>
           <button type="button" className={homeMode === "history" ? "active" : ""} aria-current={homeMode === "history" ? "page" : undefined} onClick={() => changeHomeMode("history")}>查建案履歷</button>
         </nav>
         <div className="header-tools">
@@ -902,7 +904,8 @@ export default function Home() {
         </div>
       </header>
 
-      <div hidden={homeMode !== "sale"}><ForSaleSearch onExploreHistory={() => changeHomeMode("history")} /></div>
+      <div hidden={homeMode !== "decision"}><DecisionWorkspace onHistory={(id) => { changeHomeMode("history"); if (id) { setSelectedId(id); setDetailTab("summary"); setDetailOpen(true); } }} /></div>
+      {homeMode === "sale" && <ForSaleSearch onExploreHistory={() => changeHomeMode("history")} />}
 
       {homeMode === "history" && <>
       <section className={`filter-bar ${viewMode === "map" ? "map-toolbar" : ""}`} id="top" aria-label="歷史建案搜尋篩選">

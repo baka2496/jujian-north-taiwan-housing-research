@@ -17,18 +17,18 @@ async function render() {
   );
 }
 
-test("opens with clear paths for current listings and historical records", async () => {
+test("opens with buyer requirements, evidence gaps, and historical research", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>居鑑｜北台灣建案履歷<\/title>/);
-  assert.match(html, /找目前刊登的房屋/);
+  assert.match(html, /<title>居鑑｜看屋前，先看懂取捨<\/title>/);
+  assert.match(html, /少看幾間/);
   assert.match(html, /查建案履歷/);
-  assert.match(html, /房源由信義房屋提供/);
-  assert.match(html, /不代表建案仍在銷售/);
-  assert.match(html, /Taipei-city\/presale\/default-desc\/1/);
+  assert.match(html, /選屋工作台/);
+  assert.match(html, /還不是在售房源/);
+  assert.match(html, /先補證據/);
   assert.doesNotMatch(html, /class="project-grid-card"/);
   assert.doesNotMatch(html, /data-map-engine="leaflet"/);
   assert.doesNotMatch(html, /class="map-project-card"/);
