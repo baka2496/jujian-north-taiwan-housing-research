@@ -1,4 +1,4 @@
-import { latestTransactions } from "./transaction-records.mjs";
+import { isMarketSale, latestTransactions } from "./transaction-records.mjs";
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -78,6 +78,7 @@ async function a7Transactions() {
   }
   const grouped = new Map();
   for (const row of latestTransactions([...unique.values()])) {
+    if (!isMarketSale(row)) continue;
     const key = normalizeName(row.建案名稱);
     const unitPrice = Number(row.單價元平方公尺);
     if (!key || !Number.isFinite(unitPrice) || unitPrice <= 0) continue;

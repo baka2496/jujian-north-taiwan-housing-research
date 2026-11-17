@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 
-export function parseCsvTable(text) {
+// singleLineFields\uFF1A\u8CC7\u6599\u4F86\u6E90\u7684\u6B04\u4F4D\u4E0D\u6703\u8DE8\u884C\u6642\u4F7F\u7528\uFF1B\u5F15\u865F\u6C92\u95DC\u5C31\u5728\u63DB\u884C\u8655\u7D50\u675F\u6B04\u4F4D\uFF0C
+// \u4EE5\u5BB9\u5FCD\u5B98\u65B9\u6210\u4EA4\u6A94\u4E2D\u7684\u55AE\u4E00\u5F15\u865F\uFF08\u4F8B\u5982 "\u68DF3\u865F\uFF09\u3002
+export function parseCsvTable(text, { singleLineFields = false } = {}) {
   const rows = [];
   let row = [];
   let field = "";
@@ -9,7 +11,13 @@ export function parseCsvTable(text) {
 
   for (let index = 0; index < input.length; index += 1) {
     const character = input[index];
-    if (quoted) {
+    if (quoted && singleLineFields && character === "\n") {
+      quoted = false;
+      row.push(field.replace(/\r$/u, ""));
+      rows.push(row);
+      row = [];
+      field = "";
+    } else if (quoted) {
       if (character === '"' && input[index + 1] === '"') {
         field += '"';
         index += 1;
@@ -18,7 +26,8 @@ export function parseCsvTable(text) {
       } else {
         field += character;
       }
-    } else if (character === '"') {
+    } else if (character === '"' && field === "") {
+      // 只有欄位開頭的引號才開始引號區段；官方檔偶有「B棟"1-9F號」這類欄位中的單一引號，視為一般文字
       quoted = true;
     } else if (character === ",") {
       row.push(field);
@@ -42,8 +51,8 @@ export function parseCsvTable(text) {
   return { headers, rows: values.filter((cells) => cells.some(Boolean)) };
 }
 
-export function parseCsv(text) {
-  const { headers, rows } = parseCsvTable(text);
+export function parseCsv(text, options) {
+  const { headers, rows } = parseCsvTable(text, options);
   return rows
     .map((cells) => Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""])))
     .filter((record) => !["TOWN", "The villages and towns urban district"].includes(record.鄉鎮市區));

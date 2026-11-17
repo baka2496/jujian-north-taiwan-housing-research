@@ -25,6 +25,13 @@ fail(JSON.stringify(Object.keys(amenities.projects).sort()) === JSON.stringify(e
 fail(JSON.stringify(Object.keys(quality.projects).sort()) === JSON.stringify(expectedIds), "品質資料與建案目錄不同步");
 fail(report.summary.catalogueAfter === projects.projects.length, "更新報告的建案數不同步");
 fail(projects.priceCoverage.totalProjects === projects.projects.length, "價格涵蓋率的建案數不同步");
+// 2026-11：只用本期快照時僅 13% 建案有價格；改用完整歷史後約 82%。低於 70% 代表歷史季度沒有讀到。
+fail(projects.priceCoverage.pricedProjects / projects.projects.length >= 0.7, `價格涵蓋率過低（${projects.priceCoverage.pricedProjects}/${projects.projects.length}），可能沒有讀到歷史季度成交`);
+for (const city of new Set(projects.projects.map((project) => project.city))) {
+  const inCity = projects.projects.filter((project) => project.city === city);
+  fail(inCity.filter((project) => project.price).length / inCity.length >= 0.5, `${city} 價格涵蓋率低於一半，可能缺少該縣市的歷史季度檔`);
+}
+fail(projects.projects.every((project) => !project.price?.source?.includes("本期快照")), "仍有建案只使用本期快照價格");
 fail(Object.keys(qualityAudits.projects).every((id) => ids.includes(id)), "人工品質查核包含不存在的建案 ID");
 fail((qualityAudits.reviewedProjectIds || []).every((id) => ids.includes(id)), "品質查核範圍包含不存在的建案 ID");
 const expectedReviewedCount = qualityAudits.reviewedProjectIds?.length ?? Object.keys(qualityAudits.projects).length;

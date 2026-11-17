@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20",
+  "generatedAt": "2026-11-17",
   "methodology": {
     "publishRule": "僅刊登 A 級可直接核對資料，或至少兩個互相獨立來源構成的 B 級資料；C 級線索不形成品質結論。",
     "noEventDisclaimer": "0 件已刊登事件只代表目前沒有資料通過刊登門檻，不代表建案沒有漏水或施工問題。",
@@ -63,15 +63,15 @@
     }
   ],
   "summary": {
-    "projectCount": 2304,
+    "projectCount": 2391,
     "publishedEventCount": 7,
     "defectEventCount": 0,
     "contractEventCount": 7,
-    "queuedCount": 2262,
+    "queuedCount": 2349,
     "reviewedCount": 42,
     "verifiedLocationCount": 368,
     "approximateLocationCount": 14,
-    "awaitingParcelCount": 1922
+    "awaitingParcelCount": 2009
   },
   "projects": {
     "林口-01-097315": {
@@ -41909,7 +41909,7 @@
       },
       "searchTerms": [
         "九豐花園",
-        "九實建設有限公司",
+        "僑馥建築經理股份有限公司（林憲光）",
         "113桃市都建執照字第會屋00385號",
         "山海段193地號"
       ],
@@ -111933,7 +111933,7 @@
       },
       "searchTerms": [
         "碧湖首澤",
-        "勝泰豐建設股份有限公司",
+        "展隆建設股份有限公司",
         "111建字第0029號",
         "碧湖段二小段787地號"
       ],
@@ -143937,7 +143937,7 @@
       },
       "searchTerms": [
         "潤洋沐隱",
-        "潤洋建設有限公司",
+        "僑馥建築經理股份有限公司",
         "114桃市都建執照字第會楊02024號",
         "和平段535地號"
       ],
@@ -146342,7 +146342,7 @@
       },
       "searchTerms": [
         "昭揚.青埔",
-        "昭揚開發股份有限公司 ； 王愛國",
+        "昭揚開發股份有限公司",
         "(115)桃市都建執照字第會壢00628",
         "青平段168地號"
       ],
@@ -150782,6 +150782,5661 @@
           "checkedAt": null,
           "matchCount": null,
           "query": "天空大院 2"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-22893aac94": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "安心宅第十三期",
+        "中富建設股份有限公司",
+        "114桃市都建執照字第會壢00235號",
+        "青平段378地號"
+      ],
+      "defectSearchTerms": [
+        "安心宅第十三期 漏水",
+        "安心宅第十三期 壁癌",
+        "安心宅第十三期 磁磚脫落",
+        "安心宅第十三期 地下室積水",
+        "安心宅第十三期 電梯",
+        "安心宅第十三期 隔音",
+        "安心宅第十三期 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "安心宅第十三期"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-93d533c861": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "昭揚大詠",
+        "昭揚開發股份有限公司",
+        "(115)桃市都建執照字第會德00868",
+        "永福段91地號"
+      ],
+      "defectSearchTerms": [
+        "昭揚大詠 漏水",
+        "昭揚大詠 壁癌",
+        "昭揚大詠 磁磚脫落",
+        "昭揚大詠 地下室積水",
+        "昭揚大詠 電梯",
+        "昭揚大詠 隔音",
+        "昭揚大詠 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "昭揚大詠"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-925373f5bb": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "森瀚琢月",
+        "森瀚建設股份有限公司",
+        "115重建字第00099",
+        "長樂段299地號"
+      ],
+      "defectSearchTerms": [
+        "森瀚琢月 漏水",
+        "森瀚琢月 壁癌",
+        "森瀚琢月 磁磚脫落",
+        "森瀚琢月 地下室積水",
+        "森瀚琢月 電梯",
+        "森瀚琢月 隔音",
+        "森瀚琢月 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "森瀚琢月"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-e58dddd8af": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "大睦禾和",
+        "大築建設股份有限公司",
+        "桃市都建執照字第會園00596-03號",
+        "客運一段257地號"
+      ],
+      "defectSearchTerms": [
+        "大睦禾和 漏水",
+        "大睦禾和 壁癌",
+        "大睦禾和 磁磚脫落",
+        "大睦禾和 地下室積水",
+        "大睦禾和 電梯",
+        "大睦禾和 隔音",
+        "大睦禾和 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "大睦禾和"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-6aa3a8b83a": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "桃園市中壢區中運段141地號",
+        "遠雄建設事業股份有限公司",
+        "115桃市都建執照字第會壢00407號",
+        "中運段141地號"
+      ],
+      "defectSearchTerms": [
+        "桃園市中壢區中運段141地號 漏水",
+        "桃園市中壢區中運段141地號 壁癌",
+        "桃園市中壢區中運段141地號 磁磚脫落",
+        "桃園市中壢區中運段141地號 地下室積水",
+        "桃園市中壢區中運段141地號 電梯",
+        "桃園市中壢區中運段141地號 隔音",
+        "桃園市中壢區中運段141地號 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "桃園市中壢區中運段141地號"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-d623b23725": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "邀悅",
+        "里樂資產管理股份有限公司",
+        "(115)府都建字第00054號",
+        "東光段144地號"
+      ],
+      "defectSearchTerms": [
+        "邀悅 漏水",
+        "邀悅 壁癌",
+        "邀悅 磁磚脫落",
+        "邀悅 地下室積水",
+        "邀悅 電梯",
+        "邀悅 隔音",
+        "邀悅 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "邀悅"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-07ca8b4b2d": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "川洋向日",
+        "川洋建設有限公司",
+        "桃市都建執照字第會桃00535號",
+        "中山段280地號"
+      ],
+      "defectSearchTerms": [
+        "川洋向日 漏水",
+        "川洋向日 壁癌",
+        "川洋向日 磁磚脫落",
+        "川洋向日 地下室積水",
+        "川洋向日 電梯",
+        "川洋向日 隔音",
+        "川洋向日 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "川洋向日"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-36d8974d72": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "富廣源No.5",
+        "富廣源開發建設有限公司",
+        "桃市都建執照字第會壢785號",
+        "石頭段44-7地號"
+      ],
+      "defectSearchTerms": [
+        "富廣源No.5 漏水",
+        "富廣源No.5 壁癌",
+        "富廣源No.5 磁磚脫落",
+        "富廣源No.5 地下室積水",
+        "富廣源No.5 電梯",
+        "富廣源No.5 隔音",
+        "富廣源No.5 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "富廣源No.5"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-county-0491172ed0": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "龍江沐沐",
+        "兆詠建設有限公司",
+        "(114)府建字第00339號",
+        "光華段507地號"
+      ],
+      "defectSearchTerms": [
+        "龍江沐沐 漏水",
+        "龍江沐沐 壁癌",
+        "龍江沐沐 磁磚脫落",
+        "龍江沐沐 地下室積水",
+        "龍江沐沐 電梯",
+        "龍江沐沐 隔音",
+        "龍江沐沐 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "龍江沐沐"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-94aa30cb49": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "榮石序光",
+        "榮石建設股份有限公司",
+        "桃市都建執照字第會壢00327號",
+        "石頭段513地號"
+      ],
+      "defectSearchTerms": [
+        "榮石序光 漏水",
+        "榮石序光 壁癌",
+        "榮石序光 磁磚脫落",
+        "榮石序光 地下室積水",
+        "榮石序光 電梯",
+        "榮石序光 隔音",
+        "榮石序光 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "榮石序光"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-ec7179a674": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "崇利元信",
+        "崇利建設股份有限公司",
+        "109重建字00476-02號",
+        "仁信段126地號"
+      ],
+      "defectSearchTerms": [
+        "崇利元信 漏水",
+        "崇利元信 壁癌",
+        "崇利元信 磁磚脫落",
+        "崇利元信 地下室積水",
+        "崇利元信 電梯",
+        "崇利元信 隔音",
+        "崇利元信 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "崇利元信"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-b032a8ac74": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "新亦捷運ONE",
+        "新亦建設有限公司",
+        "桃市都建執照字第會園02111號",
+        "東園段778地號"
+      ],
+      "defectSearchTerms": [
+        "新亦捷運ONE 漏水",
+        "新亦捷運ONE 壁癌",
+        "新亦捷運ONE 磁磚脫落",
+        "新亦捷運ONE 地下室積水",
+        "新亦捷運ONE 電梯",
+        "新亦捷運ONE 隔音",
+        "新亦捷運ONE 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "新亦捷運ONE"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-c91eaf551a": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "豐禾3",
+        "盈隆建設股份有限公司",
+        "(114)桃市都建執照字第會楊02152",
+        "田心段25-4地號"
+      ],
+      "defectSearchTerms": [
+        "豐禾3 漏水",
+        "豐禾3 壁癌",
+        "豐禾3 磁磚脫落",
+        "豐禾3 地下室積水",
+        "豐禾3 電梯",
+        "豐禾3 隔音",
+        "豐禾3 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "豐禾3"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-7a77ac430e": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "常日",
+        "宜霖建設股份有限公司",
+        "(114)桃市都建執照字第會壢00608",
+        "老街溪段2257地號"
+      ],
+      "defectSearchTerms": [
+        "常日 漏水",
+        "常日 壁癌",
+        "常日 磁磚脫落",
+        "常日 地下室積水",
+        "常日 電梯",
+        "常日 隔音",
+        "常日 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "常日"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-73634a6522": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "岩美芊映",
+        "岩美開發建設有限公司",
+        "114桃市都建執照字第會楊01613號",
+        "楊湖段419地號"
+      ],
+      "defectSearchTerms": [
+        "岩美芊映 漏水",
+        "岩美芊映 壁癌",
+        "岩美芊映 磁磚脫落",
+        "岩美芊映 地下室積水",
+        "岩美芊映 電梯",
+        "岩美芊映 隔音",
+        "岩美芊映 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "岩美芊映"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-9188681c87": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "映水苑",
+        "村輝建設有限公司 黃昆茂",
+        "(115)桃市都建執照字第會楊00498",
+        "楊湖段1557-6地號"
+      ],
+      "defectSearchTerms": [
+        "映水苑 漏水",
+        "映水苑 壁癌",
+        "映水苑 磁磚脫落",
+        "映水苑 地下室積水",
+        "映水苑 電梯",
+        "映水苑 隔音",
+        "映水苑 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "映水苑"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-8ded423f78": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "大亮鴨川",
+        "大亮建築股份有限公司",
+        "115桃市都建執照字第會壢00740號",
+        "青溪段369地號"
+      ],
+      "defectSearchTerms": [
+        "大亮鴨川 漏水",
+        "大亮鴨川 壁癌",
+        "大亮鴨川 磁磚脫落",
+        "大亮鴨川 地下室積水",
+        "大亮鴨川 電梯",
+        "大亮鴨川 隔音",
+        "大亮鴨川 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "大亮鴨川"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-9aa60898e1": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "秉和領界",
+        "秉和建設股份有限公司",
+        "桃市都建執照字第會德00455-02號",
+        "大和段915地號"
+      ],
+      "defectSearchTerms": [
+        "秉和領界 漏水",
+        "秉和領界 壁癌",
+        "秉和領界 磁磚脫落",
+        "秉和領界 地下室積水",
+        "秉和領界 電梯",
+        "秉和領界 隔音",
+        "秉和領界 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "秉和領界"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-94251091af": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "大河吾疆",
+        "達欣開發股份有限公司",
+        "115桃市都建執照字第會桃00736號",
+        "三民段50地號"
+      ],
+      "defectSearchTerms": [
+        "大河吾疆 漏水",
+        "大河吾疆 壁癌",
+        "大河吾疆 磁磚脫落",
+        "大河吾疆 地下室積水",
+        "大河吾疆 電梯",
+        "大河吾疆 隔音",
+        "大河吾疆 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "大河吾疆"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-a7f1ed1139": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "埔心綻",
+        "盈隆建設股份有限公司",
+        "115桃市都建執照字第會楊00627號",
+        "草湳坡段埔心小段10-33地號"
+      ],
+      "defectSearchTerms": [
+        "埔心綻 漏水",
+        "埔心綻 壁癌",
+        "埔心綻 磁磚脫落",
+        "埔心綻 地下室積水",
+        "埔心綻 電梯",
+        "埔心綻 隔音",
+        "埔心綻 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "埔心綻"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-3e24af0314": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "松悅園2",
+        "和悅建設有限公司",
+        "桃市都建執造字第會屋00982-01",
+        "啟文段885地號"
+      ],
+      "defectSearchTerms": [
+        "松悅園2 漏水",
+        "松悅園2 壁癌",
+        "松悅園2 磁磚脫落",
+        "松悅園2 地下室積水",
+        "松悅園2 電梯",
+        "松悅園2 隔音",
+        "松悅園2 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "松悅園2"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-d3d2f29680": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "鴻善",
+        "鴻柏建設股份有限公司",
+        "(115)府都建字第00076號",
+        "信義段731地號"
+      ],
+      "defectSearchTerms": [
+        "鴻善 漏水",
+        "鴻善 壁癌",
+        "鴻善 磁磚脫落",
+        "鴻善 地下室積水",
+        "鴻善 電梯",
+        "鴻善 隔音",
+        "鴻善 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "鴻善"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-5788f682de": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "勤樸文漾",
+        "樸恆建造股份有限公司",
+        "(114）桃市都建執照字第會園01000",
+        "客運二段95地號"
+      ],
+      "defectSearchTerms": [
+        "勤樸文漾 漏水",
+        "勤樸文漾 壁癌",
+        "勤樸文漾 磁磚脫落",
+        "勤樸文漾 地下室積水",
+        "勤樸文漾 電梯",
+        "勤樸文漾 隔音",
+        "勤樸文漾 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "勤樸文漾"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-bef5ebe890": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "都廳PARK",
+        "茂德建設股份有限公司",
+        "115重建宇第00182號",
+        "五谷王段77地號"
+      ],
+      "defectSearchTerms": [
+        "都廳PARK 漏水",
+        "都廳PARK 壁癌",
+        "都廳PARK 磁磚脫落",
+        "都廳PARK 地下室積水",
+        "都廳PARK 電梯",
+        "都廳PARK 隔音",
+        "都廳PARK 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "都廳PARK"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-4b4e42009a": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "梟的傳信書",
+        "悅峰建設股份有限公司",
+        "(115)桃市都建執照字第會園00558",
+        "聖德段1022地號"
+      ],
+      "defectSearchTerms": [
+        "梟的傳信書 漏水",
+        "梟的傳信書 壁癌",
+        "梟的傳信書 磁磚脫落",
+        "梟的傳信書 地下室積水",
+        "梟的傳信書 電梯",
+        "梟的傳信書 隔音",
+        "梟的傳信書 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "梟的傳信書"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-eeae353bfa": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "皆東騰",
+        "東峻建設股份有限公司",
+        "115莊建字第130號",
+        "副都心段一小段181-1地號"
+      ],
+      "defectSearchTerms": [
+        "皆東騰 漏水",
+        "皆東騰 壁癌",
+        "皆東騰 磁磚脫落",
+        "皆東騰 地下室積水",
+        "皆東騰 電梯",
+        "皆東騰 隔音",
+        "皆東騰 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "皆東騰"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-county-385da25186": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "安緣NO.5",
+        "宥宇建設有限公司",
+        "(115)府建字第00032號",
+        "興安段564-3地號"
+      ],
+      "defectSearchTerms": [
+        "安緣NO.5 漏水",
+        "安緣NO.5 壁癌",
+        "安緣NO.5 磁磚脫落",
+        "安緣NO.5 地下室積水",
+        "安緣NO.5 電梯",
+        "安緣NO.5 隔音",
+        "安緣NO.5 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "安緣NO.5"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-7b55a0392b": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "全新綻7",
+        "全新建設有限公司",
+        "115桃市都建執照字第會楊00610號",
+        "員富段327-3地號"
+      ],
+      "defectSearchTerms": [
+        "全新綻7 漏水",
+        "全新綻7 壁癌",
+        "全新綻7 磁磚脫落",
+        "全新綻7 地下室積水",
+        "全新綻7 電梯",
+        "全新綻7 隔音",
+        "全新綻7 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "全新綻7"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "a7-1d092929eb": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "文森",
+        "興樹建設有限公司",
+        "110桃字都建執照字第會龜00235-1",
+        "善捷段289地號"
+      ],
+      "defectSearchTerms": [
+        "文森 漏水",
+        "文森 壁癌",
+        "文森 磁磚脫落",
+        "文森 地下室積水",
+        "文森 電梯",
+        "文森 隔音",
+        "文森 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "文森"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-cff6394b68": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "新潤世界雙捷NO.1雙綻",
+        "新潤興業股份有限公司",
+        "115桃市都建執照字第會園00505號",
+        "林段1119地號"
+      ],
+      "defectSearchTerms": [
+        "新潤世界雙捷NO.1雙綻 漏水",
+        "新潤世界雙捷NO.1雙綻 壁癌",
+        "新潤世界雙捷NO.1雙綻 磁磚脫落",
+        "新潤世界雙捷NO.1雙綻 地下室積水",
+        "新潤世界雙捷NO.1雙綻 電梯",
+        "新潤世界雙捷NO.1雙綻 隔音",
+        "新潤世界雙捷NO.1雙綻 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "新潤世界雙捷NO.1雙綻"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-f9842707cb": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "久煜青禾",
+        "久煜建設有限公司",
+        "113樹建字第00026-01號",
+        "慈恩段231地號"
+      ],
+      "defectSearchTerms": [
+        "久煜青禾 漏水",
+        "久煜青禾 壁癌",
+        "久煜青禾 磁磚脫落",
+        "久煜青禾 地下室積水",
+        "久煜青禾 電梯",
+        "久煜青禾 隔音",
+        "久煜青禾 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "久煜青禾"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-7f368833f5": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "益騏睦森",
+        "益騏建設股份有限公司",
+        "桃市都建執照字第會壢00313號",
+        "前寮段631地號"
+      ],
+      "defectSearchTerms": [
+        "益騏睦森 漏水",
+        "益騏睦森 壁癌",
+        "益騏睦森 磁磚脫落",
+        "益騏睦森 地下室積水",
+        "益騏睦森 電梯",
+        "益騏睦森 隔音",
+        "益騏睦森 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "益騏睦森"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-f74d558ca2": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "君好學學",
+        "君好建設開發有限公司",
+        "桃市都建執照字第會壢00219號",
+        "華興段321-3地號"
+      ],
+      "defectSearchTerms": [
+        "君好學學 漏水",
+        "君好學學 壁癌",
+        "君好學學 磁磚脫落",
+        "君好學學 地下室積水",
+        "君好學學 電梯",
+        "君好學學 隔音",
+        "君好學學 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "君好學學"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-c4e0e3e38d": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "鈞臨",
+        "誠堡建設股份有限公司：陳正彥",
+        "桃市都建執照字第會觀01169號",
+        "忠愛段890-1地號"
+      ],
+      "defectSearchTerms": [
+        "鈞臨 漏水",
+        "鈞臨 壁癌",
+        "鈞臨 磁磚脫落",
+        "鈞臨 地下室積水",
+        "鈞臨 電梯",
+        "鈞臨 隔音",
+        "鈞臨 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "鈞臨"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-d603f31377": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "合新美遇",
+        "合新建設股份有限公司",
+        "113淡建字第00150號",
+        "新市段116地號"
+      ],
+      "defectSearchTerms": [
+        "合新美遇 漏水",
+        "合新美遇 壁癌",
+        "合新美遇 磁磚脫落",
+        "合新美遇 地下室積水",
+        "合新美遇 電梯",
+        "合新美遇 隔音",
+        "合新美遇 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "合新美遇"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-ebf650f54c": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "日健昌",
+        "築悅開發股份有限公司",
+        "111莊建字第00456號",
+        "和平段565地號"
+      ],
+      "defectSearchTerms": [
+        "日健昌 漏水",
+        "日健昌 壁癌",
+        "日健昌 磁磚脫落",
+        "日健昌 地下室積水",
+        "日健昌 電梯",
+        "日健昌 隔音",
+        "日健昌 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "日健昌"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "a7-823472fdf2": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "公園A+",
+        "佳峻建設股份有限公司",
+        "110桃市都建執照字第會龜653-01號",
+        "樂捷段80地號"
+      ],
+      "defectSearchTerms": [
+        "公園A+ 漏水",
+        "公園A+ 壁癌",
+        "公園A+ 磁磚脫落",
+        "公園A+ 地下室積水",
+        "公園A+ 電梯",
+        "公園A+ 隔音",
+        "公園A+ 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "公園A+"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-6bcf261086": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "鈞豐大苑",
+        "鈞豐建設股份有限公司",
+        "115店建字第00146號",
+        "中央段1063地號"
+      ],
+      "defectSearchTerms": [
+        "鈞豐大苑 漏水",
+        "鈞豐大苑 壁癌",
+        "鈞豐大苑 磁磚脫落",
+        "鈞豐大苑 地下室積水",
+        "鈞豐大苑 電梯",
+        "鈞豐大苑 隔音",
+        "鈞豐大苑 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "鈞豐大苑"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-fed14615f1": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "慢威日記",
+        "日霖建設股份有限公司",
+        "(114)桃市都建執照第會園01268號",
+        "五塊厝段大埔小段1123地號"
+      ],
+      "defectSearchTerms": [
+        "慢威日記 漏水",
+        "慢威日記 壁癌",
+        "慢威日記 磁磚脫落",
+        "慢威日記 地下室積水",
+        "慢威日記 電梯",
+        "慢威日記 隔音",
+        "慢威日記 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "慢威日記"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-dd6b86b171": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "佳瑞森城",
+        "佳瑞建設股份有限公司",
+        "113桃市都建執照第會壢00019-01",
+        "豐興段230地號"
+      ],
+      "defectSearchTerms": [
+        "佳瑞森城 漏水",
+        "佳瑞森城 壁癌",
+        "佳瑞森城 磁磚脫落",
+        "佳瑞森城 地下室積水",
+        "佳瑞森城 電梯",
+        "佳瑞森城 隔音",
+        "佳瑞森城 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "佳瑞森城"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-caa3c2cbef": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "昭揚天闊",
+        "昭揚開發股份有限公司",
+        "桃市都建執照字第會壢01968-01號",
+        "豐興段50地號"
+      ],
+      "defectSearchTerms": [
+        "昭揚天闊 漏水",
+        "昭揚天闊 壁癌",
+        "昭揚天闊 磁磚脫落",
+        "昭揚天闊 地下室積水",
+        "昭揚天闊 電梯",
+        "昭揚天闊 隔音",
+        "昭揚天闊 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "昭揚天闊"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-a51e59ac7d": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "紐約沐光",
+        "建義建設開發股份有限公司",
+        "112八建字第00373-01號",
+        "訊塘段22-2地號"
+      ],
+      "defectSearchTerms": [
+        "紐約沐光 漏水",
+        "紐約沐光 壁癌",
+        "紐約沐光 磁磚脫落",
+        "紐約沐光 地下室積水",
+        "紐約沐光 電梯",
+        "紐約沐光 隔音",
+        "紐約沐光 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "紐約沐光"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-95c4a6d22f": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "鑫陽馥築",
+        "龍昊建設股份有限公司",
+        "112重建字00274號",
+        "仁愛段2251地號"
+      ],
+      "defectSearchTerms": [
+        "鑫陽馥築 漏水",
+        "鑫陽馥築 壁癌",
+        "鑫陽馥築 磁磚脫落",
+        "鑫陽馥築 地下室積水",
+        "鑫陽馥築 電梯",
+        "鑫陽馥築 隔音",
+        "鑫陽馥築 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "鑫陽馥築"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-535c3be595": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "合登陶園鳴",
+        "合登建設股份有限公司",
+        "113鶯建字第00265號",
+        "鳳鳴段173地號"
+      ],
+      "defectSearchTerms": [
+        "合登陶園鳴 漏水",
+        "合登陶園鳴 壁癌",
+        "合登陶園鳴 磁磚脫落",
+        "合登陶園鳴 地下室積水",
+        "合登陶園鳴 電梯",
+        "合登陶園鳴 隔音",
+        "合登陶園鳴 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "合登陶園鳴"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-13073adcdf": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "板心恆鑽",
+        "富足家股份有限公司",
+        "113板建字第00388號",
+        "光仁段2931地號"
+      ],
+      "defectSearchTerms": [
+        "板心恆鑽 漏水",
+        "板心恆鑽 壁癌",
+        "板心恆鑽 磁磚脫落",
+        "板心恆鑽 地下室積水",
+        "板心恆鑽 電梯",
+        "板心恆鑽 隔音",
+        "板心恆鑽 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "板心恆鑽"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-dabae13044": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "藝文之芯",
+        "傳佳建設股份有限公司",
+        "桃市都建執照字第會桃00106-01號",
+        "新埔段1303地號"
+      ],
+      "defectSearchTerms": [
+        "藝文之芯 漏水",
+        "藝文之芯 壁癌",
+        "藝文之芯 磁磚脫落",
+        "藝文之芯 地下室積水",
+        "藝文之芯 電梯",
+        "藝文之芯 隔音",
+        "藝文之芯 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "藝文之芯"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-0573c5c456": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "玖原璽苑",
+        "玖恩建設股份有限公司",
+        "110板建字第00644號",
+        "忠孝段897地號"
+      ],
+      "defectSearchTerms": [
+        "玖原璽苑 漏水",
+        "玖原璽苑 壁癌",
+        "玖原璽苑 磁磚脫落",
+        "玖原璽苑 地下室積水",
+        "玖原璽苑 電梯",
+        "玖原璽苑 隔音",
+        "玖原璽苑 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "玖原璽苑"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-1a29e20076": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "悅田吾澍",
+        "悅田建設股份有限公司",
+        "115重建字第0136號",
+        "長壽段490地號"
+      ],
+      "defectSearchTerms": [
+        "悅田吾澍 漏水",
+        "悅田吾澍 壁癌",
+        "悅田吾澍 磁磚脫落",
+        "悅田吾澍 地下室積水",
+        "悅田吾澍 電梯",
+        "悅田吾澍 隔音",
+        "悅田吾澍 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "悅田吾澍"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-497fe7b17d": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "達麗吾同",
+        "達麗建設事業股份有限公司",
+        "(111)府都建字第00176號",
+        "台肥段11-4地號"
+      ],
+      "defectSearchTerms": [
+        "達麗吾同 漏水",
+        "達麗吾同 壁癌",
+        "達麗吾同 磁磚脫落",
+        "達麗吾同 地下室積水",
+        "達麗吾同 電梯",
+        "達麗吾同 隔音",
+        "達麗吾同 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "達麗吾同"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taipei-0bb2c4d8f5": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "綺埕",
+        "周城建設股份有限公司",
+        "114建字第0123號",
+        "玉泉段一小段236地號"
+      ],
+      "defectSearchTerms": [
+        "綺埕 漏水",
+        "綺埕 壁癌",
+        "綺埕 磁磚脫落",
+        "綺埕 地下室積水",
+        "綺埕 電梯",
+        "綺埕 隔音",
+        "綺埕 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "綺埕"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-e867575156": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "馥春錦-山紫",
+        "馥春建築股份有限公司",
+        "113土建字第00169號",
+        "廷寮段313地號"
+      ],
+      "defectSearchTerms": [
+        "馥春錦-山紫 漏水",
+        "馥春錦-山紫 壁癌",
+        "馥春錦-山紫 磁磚脫落",
+        "馥春錦-山紫 地下室積水",
+        "馥春錦-山紫 電梯",
+        "馥春錦-山紫 隔音",
+        "馥春錦-山紫 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "馥春錦-山紫"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-86bffcc2f9": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "馥春錦-水明",
+        "馥春建築股份有限公司",
+        "113土建字第00170號",
+        "廷寮段318地號"
+      ],
+      "defectSearchTerms": [
+        "馥春錦-水明 漏水",
+        "馥春錦-水明 壁癌",
+        "馥春錦-水明 磁磚脫落",
+        "馥春錦-水明 地下室積水",
+        "馥春錦-水明 電梯",
+        "馥春錦-水明 隔音",
+        "馥春錦-水明 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "馥春錦-水明"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-8233fadabf": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "風禾首馥",
+        "興益發建設企業股份有限公司",
+        "104桃市都建執照字第會桃00894-3",
+        "中路二段29地號"
+      ],
+      "defectSearchTerms": [
+        "風禾首馥 漏水",
+        "風禾首馥 壁癌",
+        "風禾首馥 磁磚脫落",
+        "風禾首馥 地下室積水",
+        "風禾首馥 電梯",
+        "風禾首馥 隔音",
+        "風禾首馥 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "風禾首馥"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-ff24cb14cf": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "川洋青勻",
+        "川洋建設有限公司",
+        "112桃市都建執照字第會園00568號",
+        "五塊厝段大埔小段1410地號"
+      ],
+      "defectSearchTerms": [
+        "川洋青勻 漏水",
+        "川洋青勻 壁癌",
+        "川洋青勻 磁磚脫落",
+        "川洋青勻 地下室積水",
+        "川洋青勻 電梯",
+        "川洋青勻 隔音",
+        "川洋青勻 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "川洋青勻"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-4b398e34a8": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "森川",
+        "興樹建設有限公司",
+        "112桃市都建執照字第會壢01072-1",
+        "豐興段2地號"
+      ],
+      "defectSearchTerms": [
+        "森川 漏水",
+        "森川 壁癌",
+        "森川 磁磚脫落",
+        "森川 地下室積水",
+        "森川 電梯",
+        "森川 隔音",
+        "森川 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "森川"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-fe02582eda": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "匯聚-城芯區",
+        "廷豐建設有限公司",
+        "(114)桃市都建執照字第會桃00420",
+        "龍安段6地號"
+      ],
+      "defectSearchTerms": [
+        "匯聚-城芯區 漏水",
+        "匯聚-城芯區 壁癌",
+        "匯聚-城芯區 磁磚脫落",
+        "匯聚-城芯區 地下室積水",
+        "匯聚-城芯區 電梯",
+        "匯聚-城芯區 隔音",
+        "匯聚-城芯區 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "匯聚-城芯區"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-b98f34905b": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "柏德序日",
+        "柏德開發建設股份有限公司",
+        "(114)桃市都建執照字第會園00818",
+        "客運二段49地號"
+      ],
+      "defectSearchTerms": [
+        "柏德序日 漏水",
+        "柏德序日 壁癌",
+        "柏德序日 磁磚脫落",
+        "柏德序日 地下室積水",
+        "柏德序日 電梯",
+        "柏德序日 隔音",
+        "柏德序日 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "柏德序日"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-93394931d0": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "鼎極",
+        "上益開發建設有限公司",
+        "(115)桃市都建執照字第會屋00568",
+        "新屋段後湖小段1940地號"
+      ],
+      "defectSearchTerms": [
+        "鼎極 漏水",
+        "鼎極 壁癌",
+        "鼎極 磁磚脫落",
+        "鼎極 地下室積水",
+        "鼎極 電梯",
+        "鼎極 隔音",
+        "鼎極 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "鼎極"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-c7dbdaf609": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "匯聚-宏曜區Ｂ",
+        "廷豐建設有限公司",
+        "(115)桃市都建執照字第會桃00440",
+        "中山段327-1地號"
+      ],
+      "defectSearchTerms": [
+        "匯聚-宏曜區Ｂ 漏水",
+        "匯聚-宏曜區Ｂ 壁癌",
+        "匯聚-宏曜區Ｂ 磁磚脫落",
+        "匯聚-宏曜區Ｂ 地下室積水",
+        "匯聚-宏曜區Ｂ 電梯",
+        "匯聚-宏曜區Ｂ 隔音",
+        "匯聚-宏曜區Ｂ 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "匯聚-宏曜區Ｂ"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-f3c994ffda": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "匯聚-宏曜區A",
+        "廷豐建設有限公司",
+        "(115)桃市都建執照字第會桃00471",
+        "中山段327地號"
+      ],
+      "defectSearchTerms": [
+        "匯聚-宏曜區A 漏水",
+        "匯聚-宏曜區A 壁癌",
+        "匯聚-宏曜區A 磁磚脫落",
+        "匯聚-宏曜區A 地下室積水",
+        "匯聚-宏曜區A 電梯",
+        "匯聚-宏曜區A 隔音",
+        "匯聚-宏曜區A 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "匯聚-宏曜區A"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-1e12745ec6": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "孟菲斯",
+        "普塔赫建設股份有限公司",
+        "(115)桃市都建執照字第會桃00671",
+        "中正段873地號"
+      ],
+      "defectSearchTerms": [
+        "孟菲斯 漏水",
+        "孟菲斯 壁癌",
+        "孟菲斯 磁磚脫落",
+        "孟菲斯 地下室積水",
+        "孟菲斯 電梯",
+        "孟菲斯 隔音",
+        "孟菲斯 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "孟菲斯"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-a110989edf": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "匯聚-興澤區",
+        "廷豐建設有限公司",
+        "(115)桃市都建執照字第會桃00706",
+        "大興段399地號"
+      ],
+      "defectSearchTerms": [
+        "匯聚-興澤區 漏水",
+        "匯聚-興澤區 壁癌",
+        "匯聚-興澤區 磁磚脫落",
+        "匯聚-興澤區 地下室積水",
+        "匯聚-興澤區 電梯",
+        "匯聚-興澤區 隔音",
+        "匯聚-興澤區 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "匯聚-興澤區"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-b5fb358fb8": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "昭揚天麗",
+        "昭揚開發股份有限公司",
+        "(115)桃市都建執照字第會桃00917",
+        "春日段1138地號"
+      ],
+      "defectSearchTerms": [
+        "昭揚天麗 漏水",
+        "昭揚天麗 壁癌",
+        "昭揚天麗 磁磚脫落",
+        "昭揚天麗 地下室積水",
+        "昭揚天麗 電梯",
+        "昭揚天麗 隔音",
+        "昭揚天麗 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "昭揚天麗"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-44b7e824a8": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "匯聚-芯境區",
+        "廷豐建設有限公司",
+        "桃市都建執照字第會桃01453-01",
+        "東國段481地號"
+      ],
+      "defectSearchTerms": [
+        "匯聚-芯境區 漏水",
+        "匯聚-芯境區 壁癌",
+        "匯聚-芯境區 磁磚脫落",
+        "匯聚-芯境區 地下室積水",
+        "匯聚-芯境區 電梯",
+        "匯聚-芯境區 隔音",
+        "匯聚-芯境區 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "匯聚-芯境區"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-e3c97e5b59": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "虹庭知新",
+        "虹庭建設有限公司",
+        "桃市都建執照字第會桃00842號",
+        "中路段1743-4地號"
+      ],
+      "defectSearchTerms": [
+        "虹庭知新 漏水",
+        "虹庭知新 壁癌",
+        "虹庭知新 磁磚脫落",
+        "虹庭知新 地下室積水",
+        "虹庭知新 電梯",
+        "虹庭知新 隔音",
+        "虹庭知新 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "虹庭知新"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-0f5eb0f025": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "利居中原",
+        "利居建設股份有限公司",
+        "115桃市都建執照字第會壢00688號",
+        "中北段1地號"
+      ],
+      "defectSearchTerms": [
+        "利居中原 漏水",
+        "利居中原 壁癌",
+        "利居中原 磁磚脫落",
+        "利居中原 地下室積水",
+        "利居中原 電梯",
+        "利居中原 隔音",
+        "利居中原 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "利居中原"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-fad641159b": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "龍岡時園",
+        "隆家騰建設有限公司",
+        "桃市都建執照字第會壢00642-02號",
+        "前寮段806-2地號"
+      ],
+      "defectSearchTerms": [
+        "龍岡時園 漏水",
+        "龍岡時園 壁癌",
+        "龍岡時園 磁磚脫落",
+        "龍岡時園 地下室積水",
+        "龍岡時園 電梯",
+        "龍岡時園 隔音",
+        "龍岡時園 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "龍岡時園"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-6a4c5c4e40": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "福鄉心沐",
+        "凱昇開發建設有限公司",
+        "桃市?建執照字第會桃00318-01號",
+        "中路三段41地號"
+      ],
+      "defectSearchTerms": [
+        "福鄉心沐 漏水",
+        "福鄉心沐 壁癌",
+        "福鄉心沐 磁磚脫落",
+        "福鄉心沐 地下室積水",
+        "福鄉心沐 電梯",
+        "福鄉心沐 隔音",
+        "福鄉心沐 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "福鄉心沐"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "taoyuan-91a150c702": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "富山福邸",
+        "僑馥建築經理股份有限公司",
+        "桃市都建執照字第會壢00368-01號",
+        "興南段興南小段192-16地號"
+      ],
+      "defectSearchTerms": [
+        "富山福邸 漏水",
+        "富山福邸 壁癌",
+        "富山福邸 磁磚脫落",
+        "富山福邸 地下室積水",
+        "富山福邸 電梯",
+        "富山福邸 隔音",
+        "富山福邸 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "富山福邸"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-10c29bedd1": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "冠輝永萃",
+        "冠輝建設股份有限公司",
+        "115永建字第45號",
+        "水源段485地號"
+      ],
+      "defectSearchTerms": [
+        "冠輝永萃 漏水",
+        "冠輝永萃 壁癌",
+        "冠輝永萃 磁磚脫落",
+        "冠輝永萃 地下室積水",
+        "冠輝永萃 電梯",
+        "冠輝永萃 隔音",
+        "冠輝永萃 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "冠輝永萃"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-7a363267b4": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "景御大苑",
+        "景裕建設股份有限公司",
+        "115中建字第00175號",
+        "復興段399-4地號"
+      ],
+      "defectSearchTerms": [
+        "景御大苑 漏水",
+        "景御大苑 壁癌",
+        "景御大苑 磁磚脫落",
+        "景御大苑 地下室積水",
+        "景御大苑 電梯",
+        "景御大苑 隔音",
+        "景御大苑 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "景御大苑"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-1f8b99a65d": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "騰柏青琉",
+        "鴻祥開發建設股份有限公司",
+        "115中建字第00019號",
+        "莒光段1006地號"
+      ],
+      "defectSearchTerms": [
+        "騰柏青琉 漏水",
+        "騰柏青琉 壁癌",
+        "騰柏青琉 磁磚脫落",
+        "騰柏青琉 地下室積水",
+        "騰柏青琉 電梯",
+        "騰柏青琉 隔音",
+        "騰柏青琉 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "騰柏青琉"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-bbbda6939b": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "泱序",
+        "實陽建設股份有限公司",
+        "114店建字第00331-01號",
+        "斯馨段92地號"
+      ],
+      "defectSearchTerms": [
+        "泱序 漏水",
+        "泱序 壁癌",
+        "泱序 磁磚脫落",
+        "泱序 地下室積水",
+        "泱序 電梯",
+        "泱序 隔音",
+        "泱序 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "泱序"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-c05dedde00": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "潤泰峘翠",
+        "潤泰創新國際股份有限公司",
+        "113板建字第00166號",
+        "環翠段109地號"
+      ],
+      "defectSearchTerms": [
+        "潤泰峘翠 漏水",
+        "潤泰峘翠 壁癌",
+        "潤泰峘翠 磁磚脫落",
+        "潤泰峘翠 地下室積水",
+        "潤泰峘翠 電梯",
+        "潤泰峘翠 隔音",
+        "潤泰峘翠 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "潤泰峘翠"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-f22bc117a6": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "力璞大于",
+        "力馥建設股份有限公司",
+        "114土建字第00274號",
+        "永福段51地號"
+      ],
+      "defectSearchTerms": [
+        "力璞大于 漏水",
+        "力璞大于 壁癌",
+        "力璞大于 磁磚脫落",
+        "力璞大于 地下室積水",
+        "力璞大于 電梯",
+        "力璞大于 隔音",
+        "力璞大于 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "力璞大于"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-0f0b6b37cf": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "沐得晶品",
+        "沐得建設股份有限公司",
+        "115重建字第00155號",
+        "正義段413地號"
+      ],
+      "defectSearchTerms": [
+        "沐得晶品 漏水",
+        "沐得晶品 壁癌",
+        "沐得晶品 磁磚脫落",
+        "沐得晶品 地下室積水",
+        "沐得晶品 電梯",
+        "沐得晶品 隔音",
+        "沐得晶品 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "沐得晶品"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-e06869af7a": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "騏苑",
+        "鼎盛開發顧問股份有限公司",
+        "111莊建字第00135號",
+        "後港段596地號"
+      ],
+      "defectSearchTerms": [
+        "騏苑 漏水",
+        "騏苑 壁癌",
+        "騏苑 磁磚脫落",
+        "騏苑 地下室積水",
+        "騏苑 電梯",
+        "騏苑 隔音",
+        "騏苑 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "騏苑"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-0af19b51f2": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "精曜臻寶",
+        "精曜建設股份有限公司",
+        "113板建字第00044號",
+        "埔墘段20-55地號"
+      ],
+      "defectSearchTerms": [
+        "精曜臻寶 漏水",
+        "精曜臻寶 壁癌",
+        "精曜臻寶 磁磚脫落",
+        "精曜臻寶 地下室積水",
+        "精曜臻寶 電梯",
+        "精曜臻寶 隔音",
+        "精曜臻寶 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "精曜臻寶"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "new-taipei-1432bb9c3b": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "欣美館1號院",
+        "豪欣建設股份有限公司",
+        "115鶯建字第00028號",
+        "中正段138地號"
+      ],
+      "defectSearchTerms": [
+        "欣美館1號院 漏水",
+        "欣美館1號院 壁癌",
+        "欣美館1號院 磁磚脫落",
+        "欣美館1號院 地下室積水",
+        "欣美館1號院 電梯",
+        "欣美館1號院 隔音",
+        "欣美館1號院 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "欣美館1號院"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-1431fad9f1": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "禮享生活",
+        "藍鈺開發有限公司",
+        "(114)府都建字第00022號",
+        "力行段295地號"
+      ],
+      "defectSearchTerms": [
+        "禮享生活 漏水",
+        "禮享生活 壁癌",
+        "禮享生活 磁磚脫落",
+        "禮享生活 地下室積水",
+        "禮享生活 電梯",
+        "禮享生活 隔音",
+        "禮享生活 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "禮享生活"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-14e473e669": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "富宇-樂慕",
+        "富宇建設股份有限公司",
+        "(114)府都建字第00072號",
+        "介壽段187地號"
+      ],
+      "defectSearchTerms": [
+        "富宇-樂慕 漏水",
+        "富宇-樂慕 壁癌",
+        "富宇-樂慕 磁磚脫落",
+        "富宇-樂慕 地下室積水",
+        "富宇-樂慕 電梯",
+        "富宇-樂慕 隔音",
+        "富宇-樂慕 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "富宇-樂慕"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-60859cccba": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "紘御",
+        "紘富建設有限公司",
+        "(115)府都建字第00048號",
+        "國道段182地號"
+      ],
+      "defectSearchTerms": [
+        "紘御 漏水",
+        "紘御 壁癌",
+        "紘御 磁磚脫落",
+        "紘御 地下室積水",
+        "紘御 電梯",
+        "紘御 隔音",
+        "紘御 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "紘御"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-4d32657856": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "沛陽昀海",
+        "沛陽建設有限公司",
+        "114府都建字第00115號",
+        "海濱段279地號"
+      ],
+      "defectSearchTerms": [
+        "沛陽昀海 漏水",
+        "沛陽昀海 壁癌",
+        "沛陽昀海 磁磚脫落",
+        "沛陽昀海 地下室積水",
+        "沛陽昀海 電梯",
+        "沛陽昀海 隔音",
+        "沛陽昀海 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "沛陽昀海"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-f4de539ce3": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "靜水玥",
+        "順富建設有限公司",
+        "(114)府都建字第00007號",
+        "美山段825地號"
+      ],
+      "defectSearchTerms": [
+        "靜水玥 漏水",
+        "靜水玥 壁癌",
+        "靜水玥 磁磚脫落",
+        "靜水玥 地下室積水",
+        "靜水玥 電梯",
+        "靜水玥 隔音",
+        "靜水玥 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "靜水玥"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-8a96e2f85b": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "微笑大院3",
+        "偉詮建設有限公司王忠正",
+        "(113)府都建字第00217號",
+        "大湖段69-42地號"
+      ],
+      "defectSearchTerms": [
+        "微笑大院3 漏水",
+        "微笑大院3 壁癌",
+        "微笑大院3 磁磚脫落",
+        "微笑大院3 地下室積水",
+        "微笑大院3 電梯",
+        "微笑大院3 隔音",
+        "微笑大院3 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "微笑大院3"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "hsinchu-city-6d17caae24": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "比山清",
+        "閎基開發股份有限公司",
+        "(115)府都建字第00071號",
+        "榮光段一小段8-6地號"
+      ],
+      "defectSearchTerms": [
+        "比山清 漏水",
+        "比山清 壁癌",
+        "比山清 磁磚脫落",
+        "比山清 地下室積水",
+        "比山清 電梯",
+        "比山清 隔音",
+        "比山清 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "比山清"
+        },
+        {
+          "sourceId": "consumer-disputes",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        },
+        {
+          "sourceId": "contract-inspection",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null
+        }
+      ],
+      "locationReview": {
+        "status": "awaiting-parcel-check",
+        "label": "等待地號核對",
+        "method": "region-center",
+        "parcel": null
+      },
+      "events": []
+    },
+    "a7-2338d59f64": {
+      "status": "queued",
+      "statusLabel": "已排入官方來源查核",
+      "lastReviewedAt": null,
+      "publishedEventCount": 0,
+      "evidenceCount": 0,
+      "defectEventCount": 0,
+      "contractEventCount": 0,
+      "defectReview": {
+        "status": "queued",
+        "label": "實際瑕疵待查核",
+        "categories": [
+          "漏水／滲水",
+          "壁癌／潮濕",
+          "磁磚脫落",
+          "地下室積水",
+          "電梯／機電",
+          "隔音",
+          "結構裂縫"
+        ]
+      },
+      "searchTerms": [
+        "桃園市龜山區善捷段230地號",
+        "遠雄建設事業股份有限公司",
+        "桃市都建執照字第會龜00866-01號",
+        "善捷段230地號"
+      ],
+      "defectSearchTerms": [
+        "桃園市龜山區善捷段230地號 漏水",
+        "桃園市龜山區善捷段230地號 壁癌",
+        "桃園市龜山區善捷段230地號 磁磚脫落",
+        "桃園市龜山區善捷段230地號 地下室積水",
+        "桃園市龜山區善捷段230地號 電梯",
+        "桃園市龜山區善捷段230地號 隔音",
+        "桃園市龜山區善捷段230地號 結構裂縫"
+      ],
+      "sourceChecks": [
+        {
+          "sourceId": "judicial",
+          "status": "not-reviewed",
+          "checkedAt": null,
+          "matchCount": null,
+          "query": "桃園市龜山區善捷段230地號"
         },
         {
           "sourceId": "consumer-disputes",
