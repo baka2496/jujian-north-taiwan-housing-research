@@ -40,7 +40,7 @@
         24.99,
         121.3
       ],
-      "amenityEnabled": false
+      "amenityEnabled": true
     },
     {
       "id": "hsinchu-county",
@@ -52,7 +52,7 @@
         24.835,
         121.01
       ],
-      "amenityEnabled": false
+      "amenityEnabled": true
     },
     {
       "id": "hsinchu-city",
@@ -64,7 +64,7 @@
         24.804,
         120.971
       ],
-      "amenityEnabled": false
+      "amenityEnabled": true
     },
     {
       "id": "taipei",
@@ -76,7 +76,7 @@
         25.033,
         121.565
       ],
-      "amenityEnabled": false
+      "amenityEnabled": true
     },
     {
       "id": "new-taipei",
@@ -88,7 +88,7 @@
         25.012,
         121.465
       ],
-      "amenityEnabled": false
+      "amenityEnabled": true
     }
   ],
   "districtMap": {

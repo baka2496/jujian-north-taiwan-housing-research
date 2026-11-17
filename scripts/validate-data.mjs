@@ -80,6 +80,11 @@ for (const project of projects.projects) {
   const amenity = amenities.projects[project.id];
   fail(Number.isFinite(amenity?.location?.latitude) && Number.isFinite(amenity?.location?.longitude), `${project.name} 缺少有效座標`);
   fail(amenity?.location?.confidence !== "estimated" || amenity.score === null, `${project.name} 的估算位置不應顯示機能分數`);
+  if (amenity?.location?.method === "nlsc-road-extent") {
+    const radius = amenity.location.officialReference?.radiusMeters;
+    fail(radius > 0 && radius <= 500 && amenity.location.label.includes(`${radius} 公尺`), `${project.name} 的道路概略位置未標明誤差範圍`);
+    fail(amenity.scoreReliability !== "verified", `${project.name} 的道路概略位置不可標為已核對`);
+  }
   fail(Object.keys(amenity?.categoryScores || {}).length === 10, `${project.name} 的生活機能分類分數不完整`);
   fail(Object.keys(amenity?.routeScores || {}).length === 10, `${project.name} 的生活機能路線分數不完整`);
   fail(Object.keys(amenity?.densityScores || {}).length === 10, `${project.name} 的生活機能數量分數不完整`);

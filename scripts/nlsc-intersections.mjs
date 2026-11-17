@@ -32,7 +32,7 @@ export function normalizeRoadName(value = "") {
     .trim();
 }
 
-function roadTokens(value) {
+export function roadTokens(value) {
   return [...value.matchAll(roadTokenPattern)]
     .map((match) => normalizeRoadName(match[0]))
     .filter(Boolean);
@@ -81,5 +81,59 @@ export function parseCrossRoads(xml) {
 export function findCrossRoad(crossRoads, targetRoad) {
   const target = normalizeRoadName(targetRoad);
   if (!target) return null;
-  return crossRoads.find((item) => normalizeRoadName(item.name) === target) || null;
+  const exact = crossRoads.find((item) => normalizeRoadName(item.name) === target);
+  if (exact) return exact;
+  // 申報地址常省略「段」（例：中華路），官方路名是「中華路一段」；只有唯一一段時才採用，避免猜錯段。
+  if (/[巷弄段]$/u.test(target)) return null;
+  const sectioned = crossRoads.filter((item) => {
+    const name = normalizeRoadName(item.name);
+    return name.startsWith(target) && /^[一二三四五六七八九十]+段$/u.test(name.slice(target.length));
+  });
+  return sectioned.length === 1 ? sectioned[0] : null;
+}
+
+// 申報地址可能帶縣市區名或道路寬度（例：桃園市觀音區富貴一街、15米文昌五街），查官方路名前先去掉。
+export function cleanDeclaredAddress(address = "", city = "", district = "") {
+  let value = address.normalize("NFKC").trim();
+  for (const prefix of [city, district, city.replace("臺", "台")]) {
+    if (prefix && value.startsWith(prefix)) value = value.slice(prefix.length);
+  }
+  return value.replace(/\d+(?:\.\d+)?(?:米|公尺|M|m)(?=[\p{Script=Han}])/gu, "");
+}
+
+function distanceMeters(from, to) {
+  const radians = (degrees) => degrees * Math.PI / 180;
+  const deltaLatitude = radians(to.latitude - from.latitude);
+  const deltaLongitude = radians(to.longitude - from.longitude);
+  const value = Math.sin(deltaLatitude / 2) ** 2
+    + Math.cos(radians(from.latitude)) * Math.cos(radians(to.latitude)) * Math.sin(deltaLongitude / 2) ** 2;
+  return 6_371_000 * 2 * Math.atan2(Math.sqrt(value), Math.sqrt(1 - value));
+}
+
+export const ROAD_EXTENT_MAX_RADIUS_METERS = 500;
+
+// 只有路名（或門牌）沒有路口時：用官方資料中這條路所有路口的中心當概略位置。
+// 只在路口都落在 500 公尺內（短路、巷弄）時採用；長路無法判斷在哪一段，維持「未確認」。
+export function roadExtent(crossRoads = []) {
+  if (crossRoads.length < 2) return null;
+  const center = {
+    latitude: crossRoads.reduce((total, item) => total + item.latitude, 0) / crossRoads.length,
+    longitude: crossRoads.reduce((total, item) => total + item.longitude, 0) / crossRoads.length,
+  };
+  const radiusMeters = Math.ceil(Math.max(...crossRoads.map((item) => distanceMeters(center, item))) / 50) * 50;
+  return {
+    latitude: Number(center.latitude.toFixed(6)),
+    longitude: Number(center.longitude.toFixed(6)),
+    radiusMeters: Math.max(50, radiusMeters),
+    crossCount: crossRoads.length,
+  };
+}
+
+// 從申報地址取出要查的道路：優先最細的巷弄，查不到再退回主要道路。
+export function declaredRoadQueries(address = "") {
+  const token = roadTokens(address.normalize("NFKC"))[0];
+  if (!token) return [];
+  const base = token.replace(/\d+(?:之\d+)?巷.*$/u, "");
+  const lane = token.replace(/(\d+(?:之\d+)?巷).*$/u, "$1");
+  return [...new Set([token, lane, base])].filter(Boolean);
 }

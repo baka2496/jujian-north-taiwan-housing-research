@@ -360,7 +360,7 @@ function amenityScoreText(project: Project, weights: AmenityWeights) {
 }
 
 function amenityReliabilityText(project: Project) {
-  return project.amenity.scoreReliability === "verified" ? "位置已核對" : "位置為道路附近估算";
+  return project.amenity.scoreReliability === "verified" ? "位置已核對" : project.amenity.location.label;
 }
 
 function amenityNearbyCountText(project: Project, category: AmenityCategory) {
@@ -1017,7 +1017,7 @@ export default function Home() {
                     <span>房屋品質</span><strong>{activeQualityHeadline}</strong><small>{activeContractEvents.length ? `另有 ${activeContractEvents.length} 筆官方合約抽查` : active.quality.status === "reviewed" ? "官方資料已查過一輪" : "尚未完成官方資料查核"}</small><b>查看 ›</b>
                   </button>
                   <button type="button" className={activeAmenityScore === null ? "unavailable" : "clear"} onClick={() => setDetailTab("amenity")}>
-                    <span>生活機能</span><strong>{activeAmenityScore === null ? hasMapReferencePoint(active) ? "機能資料待補" : "等待定位" : `${activeAmenityScore} 分 · ${amenityGrade(activeAmenityScore)}`}</strong><small>{activeAmenityScore === null ? locationLabel(active) : `${amenityReliabilityText(active)} · ${active.amenity.nearest.station?.routes.walking ? `最近車站步行 ${active.amenity.nearest.station.routes.walking.durationMinutes} 分` : locationLabel(active)}`}</small><b>查看 ›</b>
+                    <span>生活機能</span><strong>{activeAmenityScore === null ? hasMapReferencePoint(active) ? "機能資料待補" : "位置未確認" : `${activeAmenityScore} 分 · ${amenityGrade(activeAmenityScore)}`}</strong><small>{activeAmenityScore === null ? locationLabel(active) : `${amenityReliabilityText(active)} · ${active.amenity.nearest.station?.routes.walking ? `最近車站步行 ${active.amenity.nearest.station.routes.walking.durationMinutes} 分` : locationLabel(active)}`}</small><b>查看 ›</b>
                   </button>
                   <button type="button" className="cost" onClick={() => setDetailTab("cost")}>
                     <span>每月固定支出</span><strong>用你的房型快速試算</strong><small>房屋稅、地價稅、管理費與車位管理費</small><b>試算 ›</b>

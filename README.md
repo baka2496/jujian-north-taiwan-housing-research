@@ -177,7 +177,7 @@ npm run data:update
 # 用既有工作區快照離線重現（data/source 未納入 Git）
 npm run data:snapshot
 
-# 更新所有分區的官方路口定位；目前只對 amenityEnabled 的林口／A7 重算 POI／路線
+# 更新所有分區的官方路口／道路定位，並重算全部分區的設施與路線（路線約需 1–2 小時）
 npm run data:update -- --amenities
 
 # 匯入後驗證與測試
@@ -196,8 +196,8 @@ npm test
 
 - **品質證據**：以持久 project ID 寫入 `data/manual/quality-audits.json`，記錄 `eventType`（defect 或 contract）、證據 A/B/C、來源網址／日期、事件摘要、問題部位、修繕結果、是否復發及判讀限制。漏水與契約查核分開；建商名稱相同不能作為建案歸戶依據。確認查核範圍後才填 `reviewedProjectIds`／查核日期，再執行 `node scripts/build-quality-evidence.mjs` 及 `npm run data:check`。
 - **建商履歷**：以官方起造人名稱完全相同跨區聚合，顯示已收錄作品；尚無經核對的公司別名／母子公司對照或售後統計，不合併推測，也不評分售後。
-- **定位**：`--amenities` 會先從官方申報街道解析明確的兩路交叉描述，再以 NLSC `ListRoadCross` 完全匹配路名並快取結果；未匹配者不猜座標。人工核對的門牌／地號使用 `data/manual/location-overrides.json`，優先於自動結果；未定位新案不顯示精確標記、附近街景或機能分數。
-- **新分區機能的下一階段資料接入**：目前 `amenityEnabled` 只適用既有林口／A7 的 POI／路線來源。新分區先保持 false；須先為該區建立實際範圍的 POI 取得與快取、核對地址座標、確認便利商店／全聯／好市多等十類設施涵蓋，再接到 `enrich-amenities.mjs`／`enrich-route-times.mjs` 的相同資料格式。**不能只把 false 改成 true**，否則會沿用原生活圈 POI 範圍。這版提供跨區一致的待補狀態及評估介面，未宣稱已完成新區域地圖蒐集。
+- **定位**：`--amenities` 會先去掉申報地址前的縣市區名與道路寬度（如「15米」），從兩路交叉描述以 NLSC `ListRoadCross` 匹配路名（省略「段」時只在唯一一段相交時採用）。只有路名、巷弄或門牌時，查該路所有官方路口：全部落在 500 公尺內才用中心點，標為「道路概略位置（約 N 公尺內）」、機能分數標為估算；長路無法判斷在哪一段，維持未確認、不顯示分數。此方法以 207 個官方路口建案回測，誤差全部在標示範圍內（中位約 120 公尺）。人工核對的門牌／地號使用 `data/manual/location-overrides.json`，優先於自動結果。
+- **分區機能**：所有分區都已啟用 `amenityEnabled`。設施由 Overpass 依 `scripts/amenity-rules.mjs` 的 `amenityBounds`（新竹縣到臺北、新北全區）一次抓十類；範圍改變時快取整批重抓，任何一類抓不到就中止更新並還原。附近數量用完整設施清單計算，`amenities.json` 只保留各建案最近的設施供地圖使用。新增範圍外的分區時，須先擴大 `amenityBounds`，否則更新會報錯。
 - **供給**：維護 `data/manual/regional-supply-source.json` 的縣市／行政區數值與來源，執行 `npm run data:supply`。無可用資料的地區顯示待補，絕不填 0 或套其他縣市數據。
 
 ### 第一版驗證

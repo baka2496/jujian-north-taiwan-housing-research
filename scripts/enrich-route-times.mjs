@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { densityRules } from "./amenity-rules.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const amenitiesPath = path.join(root, "data", "processed", "amenities.json");
@@ -23,18 +24,6 @@ const routeScoreRules = {
   parking: { mode: "walking", bands: [[5, 100], [10, 70], [15, 40], [25, 20]] },
 };
 
-const densityRules = {
-  convenience: { radiusMeters: 800, targetCount: 6, densityWeight: 0.25 },
-  pxmart: { radiusMeters: 1500, targetCount: 3, densityWeight: 0.25 },
-  costco: { radiusMeters: 15000, targetCount: 1, densityWeight: 0 },
-  station: { radiusMeters: 1500, targetCount: 2, densityWeight: 0.25 },
-  school: { radiusMeters: 1500, targetCount: 4, densityWeight: 0.25 },
-  medical: { radiusMeters: 1200, targetCount: 4, densityWeight: 0.25 },
-  market: { radiusMeters: 1500, targetCount: 3, densityWeight: 0.25 },
-  park: { radiusMeters: 1200, targetCount: 4, densityWeight: 0.25 },
-  pharmacy: { radiusMeters: 1000, targetCount: 5, densityWeight: 0.25 },
-  parking: { radiusMeters: 1000, targetCount: 5, densityWeight: 0.25 },
-};
 
 const profiles = {
   balanced: {
@@ -205,6 +194,7 @@ async function main() {
   const categories = Object.keys(amenities.categories);
   const peakDate = nextWeekday(generatedAt);
   let routedProjects = 0;
+  let fetchedSinceSave = 0;
 
   for (const [index, [projectId, project]] of Object.entries(amenities.projects).entries()) {
     if (project.scoreReliability === "unavailable") {
@@ -229,7 +219,10 @@ async function main() {
       try {
         routes = await routeProject(project, categories, peakDate);
         cache.projects[projectId] = { signature, routes, updatedAt: generatedAt };
-        await writeFile(routeCachePath, `${JSON.stringify(cache, null, 2)}\n`, "utf8");
+        if (++fetchedSinceSave >= 20) {
+          await writeFile(routeCachePath, `${JSON.stringify(cache)}\n`, "utf8");
+          fetchedSinceSave = 0;
+        }
         console.log(`[${index + 1}/${Object.keys(amenities.projects).length}] 路線 ${projectId}`);
       } catch (error) {
         console.warn(`路線暫時無法更新 ${projectId}：${error.message}`);
@@ -246,9 +239,12 @@ async function main() {
       category,
       scoreForRoute(routes[category], routeScoreRules[category]),
     ]));
+    // amenities.json 只保留地圖要用的設施，完整清單的附近數量由 enrich-amenities 先算好。
     const nearbyCounts = Object.fromEntries(categories.map((category) => [
       category,
-      nearbyCount(project.location, amenities.pois, category, densityRules[category].radiusMeters),
+      Number.isFinite(project.nearbyCounts?.[category])
+        ? project.nearbyCounts[category]
+        : nearbyCount(project.location, amenities.pois, category, densityRules[category].radiusMeters),
     ]));
     const densityScores = Object.fromEntries(categories.map((category) => [
       category,
@@ -271,6 +267,7 @@ async function main() {
     routedProjects += 1;
   }
 
+  await writeFile(routeCachePath, `${JSON.stringify(cache)}\n`, "utf8");
   amenities.generatedAt = generatedAt;
   amenities.source.service = "Nominatim、Overpass API 與 Valhalla";
   amenities.methodology = {

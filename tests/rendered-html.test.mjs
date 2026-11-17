@@ -73,8 +73,12 @@ test("processed amenity data is scored and source-labelled", async () => {
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.routeScores).length === 10));
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.densityScores).length === 10));
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.nearbyCounts).length === 10));
-  assert.equal(dataset.projects["林口-11-c4a9a4"].score, 41);
+  // 2026-11 設施範圍擴大到全北台灣後，家睦中山 323 公尺外的醒吾高中、54 公尺外的自強公園才被納入（舊資料學校、公園都是 0）。
+  assert.equal(dataset.projects["林口-11-c4a9a4"].score, 65);
   assert.equal(dataset.projects["林口-11-c4a9a4"].nearbyCounts.convenience, 11);
+  assert.equal(dataset.projects["林口-11-c4a9a4"].nearest.school.name, "醒吾高中");
+  assert.equal(dataset.pois.find((poi) => poi.id === "node-4653352241")?.name, "A8 長庚醫院站");
+  assert.ok(Object.values(dataset.projects).filter((project) => project.score !== null).length > 1000);
   assert.ok(Object.values(dataset.projects).filter((project) => project.score !== null).every((project) => Object.values(project.nearest).every((nearest) => !nearest || nearest.routes.walking)));
   assert.match(dataset.methodology.peakDisclaimer, /不是即時路況/);
 });
