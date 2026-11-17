@@ -28,7 +28,10 @@ test("opens with buyer requirements, evidence gaps, and historical research", as
   assert.match(html, /查建案履歷/);
   assert.match(html, /選屋工作台/);
   assert.match(html, /還不是在售房源/);
-  assert.match(html, /先補證據/);
+  // 預設底線（2,000 萬、室內 20 坪）要真的影響首屏：依預估排序並標示估計結果，且說明超出的已先收起
+  assert.match(html, /依你的底線預估排序/);
+  assert.match(html, /估計在預算內|估計接近上限/);
+  assert.match(html, /已先收起 [\d,]+ 個估計超出底線的候選/);
   assert.doesNotMatch(html, /class="project-grid-card"/);
   assert.doesNotMatch(html, /data-map-engine="leaflet"/);
   assert.doesNotMatch(html, /class="map-project-card"/);

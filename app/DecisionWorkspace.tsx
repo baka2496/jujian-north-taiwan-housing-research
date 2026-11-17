@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import dataset from '@/data/processed/projects.json';
-import { assessCandidate, type Needs, type Visit } from './decision';
+import { assessCandidate, compareByPrescreen, estimateLabels, prescreenCandidate, ASSUMED_PUBLIC_RATIO, type Needs, type Visit } from './decision';
 import './decision.css';
 
 type Project = (typeof dataset.projects)[number];
@@ -50,6 +50,7 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   const [replacing, setReplacing] = useState(false);
   const [reconfirmed, setReconfirmed] = useState(false);
   const [showExcluded, setShowExcluded] = useState(true);
+  const [showOverEstimate, setShowOverEstimate] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const resultRef = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -79,12 +80,20 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   useEffect(() => { if (!message) return; const timer = window.setTimeout(() => setMessage(''), 5000); return () => window.clearTimeout(timer); }, [message]);
   const cities = [...new Set(dataset.projects.map(p => p.city))];
   const districts = [...new Set(dataset.projects.filter(p => p.city === plan.city).map(p => p.district))].sort();
-  const candidates = useMemo(() => dataset.projects.filter(p =>
+  const screened = useMemo(() => dataset.projects.filter(p =>
     (tab === 'saved' ? plan.saved.includes(p.id) : (plan.city === '全部' || p.city === plan.city) && (plan.district === '全部' || p.district === plan.district)) &&
     (!query || `${p.name}${p.district}${p.address}${p.builder}`.includes(query.trim())) && (showExcluded || plan.visits[p.id]?.decision !== '先排除')
-  ).sort((a, b) => Number(Boolean(b.price)) - Number(Boolean(a.price)) || a.name.localeCompare(b.name, 'zh-TW')), [plan.city, plan.district, plan.saved, plan.visits, showExcluded, query, tab]);
+  ).map(project => ({ project, prescreen: prescreenCandidate(plan.needs, project, today) })).sort(compareByPrescreen), [plan.city, plan.district, plan.saved, plan.visits, plan.needs, showExcluded, query, tab, today]);
+  // 「我的清單」裡是使用者自己選的，不自動收起；探索時才先收起估計超出底線的候選。
+  const hideOver = tab === 'discover' && !showOverEstimate;
+  const overCount = screened.filter(s => s.prescreen.level === 'over').length;
+  const visibleScreened = hideOver ? screened.filter(s => s.prescreen.level !== 'over') : screened;
+  const candidates = visibleScreened.map(s => s.project);
+  const prescreenById = new Map(screened.map(s => [s.project.id, s.prescreen]));
+  const withinCount = screened.filter(s => s.prescreen.level === 'within').length;
+  const tightCount = screened.filter(s => s.prescreen.level === 'tight').length;
   const selected = dataset.projects.filter(p => plan.saved.includes(p.id));
-  const assess = (p: Project) => assessCandidate(plan.needs, plan.visits[p.id] || {}, today);
+  const assess = (p: Project) => assessCandidate(plan.needs, plan.visits[p.id] || {}, today, p);
   const failCount = candidates.filter(p => assess(p).status === 'fail').length;
   const needs = plan.needs;
   function need<K extends keyof Needs>(key: K, value: Needs[K]) { setPlan(p => ({ ...p, needs: { ...p.needs, [key]: value } })); }
@@ -134,12 +143,18 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
         <div className="decision-tabs" role="group" aria-label="候選範圍"><button aria-pressed={tab === 'discover'} onClick={() => { setTab('discover'); setQuery(''); setLimit(6); }}>探索候選</button><button aria-pressed={tab === 'saved'} onClick={() => { setTab('saved'); setQuery(''); setLimit(6); }}>我的清單 <b>{plan.saved.length}</b></button></div>
         <label className="decision-search"><span>⌕</span><input aria-label="搜尋候選社區" placeholder="搜尋社區、路段或建商" value={query} onChange={e => { setQuery(e.target.value); setLimit(6); }} />{query && <button aria-label="清除候選搜尋" onClick={() => setQuery('')}>×</button>}</label>
         <label className="decision-checkbox decision-excluded"><input type="checkbox" checked={showExcluded} onChange={e => setShowExcluded(e.target.checked)} /> 顯示我已排除的候選</label>
-        <div className="decision-result-count"><span>{candidates.length} 個研究候選{failCount > 0 ? ` · ${failCount} 個條件不符` : ''}</span><span>有成交資料優先 · 非推薦排名</span></div>
+        <div className="decision-result-count"><span>{candidates.length} 個研究候選{failCount > 0 ? ` · ${failCount} 個條件不符` : ''}{withinCount + tightCount > 0 ? ` · ${withinCount} 個估計在預算內、${tightCount} 個接近上限` : ''}</span><span>依你的底線預估排序 · 非推薦排名</span></div>
+        {overCount > 0 && tab === 'discover' && <div className="decision-over-note" role="status"><p>{hideOver ? `已先收起 ${overCount} 個估計超出底線的候選` : `含 ${overCount} 個估計超出底線的候選，排在最後`}<small>用歷史最低成交單價、室內 {needs.indoor} 坪與公設比 {Math.round(ASSUMED_PUBLIC_RATIO * 100)}% 估算，或首次登記已超過屋齡上限；不是開價。</small></p><button type="button" className="decision-text-button" aria-pressed={showOverEstimate} onClick={() => setShowOverEstimate(v => !v)}>{hideOver ? '仍要顯示' : '收起'}</button></div>}
         <div className="decision-cards">{candidates.slice(0, limit).map((p, i) => {
           const result = assess(p); const record = plan.visits[p.id]; const failures = result.checks.filter(c => c.state === 'fail'); const gaps = result.checks.filter(c => c.state === 'unknown');
-          return <article className={`decision-card ${result.status}`} key={p.id}><div className="decision-card-head"><span className="decision-card-location">{p.city} / {p.district}</span><button aria-label={`${plan.saved.includes(p.id) ? '移出' : '加入'}清單：${p.name}`} aria-pressed={plan.saved.includes(p.id)} onClick={() => toggle(p.id)}>{plan.saved.includes(p.id) ? '✓ 已加入' : '＋ 加入清單'}</button></div><div className="decision-card-title"><h3>{p.name}</h3><span className={`decision-status ${record?.decision === '先排除' ? 'fail' : result.status}`}>{record?.decision === '先排除' ? '我已排除' : labels[result.status]}</span></div><p className="decision-address">{p.address || '地址待確認'} · {p.builder}</p>
+          const estimate = prescreenById.get(p.id) ?? prescreenCandidate(needs, p, today);
+          const badgeClass = record?.decision === '先排除' ? 'fail' : result.status !== 'unknown' ? result.status : `estimate-${estimate.level}`;
+          const badgeText = record?.decision === '先排除' ? '我已排除' : result.status !== 'unknown' ? labels[result.status] : estimateLabels[estimate.level];
+          const verdictTitle = failures.length ? '先排除的理由' : result.status === 'pass' ? '下一步' : estimate.level === 'over' ? '估計不符合的地方' : estimate.level !== 'unknown' ? '依成交紀錄估算' : '出門前先確認';
+          const verdictText = failures[0]?.detail || (result.status === 'unknown' && estimate.level !== 'unknown' ? estimate.headline : '') || gaps[0]?.detail || '依你的紀錄符合已填條件，仍需現場確認屋況與交易文件。';
+          return <article className={`decision-card ${result.status} estimate-${estimate.level}`} key={p.id}><div className="decision-card-head"><span className="decision-card-location">{p.city} / {p.district}</span><button aria-label={`${plan.saved.includes(p.id) ? '移出' : '加入'}清單：${p.name}`} aria-pressed={plan.saved.includes(p.id)} onClick={() => toggle(p.id)}>{plan.saved.includes(p.id) ? '✓ 已加入' : '＋ 加入清單'}</button></div><div className="decision-card-title"><h3>{p.name}</h3><span className={`decision-status ${badgeClass}`}>{badgeText}</span></div><p className="decision-address">{p.address || '地址待確認'} · {p.builder}</p>
             <div className="decision-evidence"><div><small>歷史成交中位單價</small><strong>{p.price ? <>{p.price.median}<span> 萬／坪</span></> : '尚無可用樣本'}</strong></div><p>{p.price ? <>{p.price.count} 筆成交<br />最新 {p.price.latestDate || '日期待補'}</> : <>樣本不足<br />無法判斷行情</>}</p></div>
-            <div className="decision-verdict"><span>{failures.length ? '先排除的理由' : result.status === 'pass' ? '下一步' : '出門前先確認'}</span><p>{failures[0]?.detail || gaps[0]?.detail || '依你的紀錄符合已填條件，仍需現場確認屋況與交易文件。'}</p><small>{failures.length ? `另有 ${gaps.length} 項待確認` : gaps.length ? `${gaps.length} 項證據缺口 · 尚不能判定適合你` : '依個人紀錄判斷，非平台驗證'}</small></div>
+            <div className="decision-verdict"><span>{verdictTitle}</span><p>{verdictText}</p><small>{failures.length ? `另有 ${gaps.length} 項待確認` : gaps.length ? `${gaps.length} 項證據缺口 · 尚不能判定適合你` : '依個人紀錄判斷，非平台驗證'}</small></div>
             {record?.decision && <p className="decision-personal">我的決定：{record.decision}</p>}
             <footer><button onClick={() => open(p)}>查看缺口與看屋清單 <span>→</span></button><button aria-label={`查看${p.name}原始履歷`} onClick={() => onHistory(p.id)}>履歷 ↗</button></footer><span className="decision-card-index">{String(i + 1).padStart(2, '0')}</span>
           </article>;
