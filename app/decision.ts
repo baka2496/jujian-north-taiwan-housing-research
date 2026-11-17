@@ -3,7 +3,7 @@ export type Visit = { unit?: string; asking?: string; indoor?: string; completed
 export type Check = { key: string; label: string; state: 'pass' | 'fail' | 'unknown'; detail: string };
 export type ProjectFacts = { price?: { median: number; low: number; count: number } | null; firstRegistrationDate?: string | null };
 export type EstimateLevel = 'within' | 'tight' | 'over' | 'unknown';
-export type Prescreen = { level: EstimateLevel; rank: number; budget: { level: EstimateLevel; detail: string }; age: { level: 'over' | 'unknown'; detail: string } | null; headline: string };
+export type Prescreen = { level: EstimateLevel; rank: number; budget: { level: EstimateLevel; detail: string; short: string }; age: { level: 'over' | 'unknown'; detail: string; short: string } | null; headline: string; short: string };
 
 // 預估公設比：用來把「室內坪」換算成成交單價所用的「權狀坪」。新成屋多在 30–36%，取 33% 並寫在說明裡。
 export const ASSUMED_PUBLIC_RATIO = 0.33;
@@ -21,20 +21,20 @@ function wan(value: number) {
  * 只會把「明顯超出底線」的候選往後排或先收起來。
  */
 export function prescreenCandidate(needs: Needs, project: ProjectFacts, today: string): Prescreen {
-  let budget: Prescreen['budget'] = { level: 'unknown', detail: '' };
+  let budget: Prescreen['budget'] = { level: 'unknown', detail: '', short: '' };
   const price = project.price;
   if (!(needs.budget > 0 && needs.budget <= 100000 && needs.indoor > 0 && needs.indoor <= 1000)) {
-    budget = { level: 'unknown', detail: '先填預算與室內坪數，才能用成交價估算總價' };
+    budget = { level: 'unknown', detail: '先填預算與室內坪數，才能用成交價估算總價', short: '' };
   } else if (!price || !(price.count >= MIN_PRICE_SAMPLES) || !(price.median > 0) || !(price.low > 0)) {
-    budget = { level: 'unknown', detail: '成交樣本不足，無法估算總價' };
+    budget = { level: 'unknown', detail: '成交樣本不足，無法估算總價', short: '' };
   } else {
     const registeredArea = needs.indoor / (1 - ASSUMED_PUBLIC_RATIO);
     const lowTotal = price.low * registeredArea;
     const medianTotal = price.median * registeredArea;
     const basis = `室內 ${needs.indoor} 坪約等於權狀 ${Math.round(registeredArea * 10) / 10} 坪（假設公設比 ${Math.round(ASSUMED_PUBLIC_RATIO * 100)}%），未含車位`;
-    if (lowTotal > needs.budget) budget = { level: 'over', detail: `用歷史最低成交單價估算約 ${wan(lowTotal)} 萬起，已超過你的 ${exact(needs.budget)} 萬上限。${basis}` };
-    else if (medianTotal > needs.budget) budget = { level: 'tight', detail: `用歷史成交估算約 ${wan(lowTotal)}–${wan(medianTotal)} 萬，接近你的 ${exact(needs.budget)} 萬上限，可能只剩低樓層或小戶。${basis}` };
-    else budget = { level: 'within', detail: `用歷史成交中位數估算約 ${wan(medianTotal)} 萬，在你的 ${exact(needs.budget)} 萬上限內，車位要另外加。${basis}` };
+    if (lowTotal > needs.budget) budget = { level: 'over', detail: `用歷史最低成交單價估算約 ${wan(lowTotal)} 萬起，已超過你的 ${exact(needs.budget)} 萬上限。${basis}`, short: `估算 ${wan(lowTotal)} 萬起，超過上限` };
+    else if (medianTotal > needs.budget) budget = { level: 'tight', detail: `用歷史成交估算約 ${wan(lowTotal)}–${wan(medianTotal)} 萬，接近你的 ${exact(needs.budget)} 萬上限，可能只剩低樓層或小戶。${basis}`, short: `估算約 ${wan(lowTotal)}–${wan(medianTotal)} 萬，接近上限` };
+    else budget = { level: 'within', detail: `用歷史成交中位數估算約 ${wan(medianTotal)} 萬，在你的 ${exact(needs.budget)} 萬上限內，車位要另外加。${basis}`, short: `估算約 ${wan(medianTotal)} 萬（不含車位）` };
   }
   let age: Prescreen['age'] = null;
   const registered = project.firstRegistrationDate;
@@ -42,13 +42,14 @@ export function prescreenCandidate(needs: Needs, project: ProjectFacts, today: s
     const cutoff = new Date(today); cutoff.setUTCFullYear(cutoff.getUTCFullYear() - needs.maxAge);
     // 首次登記一定晚於完工，所以首次登記已超過年限，完工只會更早。
     age = Date.parse(registered) < cutoff.getTime()
-      ? { level: 'over', detail: `首次登記在 ${registered}，完工只會更早，已超過 ${needs.maxAge} 年` }
-      : { level: 'unknown', detail: `首次登記在 ${registered}；完工日期仍需確認` };
+      ? { level: 'over', detail: `首次登記在 ${registered}，完工只會更早，已超過 ${needs.maxAge} 年`, short: `${registered.slice(0, 4)} 年已登記，超過 ${needs.maxAge} 年` }
+      : { level: 'unknown', detail: `首次登記在 ${registered}；完工日期仍需確認`, short: '' };
   }
   const level: EstimateLevel = budget.level === 'over' || age?.level === 'over' ? 'over' : budget.level;
   const rank = { within: 0, tight: 1, unknown: 2, over: 3 }[level];
   const headline = age?.level === 'over' ? age.detail : budget.detail;
-  return { level, rank, budget, age, headline };
+  const short = age?.level === 'over' ? age.short : budget.short;
+  return { level, rank, budget, age, headline, short };
 }
 
 export const estimateLabels: Record<EstimateLevel, string> = { within: '估計在預算內', tight: '估計接近上限', over: '估計超出底線', unknown: '先補證據' };

@@ -29,3 +29,26 @@ export function priceSampleLabel(price: { count: number; earliestDate?: string |
     : price.latestDate ? `最早日期待補；最新 ${price.latestDate}` : "交易期間待補";
   return `${price.count} 筆 · ${range}${price.count < 10 ? " · 少量樣本" : ""}`;
 }
+
+/** 官方建商欄位常夾帶起造人、代理人或負責人姓名；畫面只顯示公司名稱。 */
+export function displayBuilder(builder: string) {
+  const text = (builder || "").trim();
+  const company = text.match(/^.*公司/u)?.[0];
+  if (company) return company.trim();
+  return text.split(/[:：]|\s+(?:起造人|代理人|負責)/u)[0].trim() || text;
+}
+
+export const MIN_LISTING_HOUSEHOLDS = 10;
+/** 少於 10 戶、或用地號當名稱的備查資料，多半不是一般買方會找的社區，預設先收起。 */
+export function isMinorListing(project: { name: string; households: number }) {
+  return (project.households > 0 && project.households < MIN_LISTING_HOUSEHOLDS) || /地號/u.test(project.name);
+}
+
+/** 卡片上把缺的資料收成一行，不再每一格都寫「待補」。 */
+export function missingDataLabels(project: { price: unknown; amenity: { score: number | null }; quality: { status: string } }) {
+  const missing: string[] = [];
+  if (!project.price) missing.push("成交價");
+  if (project.amenity.score === null) missing.push("生活機能");
+  if (project.quality.status !== "reviewed") missing.push("品質查核");
+  return missing;
+}

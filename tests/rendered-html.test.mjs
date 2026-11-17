@@ -25,8 +25,11 @@ test("opens with buyer requirements, evidence gaps, and historical research", as
   const html = await response.text();
   assert.match(html, /<title>居鑑｜看屋前，先看懂取捨<\/title>/);
   assert.match(html, /少看幾間/);
-  assert.match(html, /查建案履歷/);
-  assert.match(html, /選屋工作台/);
+  // 2026-11 使用者回報畫面太亂：上方只留兩個分頁，不再有重複的「外部房源」頁
+  assert.match(html, /依條件找房/);
+  assert.match(html, /地圖與全部建案/);
+  assert.doesNotMatch(html, /外部房源|查建案履歷|選屋工作台/);
+  assert.match(html, /看信義房屋在售物件/);
   assert.match(html, /還不是在售房源/);
   // 預設底線（2,000 萬、室內 20 坪）要真的影響首屏：依預估排序並標示估計結果，且說明超出的已先收起
   assert.match(html, /依你的底線預估排序/);
@@ -124,7 +127,8 @@ test("processed data has the intended scope and explicit unknown states", async 
   assert.ok(dataset.projects.filter((project) => project.region === "A7" && project.price).length >= 17);
   assert.ok(dataset.projects.filter((project) => project.region === "A7").length > 20);
   assert.ok(dataset.priceCoverage.a7OfficialRecordsReviewed >= 8000);
-  assert.equal(dataset.priceCoverage.historyFrom, "112S1");
+  assert.equal(dataset.priceCoverage.historyFrom, "110S1");
+  assert.ok(dataset.priceCoverage.pricedProjects / dataset.projects.length >= 0.7, "價格覆蓋率不得退回只用本期快照的水準");
   assert.ok(dataset.projects.filter((project) => project.price).every((project) => project.price.count > 0));
   assert.ok(dataset.projects.filter((project) => project.region === "A7" && project.price).every((project) => project.price.source.includes("歷史季度＋本期")));
   assert.ok(dataset.projects.every((project) => project.registryNumber));
