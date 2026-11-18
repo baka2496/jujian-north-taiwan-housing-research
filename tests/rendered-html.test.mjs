@@ -37,7 +37,11 @@ test("opens with buyer requirements, evidence gaps, and historical research", as
   assert.match(html, /已先收起 [\d,]+ 個估計超出底線的候選/);
   // 2026-11 使用者：「整個 UI 很亂」「大道至簡」。首屏不放裝飾性標語、步驟列與編號，卡片直接給估計總價。
   assert.doesNotMatch(html, /不知道，就留白|decision-steps|decision-principle|01 \/ 我的底線|02 \/ 看懂取捨|decision-disclosure/);
-  assert.match(html, /估計總價/);
+  // 2026-11「太擠、想要圖片」：卡片上方是真實位置小地圖（OpenStreetMap 圖磚），不是示意照片；位置未確認就寫出來
+  assert.match(html, /class="mini-map[ "]/);
+  assert.match(html, /tile\.openstreetmap\.org\/15\/\d+\/\d+\.png|位置未確認/);
+  assert.match(html, /© OpenStreetMap/);
+  assert.doesNotMatch(html, /unsplash|pexels|stock-photo|placeholder\.com/i);
   assert.match(html, /約 [\d,]+(?:–[\d,]+)? 萬/);
   assert.doesNotMatch(html, /class="project-grid-card"/);
   assert.doesNotMatch(html, /data-map-engine="leaflet"/);
@@ -348,4 +352,15 @@ test("the site uses the modern type and colour system", async () => {
   assert.match(css, /html, body \{ background:var\(--ui-bg\); color:var\(--ui-text\); font-family:var\(--ui-font\)/);
   assert.match(css, /--orange:var\(--ui-accent\); --orange-dark:var\(--ui-accent-ink\); --navy:var\(--ui-primary\)/);
   assert.match(decisionCss, /\.decision-workspace\{--forest:var\(--ui-accent-ink\);--cream:var\(--ui-bg\)[^}]*font-family:var\(--ui-font\)/);
+});
+
+// 使用者 2026-11：「地圖沒有改」——地圖頁也要跟著新風格：底圖去色、標籤是膠囊
+test("the map page follows the modern style, not only the list page", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.leaflet-tile-pane[^{]*\{ filter:grayscale\(/);
+  assert.match(css, /\.map-region-pin \{[^}]*border-radius:999px;[^}]*background:var\(--ui-primary\)/);
+  assert.match(css, /\.map-pin \{[^}]*border-radius:999px;[^}]*background:#fff/);
+  const decisionCss = await readFile(new URL("../app/decision.css", import.meta.url), "utf8");
+  // 卡片小地圖與地圖頁同樣去色，看起來是同一套
+  assert.match(decisionCss, /\.mini-map-tiles\{[^}]*filter:grayscale\(/);
 });

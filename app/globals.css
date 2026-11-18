@@ -1250,3 +1250,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .map-results-heading p { color:var(--ui-sub); }
 .map-project-preview { border-radius:var(--ui-radius); border-color:rgba(15,23,42,.08); box-shadow:var(--ui-shadow-md); }
 .map-pin { border-radius:999px; border-color:rgba(15,23,42,.12); box-shadow:var(--ui-shadow-sm); }
+
+/* 2026-11 使用者：「地圖沒有改」。底圖去色變淡，讓建案標籤成為主角；標籤改成膠囊 */
+.leaflet-tile-pane,.app-shell.map-mode .leaflet-tile-pane { filter:grayscale(.92) brightness(1.07) contrast(.9); }
+.leaflet-container { background:#eef0f3; font-family:var(--ui-font); }
+.map-region-pin { width:auto; min-width:0; height:34px; display:inline-flex; gap:6px; padding:0 14px; border:0; border-radius:999px; background:var(--ui-primary); color:#fff; box-shadow:0 6px 16px rgba(15,23,42,.22); font-weight:700; }
+.map-region-pin b { font-size:14px; font-weight:700; }
+.map-region-pin small { font-size:12px; color:#94a3b8; font-weight:500; }
+.map-pin-host:hover .map-region-pin { background:var(--ui-accent-ink); border-color:transparent; }
+.map-pin-host:hover .map-region-pin small { color:#d1fae5; }
+.map-pin { height:34px; padding:7px 12px; border:0; border-radius:999px; background:#fff; color:var(--ui-text); box-shadow:0 4px 14px rgba(15,23,42,.18); font-weight:700; line-height:20px; }
+.map-pin.no-price { color:var(--ui-sub); font-weight:600; }
+.map-pin-host:hover .map-pin,.map-pin.is-selected { background:var(--ui-primary); color:#fff; border-color:transparent; }
+.map-group-pin { background:var(--ui-primary); color:#fff; border:0; }
+.map-group-pin > span { opacity:.6; }
+.map-pin-host:focus-visible { outline:3px solid rgba(5,150,105,.4); border-radius:999px; }
+.map-explorer .map-tools-control { border-radius:12px; box-shadow:var(--ui-shadow-md); }
+.leaflet-control-zoom { border:0!important; border-radius:12px!important; overflow:hidden; box-shadow:var(--ui-shadow-md)!important; }
+.leaflet-control-zoom a { width:36px!important; height:36px!important; line-height:36px!important; color:var(--ui-text)!important; border-color:var(--ui-border)!important; }
+.amenity-poi-marker { box-shadow:0 3px 10px rgba(15,23,42,.2); }
+.map-region-host { display:flex!important; justify-content:center; align-items:flex-end; }
