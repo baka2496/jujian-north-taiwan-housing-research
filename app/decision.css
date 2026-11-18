@@ -73,7 +73,7 @@
 .decision-card .decision-verdict{padding:8px 0 0;margin:0}
 .decision-card footer{margin:0 20px}
 .mini-map{position:relative;width:100%;height:100%;overflow:hidden;background:#e9ecef}
-.mini-map-tiles{position:absolute;width:512px;height:512px;filter:grayscale(.92) brightness(1.07) contrast(.9)}
+.mini-map-tiles{position:absolute;width:512px;height:512px;filter:saturate(.85)}
 .mini-map-tiles img{position:absolute;width:256px;height:256px;max-width:none}
 .mini-map-pin{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border:3px solid #fff;border-radius:50%;background:var(--ui-accent);box-shadow:0 0 0 6px rgba(5,150,105,.22),0 3px 8px rgba(15,23,42,.3)}
 .mini-map-area{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:2px dashed rgba(5,150,105,.7);border-radius:50%;background:rgba(5,150,105,.14)}

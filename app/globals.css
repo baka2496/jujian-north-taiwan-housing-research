@@ -1252,7 +1252,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .map-pin { border-radius:999px; border-color:rgba(15,23,42,.12); box-shadow:var(--ui-shadow-sm); }
 
 /* 2026-11 使用者：「地圖沒有改」。底圖去色變淡，讓建案標籤成為主角；標籤改成膠囊 */
-.leaflet-tile-pane,.app-shell.map-mode .leaflet-tile-pane { filter:grayscale(.92) brightness(1.07) contrast(.9); }
+/* 2026-11 使用者：「黑白的看得很不清楚」——底圖保留原本顏色，只稍微降低飽和度 */
+.leaflet-tile-pane,.app-shell.map-mode .leaflet-tile-pane { filter:saturate(.85); }
 .leaflet-container { background:#eef0f3; font-family:var(--ui-font); }
 .map-region-pin { width:auto; min-width:0; height:34px; display:inline-flex; gap:6px; padding:0 14px; border:0; border-radius:999px; background:var(--ui-primary); color:#fff; box-shadow:0 6px 16px rgba(15,23,42,.22); font-weight:700; }
 .map-region-pin b { font-size:14px; font-weight:700; }
@@ -1270,3 +1271,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .leaflet-control-zoom a { width:36px!important; height:36px!important; line-height:36px!important; color:var(--ui-text)!important; border-color:var(--ui-border)!important; }
 .amenity-poi-marker { box-shadow:0 3px 10px rgba(15,23,42,.2); }
 .map-region-host { display:flex!important; justify-content:center; align-items:flex-end; }
+
+/* 2026-11 使用者：「左邊這個很難用」。地區清單：一個數字、依縣市分組、字大好點 */
+.map-area-group { position:sticky; top:0; z-index:1; margin:0; padding:16px 18px 6px; background:#f8fafc; color:var(--ui-sub); font-size:13px; font-weight:700; letter-spacing:.02em; border-bottom:1px solid var(--ui-border); }
+.map-area-list button { min-height:52px; padding:12px 18px; border-bottom:1px solid #f1f3f5; color:var(--ui-text); font-size:16px; font-weight:600; }
+.map-area-list button:hover { background:var(--ui-accent-soft); }
+.map-area-list button > span:last-child.map-area-counts { display:block; color:var(--ui-sub); font-size:14px; font-weight:500; }
+.map-area-list button:hover .map-area-counts { color:var(--ui-accent-ink); }
+.map-result-tabs button[aria-pressed=true] { color:var(--ui-accent-ink); border-bottom-color:var(--ui-accent-ink); }
+.map-result-row { gap:4px; padding:14px 18px; border-bottom-color:#f1f3f5; }
+.map-result-row:hover { background:var(--ui-accent-soft); }
+.map-result-row > strong { color:var(--ui-text); }
+.map-row-price { color:var(--ui-text); font-size:17px; font-weight:800; }

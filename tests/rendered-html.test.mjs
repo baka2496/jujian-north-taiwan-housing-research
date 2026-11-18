@@ -354,13 +354,26 @@ test("the site uses the modern type and colour system", async () => {
   assert.match(decisionCss, /\.decision-workspace\{--forest:var\(--ui-accent-ink\);--cream:var\(--ui-bg\)[^}]*font-family:var\(--ui-font\)/);
 });
 
-// 使用者 2026-11：「地圖沒有改」——地圖頁也要跟著新風格：底圖去色、標籤是膠囊
+// 使用者 2026-11：「地圖沒有改」——地圖頁也要跟著新風格：標籤是膠囊
+// 使用者 2026-11：「黑白的看得很不清楚」——底圖不准再去色
 test("the map page follows the modern style, not only the list page", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  assert.match(css, /\.leaflet-tile-pane[^{]*\{ filter:grayscale\(/);
+  assert.doesNotMatch(css, /filter:[^;}]*grayscale/);
+  assert.match(css, /\.leaflet-tile-pane[^{]*\{ filter:saturate\(\.85\); \}/);
   assert.match(css, /\.map-region-pin \{[^}]*border-radius:999px;[^}]*background:var\(--ui-primary\)/);
   assert.match(css, /\.map-pin \{[^}]*border-radius:999px;[^}]*background:#fff/);
   const decisionCss = await readFile(new URL("../app/decision.css", import.meta.url), "utf8");
-  // 卡片小地圖與地圖頁同樣去色，看起來是同一套
-  assert.match(decisionCss, /\.mini-map-tiles\{[^}]*filter:grayscale\(/);
+  // 卡片小地圖也保留顏色
+  assert.doesNotMatch(decisionCss, /filter:[^;}]*grayscale/);
+});
+
+// 使用者 2026-11：「左邊這個很難用」——地區清單只顯示一個數字，不再出現「參考點 N / 全部 N 案」兩組數字與術語
+test("the map sidebar area list is simple: one count per area, grouped by city", async () => {
+  const src = await readFile(new URL("../app/MapExplorer.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(src, /參考點 \{area\.located/);
+  assert.doesNotMatch(src, /有參考位置|位置待確認|地址待補|道路／路口參考點/);
+  assert.match(src, /\{area\.total\.toLocaleString\("zh-TW"\)\} 案 ›/);
+  assert.match(src, /className="map-area-group"/);
+  // 地區清單模式時不顯示「在地圖上／位置未確認」切換，少一層選擇
+  assert.match(src, /\{!browseCities && !browseDistricts && <div className="map-result-tabs"/);
 });

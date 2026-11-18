@@ -936,7 +936,7 @@ export default function Home() {
               <summary>圖層與說明</summary>
               <div className="map-tools-panel">
                 <section><strong>怎麼看地圖</strong><p>標籤顯示成交中位單價，沒有成交資料時顯示案名。數字加「案」表示附近建案群，點選即可查看清單。</p></section>
-                <section><strong>定位資料</strong><p>{mapReferenceCount.toLocaleString("zh-TW")} 案有道路／路口參考點，並非確認的建案入口。其餘建案可從「位置待確認」清單查看。</p></section>
+                <section><strong>定位資料</strong><p>{mapReferenceCount.toLocaleString("zh-TW")} 案有道路／路口參考點，並非確認的建案入口。其餘建案可從「位置未確認」清單查看。</p></section>
                 {amenityLayerCoverageCount > 0 && <section><strong>生活機能圖層</strong><p>{amenityLayerCoverageCount} 案完成設施定位。</p><div className="map-tools-layers">{amenityEntries.map(([category, meta]) => <button type="button" key={category} className={amenityLayers.includes(category) ? "active" : ""} onClick={(event) => { event.preventDefault(); toggleAmenityLayer(category); }}><i className={`poi-${category}`}>{meta.symbol}</i>{meta.label}</button>)}</div></section>}
               </div>
             </details>}
