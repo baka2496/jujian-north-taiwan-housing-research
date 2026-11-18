@@ -75,10 +75,28 @@ test("offline pipeline is repeatable, preserves evidence and rolls back invalid 
     await writeFile(`${fixture}/data/source/lvr_buildcasecsv/${region.file}`, csv);
     await writeFile(`${fixture}/data/source/lvr_landcsv/${region.file.replace("buildcase", "land_b")}`, "建案名稱,鄉鎮市區,單價元平方公尺,編號,解約情形,交易年月日\n");
   }
+  // 歷史季度成交：每個建案一筆市場交易，另加一筆親友交易，確認特殊交易不會進入價格
+  const historyHeader = "鄉鎮市區,交易年月日,單價元平方公尺,備註,編號,建案名稱,解約情形";
+  const historyFiles = new Map();
+  await mkdir(`${fixture}/data/source/presale-history`, { recursive: true });
+  for (const region of regionConfig.regions) {
+    const letter = region.file[0].toUpperCase();
+    const rows = before.projects.filter((p) => p.city === region.city).flatMap((p, index) => [
+      [p.district, "1150101", "600000", "", `${p.id}-market`, p.name, ""],
+      [p.district, "1150102", "100000", "親友、員工、共有人或其他特殊關係間之交易；", `${p.id}-relative-${index}`, p.name, ""],
+    ]);
+    const path = `${fixture}/data/source/presale-history/115S1_${letter}_lvr_land_B.csv`;
+    const csv = [historyHeader, ...rows.map((row) => row.map(cell).join(","))].join("\n");
+    if (!historyFiles.has(path)) historyFiles.set(path, csv); else historyFiles.set(path, historyFiles.get(path) + "\n" + rows.map((row) => row.map(cell).join(",")).join("\n"));
+  }
+  for (const [path, csv] of historyFiles) await writeFile(path, csv);
   const run = () => spawnSync(process.execPath, ["scripts/update-all.mjs", "--snapshot"], { cwd: fixture, encoding: "utf8" });
   let result = run();
   assert.equal(result.status, 0, result.stdout + result.stderr);
   const once = JSON.parse(await readFile(`${fixture}/data/processed/projects.json`, "utf8"));
+  const pricedFromHistory = once.projects.filter((p) => !["林口", "A7"].includes(p.region) && p.price);
+  assert.ok(pricedFromHistory.length > 0);
+  assert.ok(pricedFromHistory.every((p) => p.price.low === 198.3 && p.price.source.includes("歷史季度")), "親友交易不得拉低歷史最低價");
   result = run();
   assert.equal(result.status, 0, result.stdout + result.stderr);
   const twice = JSON.parse(await readFile(`${fixture}/data/processed/projects.json`, "utf8"));
@@ -118,6 +136,13 @@ test("offline pipeline is repeatable, preserves evidence and rolls back invalid 
   result = run();
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /已還原/);
+  assert.deepEqual(await Promise.all(files.map((name) => readFile(`${fixture}/data/processed/${name}`, "utf8"))), stable);
+  // 2026-11 回歸：只剩本期快照、沒有歷史季度時，價格覆蓋率會掉到一成多，更新必須失敗並還原
+  await writeFile(`${fixture}/data/source/lvr_landcsv/j_lvr_land_b.csv`, "建案名稱,鄉鎮市區,單價元平方公尺,編號,解約情形,交易年月日\n");
+  for (const path of historyFiles.keys()) await writeFile(path, historyHeader + "\n");
+  result = run();
+  assert.notEqual(result.status, 0);
+  assert.match(result.stdout + result.stderr, /價格涵蓋率過低/);
   assert.deepEqual(await Promise.all(files.map((name) => readFile(`${fixture}/data/processed/${name}`, "utf8"))), stable);
   // Fixtures intentionally retained under ignored work/: user prohibits bulk deletion.
 });

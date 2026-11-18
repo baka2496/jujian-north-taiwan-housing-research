@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { latestTransactions } from "../scripts/transaction-records.mjs";
+import { isMarketSale, latestTransactions } from "../scripts/transaction-records.mjs";
 import { parseBuildcaseCsv } from "../scripts/buildcase-csv.mjs";
 import { rocToIso, parseCsv } from "../scripts/data-utils.mjs";
 import { geocodingProvider } from "../scripts/geocoding-provider.mjs";
@@ -35,6 +35,21 @@ test("invalid calendar dates and truncated CSV are not silently accepted", () =>
   assert.equal(rocToIso(""), null);
   assert.throws(() => parseCsv('name,value\n"truncated,123'), /CSV/);
   assert.equal(parseCsv('name,value\n"quoted, name","line\nvalue"')[0].value, "line\nvalue");
+});
+test("stray quotes in official presale files do not swallow the following rows", () => {
+  // 110S4 臺北市原始檔：「B棟"1-9F號」欄位中出現單一引號
+  const midField = parseCsv('name,unit\n國泰悠陽,B棟"1-9F號\n國泰悠陽,B棟B2-14F號');
+  assert.deepEqual(midField.map((row) => row.unit), ['B棟"1-9F號', "B棟B2-14F號"]);
+  // 110S4 新北市原始檔：欄位開頭的引號沒有關上（"棟3號）
+  const strict = 'name,unit\n兆璞開禧,"棟3號\n兆璞開禧,A棟3號';
+  assert.throws(() => parseCsv(strict), /CSV/);
+  assert.deepEqual(parseCsv(strict, { singleLineFields: true }).map((row) => row.unit), ["棟3號", "A棟3號"]);
+});
+test("special-relationship sales are excluded from market prices", () => {
+  assert.equal(isMarketSale({ 備註: "親友、員工、共有人或其他特殊關係間之交易；" }), false);
+  assert.equal(isMarketSale({ 備註: "交易總價含下列非屬預售屋價格之費用:含傢俱設備費；親友、員工、共有人或其他特殊關係間之交易" }), false);
+  assert.equal(isMarketSale({ 備註: "交易總價含下列非屬預售屋價格之費用:含傢俱設備費" }), true);
+  assert.equal(isMarketSale({ 備註: "" }), true);
 });
 test("geocoding defaults to cached data and requires an appropriate provider", () => {
   assert.equal(geocodingProvider({}), null);

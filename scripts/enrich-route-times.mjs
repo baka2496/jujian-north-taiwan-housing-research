@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { densityRules } from "./amenity-rules.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const amenitiesPath = path.join(root, "data", "processed", "amenities.json");
@@ -23,18 +24,6 @@ const routeScoreRules = {
   parking: { mode: "walking", bands: [[5, 100], [10, 70], [15, 40], [25, 20]] },
 };
 
-const densityRules = {
-  convenience: { radiusMeters: 800, targetCount: 6, densityWeight: 0.25 },
-  pxmart: { radiusMeters: 1500, targetCount: 3, densityWeight: 0.25 },
-  costco: { radiusMeters: 15000, targetCount: 1, densityWeight: 0 },
-  station: { radiusMeters: 1500, targetCount: 2, densityWeight: 0.25 },
-  school: { radiusMeters: 1500, targetCount: 4, densityWeight: 0.25 },
-  medical: { radiusMeters: 1200, targetCount: 4, densityWeight: 0.25 },
-  market: { radiusMeters: 1500, targetCount: 3, densityWeight: 0.25 },
-  park: { radiusMeters: 1200, targetCount: 4, densityWeight: 0.25 },
-  pharmacy: { radiusMeters: 1000, targetCount: 5, densityWeight: 0.25 },
-  parking: { radiusMeters: 1000, targetCount: 5, densityWeight: 0.25 },
-};
 
 const profiles = {
   balanced: {
@@ -133,6 +122,39 @@ function normalizeRoute(result, profile, departure = null) {
   };
 }
 
+// 好市多只看開車時間，直線最近不一定開車最快（例如隔著河或要繞上高速公路），所以每一家都實測。
+export function fastestStore(stores, results) {
+  let best = null;
+  stores.forEach((store, index) => {
+    const seconds = results[index]?.time;
+    if (!Number.isFinite(seconds)) return;
+    if (!best || seconds < best.seconds) best = { store, seconds };
+  });
+  return best?.store || null;
+}
+
+async function chooseCostco(project, stores, peakDate, cache) {
+  if (!stores.length || !project.nearest.costco) return false;
+  let fetched = false;
+  const signature = [project.location.latitude.toFixed(6), project.location.longitude.toFixed(6), peakDate, ...stores.map((store) => store.id)].join("|");
+  let minutes = cache.costco?.[signature];
+  if (!minutes) {
+    const results = await fetchMatrix(project.location, stores, "auto", `${peakDate}T08:00`);
+    await sleep(250);
+    minutes = Object.fromEntries(stores.map((store, index) => [store.id, Number.isFinite(results[index]?.time) ? Math.max(1, Math.ceil(results[index].time / 60)) : null]));
+    cache.costco ||= {};
+    cache.costco[signature] = minutes;
+    fetched = true;
+  }
+  const fastest = fastestStore(stores, stores.map((store) => ({ time: Number.isFinite(minutes[store.id]) ? minutes[store.id] * 60 : NaN })));
+  if (!fastest) return fetched;
+  const distanceMeters = Math.round(haversineMeters(project.location, fastest));
+  if (fastest.id !== project.nearest.costco.id) project.nearest.costco = { ...fastest, distanceMeters, walkMinutes: Math.max(1, Math.ceil(distanceMeters / 80)) };
+  project.nearest.costco.chosenBy = "peak-driving";
+  project.nearest.costco.alternativesChecked = Object.values(minutes).filter(Number.isFinite).length;
+  return fetched;
+}
+
 async function routeProject(project, categories, peakDate) {
   const targetEntries = categories
     .map((category) => [category, project.nearest[category]])
@@ -205,6 +227,7 @@ async function main() {
   const categories = Object.keys(amenities.categories);
   const peakDate = nextWeekday(generatedAt);
   let routedProjects = 0;
+  let fetchedSinceSave = 0;
 
   for (const [index, [projectId, project]] of Object.entries(amenities.projects).entries()) {
     if (project.scoreReliability === "unavailable") {
@@ -223,13 +246,23 @@ async function main() {
       continue;
     }
 
+    const costcoStores = amenities.pois.filter((poi) => poi.category === "costco");
+    try {
+      if (await chooseCostco(project, costcoStores, peakDate, cache) && ++fetchedSinceSave >= 20) {
+        await writeFile(routeCachePath, `${JSON.stringify(cache)}\n`, "utf8");
+        fetchedSinceSave = 0;
+      }
+    } catch (error) { console.warn(`好市多車程暫時無法比較 ${projectId}：${error.message}`); }
     const signature = matrixSignature(project, categories, peakDate);
     let routes = cache.projects[projectId]?.signature === signature ? cache.projects[projectId].routes : null;
     if (!routes) {
       try {
         routes = await routeProject(project, categories, peakDate);
         cache.projects[projectId] = { signature, routes, updatedAt: generatedAt };
-        await writeFile(routeCachePath, `${JSON.stringify(cache, null, 2)}\n`, "utf8");
+        if (++fetchedSinceSave >= 20) {
+          await writeFile(routeCachePath, `${JSON.stringify(cache)}\n`, "utf8");
+          fetchedSinceSave = 0;
+        }
         console.log(`[${index + 1}/${Object.keys(amenities.projects).length}] 路線 ${projectId}`);
       } catch (error) {
         console.warn(`路線暫時無法更新 ${projectId}：${error.message}`);
@@ -246,9 +279,12 @@ async function main() {
       category,
       scoreForRoute(routes[category], routeScoreRules[category]),
     ]));
+    // amenities.json 只保留地圖要用的設施，完整清單的附近數量由 enrich-amenities 先算好。
     const nearbyCounts = Object.fromEntries(categories.map((category) => [
       category,
-      nearbyCount(project.location, amenities.pois, category, densityRules[category].radiusMeters),
+      Number.isFinite(project.nearbyCounts?.[category])
+        ? project.nearbyCounts[category]
+        : nearbyCount(project.location, amenities.pois, category, densityRules[category].radiusMeters),
     ]));
     const densityScores = Object.fromEntries(categories.map((category) => [
       category,
@@ -271,6 +307,7 @@ async function main() {
     routedProjects += 1;
   }
 
+  await writeFile(routeCachePath, `${JSON.stringify(cache)}\n`, "utf8");
   amenities.generatedAt = generatedAt;
   amenities.source.service = "Nominatim、Overpass API 與 Valhalla";
   amenities.methodology = {

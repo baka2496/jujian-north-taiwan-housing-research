@@ -25,6 +25,13 @@ fail(JSON.stringify(Object.keys(amenities.projects).sort()) === JSON.stringify(e
 fail(JSON.stringify(Object.keys(quality.projects).sort()) === JSON.stringify(expectedIds), "品質資料與建案目錄不同步");
 fail(report.summary.catalogueAfter === projects.projects.length, "更新報告的建案數不同步");
 fail(projects.priceCoverage.totalProjects === projects.projects.length, "價格涵蓋率的建案數不同步");
+// 2026-11：只用本期快照時僅 13% 建案有價格；改用完整歷史後約 82%。低於 70% 代表歷史季度沒有讀到。
+fail(projects.priceCoverage.pricedProjects / projects.projects.length >= 0.7, `價格涵蓋率過低（${projects.priceCoverage.pricedProjects}/${projects.projects.length}），可能沒有讀到歷史季度成交`);
+for (const city of new Set(projects.projects.map((project) => project.city))) {
+  const inCity = projects.projects.filter((project) => project.city === city);
+  fail(inCity.filter((project) => project.price).length / inCity.length >= 0.5, `${city} 價格涵蓋率低於一半，可能缺少該縣市的歷史季度檔`);
+}
+fail(projects.projects.every((project) => !project.price?.source?.includes("本期快照")), "仍有建案只使用本期快照價格");
 fail(Object.keys(qualityAudits.projects).every((id) => ids.includes(id)), "人工品質查核包含不存在的建案 ID");
 fail((qualityAudits.reviewedProjectIds || []).every((id) => ids.includes(id)), "品質查核範圍包含不存在的建案 ID");
 const expectedReviewedCount = qualityAudits.reviewedProjectIds?.length ?? Object.keys(qualityAudits.projects).length;
@@ -73,6 +80,11 @@ for (const project of projects.projects) {
   const amenity = amenities.projects[project.id];
   fail(Number.isFinite(amenity?.location?.latitude) && Number.isFinite(amenity?.location?.longitude), `${project.name} 缺少有效座標`);
   fail(amenity?.location?.confidence !== "estimated" || amenity.score === null, `${project.name} 的估算位置不應顯示機能分數`);
+  if (amenity?.location?.method === "nlsc-road-extent") {
+    const radius = amenity.location.officialReference?.radiusMeters;
+    fail(radius > 0 && radius <= 500 && amenity.location.label.includes(`${radius} 公尺`), `${project.name} 的道路概略位置未標明誤差範圍`);
+    fail(amenity.scoreReliability !== "verified", `${project.name} 的道路概略位置不可標為已核對`);
+  }
   fail(Object.keys(amenity?.categoryScores || {}).length === 10, `${project.name} 的生活機能分類分數不完整`);
   fail(Object.keys(amenity?.routeScores || {}).length === 10, `${project.name} 的生活機能路線分數不完整`);
   fail(Object.keys(amenity?.densityScores || {}).length === 10, `${project.name} 的生活機能數量分數不完整`);
@@ -82,6 +94,12 @@ for (const project of projects.projects) {
     fail(amenityCategories.every((category) => !amenity.nearest[category] || amenity.nearest[category].routes?.walking), `${project.name} 缺少道路步行時間`);
     fail(amenityCategories.every((category) => !amenity.nearest[category] || amenity.nearest[category].routes?.driving), `${project.name} 缺少道路開車時間`);
     fail(amenityCategories.every((category) => !amenity.nearest[category] || amenity.nearest[category].routes?.peakDriving), `${project.name} 缺少平日尖峰路線時間`);
+    // 2026-11 曾把「好市多觀音物流中心」當成最近分店，且只用直線距離挑分店。
+    const costco = amenity.nearest.costco;
+    if (costco) {
+      fail(!/物流|倉儲|倉庫|配送|辦公|總部/u.test(costco.name), `${project.name} 的最近好市多不是賣場：${costco.name}`);
+      fail(costco.chosenBy === "peak-driving" && costco.alternativesChecked >= 2, `${project.name} 的好市多沒有比較各分店實際車程`);
+    }
   }
   fail(Array.isArray(quality.projects[project.id]?.events), `${project.name} 的品質事件格式無效`);
   fail(quality.projects[project.id]?.publishedEventCount === quality.projects[project.id]?.events.length, `${project.name} 的品質事件計數不同步`);

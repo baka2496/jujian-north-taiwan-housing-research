@@ -17,18 +17,28 @@ async function render() {
   );
 }
 
-test("opens with clear paths for current listings and historical records", async () => {
+test("opens with buyer requirements, evidence gaps, and historical research", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>居鑑｜北台灣建案履歷<\/title>/);
-  assert.match(html, /找目前刊登的房屋/);
-  assert.match(html, /查建案履歷/);
-  assert.match(html, /房源由信義房屋提供/);
-  assert.match(html, /不代表建案仍在銷售/);
-  assert.match(html, /Taipei-city\/presale\/default-desc\/1/);
+  assert.match(html, /<title>居鑑｜看屋前，先看懂取捨<\/title>/);
+  assert.match(html, /少看幾間/);
+  // 2026-11 使用者回報畫面太亂：上方只留兩個分頁，不再有重複的「外部房源」頁
+  assert.match(html, /依條件找房/);
+  assert.match(html, /地圖與全部建案/);
+  assert.doesNotMatch(html, /外部房源|查建案履歷|選屋工作台/);
+  assert.match(html, /看信義房屋在售物件/);
+  assert.match(html, /還不是在售房源/);
+  // 預設底線（2,000 萬、室內 20 坪）要真的影響首屏：依預估排序並標示估計結果，且說明超出的已先收起
+  assert.match(html, /依你的底線預估排序/);
+  assert.match(html, /估計在預算內|估計接近上限/);
+  assert.match(html, /已先收起 [\d,]+ 個估計超出底線的候選/);
+  // 2026-11 使用者：「整個 UI 很亂」「大道至簡」。首屏不放裝飾性標語、步驟列與編號，卡片直接給估計總價。
+  assert.doesNotMatch(html, /不知道，就留白|decision-steps|decision-principle|01 \/ 我的底線|02 \/ 看懂取捨|decision-disclosure/);
+  assert.match(html, /估計總價/);
+  assert.match(html, /約 [\d,]+(?:–[\d,]+)? 萬/);
   assert.doesNotMatch(html, /class="project-grid-card"/);
   assert.doesNotMatch(html, /data-map-engine="leaflet"/);
   assert.doesNotMatch(html, /class="map-project-card"/);
@@ -67,8 +77,14 @@ test("processed amenity data is scored and source-labelled", async () => {
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.routeScores).length === 10));
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.densityScores).length === 10));
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.nearbyCounts).length === 10));
-  assert.equal(dataset.projects["林口-11-c4a9a4"].score, 41);
+  // 2026-11 設施範圍擴大到全北台灣後，家睦中山 323 公尺外的醒吾高中、54 公尺外的自強公園才被納入（舊資料學校、公園都是 0）。
+  // 2026-11 好市多改成實測車程挑分店：新莊店 27 分 → 南崁店 24 分，總分 65 → 67。
+  assert.equal(dataset.projects["林口-11-c4a9a4"].score, 67);
+  assert.equal(dataset.projects["林口-11-c4a9a4"].nearest.costco.name, "好市多 桃園南崁店");
   assert.equal(dataset.projects["林口-11-c4a9a4"].nearbyCounts.convenience, 11);
+  assert.equal(dataset.projects["林口-11-c4a9a4"].nearest.school.name, "醒吾高中");
+  assert.equal(dataset.pois.find((poi) => poi.id === "node-4653352241")?.name, "A8 長庚醫院站");
+  assert.ok(Object.values(dataset.projects).filter((project) => project.score !== null).length > 1000);
   assert.ok(Object.values(dataset.projects).filter((project) => project.score !== null).every((project) => Object.values(project.nearest).every((nearest) => !nearest || nearest.routes.walking)));
   assert.match(dataset.methodology.peakDisclaimer, /不是即時路況/);
 });
@@ -121,7 +137,8 @@ test("processed data has the intended scope and explicit unknown states", async 
   assert.ok(dataset.projects.filter((project) => project.region === "A7" && project.price).length >= 17);
   assert.ok(dataset.projects.filter((project) => project.region === "A7").length > 20);
   assert.ok(dataset.priceCoverage.a7OfficialRecordsReviewed >= 8000);
-  assert.equal(dataset.priceCoverage.historyFrom, "112S1");
+  assert.equal(dataset.priceCoverage.historyFrom, "110S1");
+  assert.ok(dataset.priceCoverage.pricedProjects / dataset.projects.length >= 0.7, "價格覆蓋率不得退回只用本期快照的水準");
   assert.ok(dataset.projects.filter((project) => project.price).every((project) => project.price.count > 0));
   assert.ok(dataset.projects.filter((project) => project.region === "A7" && project.price).every((project) => project.price.source.includes("歷史季度＋本期")));
   assert.ok(dataset.projects.every((project) => project.registryNumber));
@@ -190,8 +207,10 @@ test("map uses stable project coordinates and progressive zoom layers", async ()
 test("detail interface separates defect evidence and supports route-based custom amenity weights", async () => {
   const source = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
 
-  assert.match(source, /快速結論/);
-  assert.match(source, /先看答案，需要時再查看資料來源/);
+  // 2026-11「大道至簡」：總覽不再放標題說明與重複的速覽列；價差用金額，不用百分比
+  assert.doesNotMatch(source, /快速結論|先看答案，需要時再查看資料來源|className="drawer-glance"|summary-caution/);
+  assert.doesNotMatch(source, /Math\.abs\(difference\)\}%|Math\.abs\(change\.percent\)\}%/);
+  assert.match(source, /"便宜"\} \$\{Math\.abs\(difference\)\} 萬／坪/);
   assert.match(source, /每月固定支出/);
   assert.match(source, /className="summary-answer-list"/);
   assert.match(source, /查看官方基本資料/);
@@ -201,7 +220,7 @@ test("detail interface separates defect evidence and supports route-based custom
   assert.match(source, /調整各項權重/);
   assert.match(source, /查看其餘 \{activeMoreAmenityEntries\.length\} 類設施/);
   assert.match(source, /查看設施地圖與計算方式/);
-  assert.match(source, /不再只看最近一家/);
+  assert.doesNotMatch(source, /不再只看最近一家/); // 改版說明不放在使用者畫面
   assert.match(source, /查看 \{activeAmenityScore\} 分怎麼算/);
   assert.match(source, /amenityNearbyCountText/);
   assert.match(source, /routeTimeText\(nearest\)/);
@@ -231,7 +250,6 @@ test("the product keeps map mode focused and reveals information progressively",
   assert.match(source, /priceComparison\(active\)/);
   assert.match(source, /區域新屋供給/);
   assert.doesNotMatch(source, /setDetailTab\("supply"\)|快速前往|更多資料/);
-  assert.match(source, /快速結論/);
   assert.match(source, /className="summary-data-confidence"/);
   assert.match(source, /資料可信度/);
   assert.match(source, /\{activeConfidence\.covered\}／4 項可核對/);
@@ -309,4 +327,13 @@ test("project details provide a self-use-only holding cost calculator without tr
   assert.doesNotMatch(source, /出租情境|投資情境|非自住試算/);
   assert.match(css, /\.holding-cost-total/);
   assert.match(css, /\.holding-cost-breakdown/);
+});
+
+// 2026-11 使用者：「整個 UI 很亂」。8–11px 的小字是主因之一，任何樣式都不准再低於 12px。
+test("no stylesheet sets text smaller than 12px", async () => {
+  for (const file of ["../app/globals.css", "../app/decision.css"]) {
+    const css = await readFile(new URL(file, import.meta.url), "utf8");
+    const tiny = css.match(/font-size:\s*(?:[0-9]|1[01])(?:\.\d+)?px/g) ?? [];
+    assert.deepEqual(tiny, [], `${file} 有小於 12px 的字`);
+  }
 });

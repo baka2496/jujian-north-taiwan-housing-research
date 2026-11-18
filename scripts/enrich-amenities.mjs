@@ -1,10 +1,15 @@
 import { geocodingProvider } from "./geocoding-provider.mjs";
+import { amenityBounds, densityRules, insideAmenityBounds } from "./amenity-rules.mjs";
 import {
+  cleanDeclaredAddress,
+  declaredRoadQueries,
   extractIntersectionRoads,
   findCrossRoad,
   parseCountyItems,
   parseCrossRoads,
   parseTownItems,
+  ROAD_EXTENT_MAX_RADIUS_METERS,
+  roadExtent,
 } from "./nlsc-intersections.mjs";
 import { regionFor } from "./regions.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -17,7 +22,6 @@ const outputPath = path.join(root, "data", "processed", "amenities.json");
 const cacheDirectory = path.join(root, "data", "cache");
 const geocodeCachePath = path.join(cacheDirectory, "nominatim-projects.json");
 const overpassCachePath = path.join(cacheDirectory, "overpass-pois.json");
-const nominatimAmenitiesCachePath = path.join(cacheDirectory, "nominatim-amenities.json");
 const intersectionCachePath = path.join(cacheDirectory, "nlsc-intersections.json");
 const nlscAdminCachePath = path.join(cacheDirectory, "nlsc-admin.json");
 const locationOverridesPath = path.join(root, "data", "manual", "location-overrides.json");
@@ -317,7 +321,7 @@ async function loadNlscAdminCodes(projects) {
 }
 
 function canUseOfficialIntersection(location) {
-  return ["region-center", "catalogue-fallback", "nominatim-road"].includes(location?.method);
+  return ["region-center", "catalogue-fallback", "nominatim-road", "nlsc-road-extent"].includes(location?.method);
 }
 
 async function refineOfficialIntersections(locations, projects) {
@@ -325,7 +329,7 @@ async function refineOfficialIntersections(locations, projects) {
   const admin = await loadNlscAdminCodes(projects);
   const automaticSpecs = Object.fromEntries(projects.flatMap((project) => {
     if (officialIntersectionSpecs[project.id] || !canUseOfficialIntersection(locations[project.id])) return [];
-    const roads = extractIntersectionRoads(project.address);
+    const roads = extractIntersectionRoads(cleanDeclaredAddress(project.address, project.city, project.district));
     const county = admin.counties?.[project.city];
     const town = admin.towns?.[project.city]?.[project.district];
     return roads && county && town ? [[project.id, { county, town, road: roads[0], cross: roads[1] }]] : [];
@@ -372,6 +376,37 @@ async function refineOfficialIntersections(locations, projects) {
     matchedCount += 1;
   }
   console.log(`NLSC 官方路口：${matchedCount}/${Object.keys(specs).length} 案匹配，本次新增 ${fetchedCount} 筆道路快取`);
+
+  // 沒有路口的地址（只有路名、巷弄或門牌）：用官方資料中該路所有路口的中心當概略位置。
+  // 已用 207 個官方路口建案驗證：誤差全部落在標示範圍內，中位數約 120 公尺。長路（超過 500 公尺）不採用。
+  let roadMatched = 0;
+  let roadTooLong = 0;
+  for (const project of projects) {
+    if (!retryableLocationMethods.has(locations[project.id]?.method)) continue;
+    const county = admin.counties?.[project.city];
+    const town = admin.towns?.[project.city]?.[project.district];
+    if (!county || !town) continue;
+    for (const road of declaredRoadQueries(cleanDeclaredAddress(project.address, project.city, project.district))) {
+      const extent = roadExtent(await crossRoadsFor({ county, town, road }));
+      if (!extent) continue;
+      if (extent.radiusMeters > ROAD_EXTENT_MAX_RADIUS_METERS) {
+        roadTooLong += 1;
+        break;
+      }
+      locations[project.id] = {
+        latitude: extent.latitude,
+        longitude: extent.longitude,
+        confidence: "low",
+        method: "nlsc-road-extent",
+        label: `道路概略位置（約 ${extent.radiusMeters} 公尺內）`,
+        queryAddress: locations[project.id].queryAddress,
+        officialReference: { provider: "NLSC", road, crossCount: extent.crossCount, radiusMeters: extent.radiusMeters },
+      };
+      roadMatched += 1;
+      break;
+    }
+  }
+  console.log(`NLSC 道路概略位置：新增 ${roadMatched} 案；${roadTooLong} 案道路太長無法判斷位置，維持未確認`);
   return locations;
 }
 
@@ -400,102 +435,92 @@ async function applyManualOverrides(locations) {
   return locations;
 }
 
-const coreBounds = "25.025,121.335,25.110,121.420";
+const overpassBounds = `${amenityBounds.south},${amenityBounds.west},${amenityBounds.north},${amenityBounds.east}`;
 const overpassQueries = {
-  convenience: `[out:json][timeout:60];nwr["shop"="convenience"](${coreBounds});out center tags;`,
-  supermarket: `[out:json][timeout:60];nwr["shop"="supermarket"](${coreBounds});out center tags;`,
-  station: `[out:json][timeout:30];(node["railway"="station"](${coreBounds});node["railway"="halt"](${coreBounds}););out body;`,
-  school: `[out:json][timeout:60];nwr["amenity"="school"](${coreBounds});out center tags;`,
-  medical: `[out:json][timeout:60];nwr["amenity"~"hospital|clinic"](${coreBounds});out center tags;`,
-  market: `[out:json][timeout:60];nwr["amenity"="marketplace"](${coreBounds});out center tags;`,
-  costco: `[out:json][timeout:60];nwr["name"~"好市多|Costco",i](24.85,121.15,25.30,121.65);out center tags;`,
+  convenience: `nwr["shop"="convenience"](${overpassBounds});`,
+  supermarket: `nwr["shop"="supermarket"](${overpassBounds});`,
+  station: `node["railway"~"^(station|halt)$"](${overpassBounds});`,
+  school: `nwr["amenity"="school"](${overpassBounds});`,
+  medical: `nwr["amenity"~"^(hospital|clinic)$"](${overpassBounds});`,
+  market: `nwr["amenity"="marketplace"](${overpassBounds});`,
+  park: `nwr["leisure"="park"](${overpassBounds});`,
+  pharmacy: `nwr["amenity"="pharmacy"](${overpassBounds});`,
+  parking: `nwr["amenity"="parking"]["access"!~"^(private|customers|no)$"](${overpassBounds});`,
+  costco: `nwr["name"~"好市多|Costco",i](${overpassBounds});`,
 };
+const keptTags = ["name", "name:zh", "brand", "operator", "shop", "amenity", "railway", "leisure", "building", "station", "disused", "abandoned",
+  "addr:full", "addr:city", "addr:district", "addr:street", "addr:housenumber"];
 
-const nominatimAmenityQueries = {
-  park: "[park]",
-  pharmacy: "[pharmacy]",
-  parking: "[parking]",
-  market: "[marketplace]",
-};
+function slimElement(element) {
+  const tags = Object.fromEntries(keptTags.filter((key) => element.tags?.[key]).map((key) => [key, element.tags[key]]));
+  return {
+    type: element.type,
+    id: element.id,
+    lat: element.lat ?? element.center?.lat,
+    lon: element.lon ?? element.center?.lon,
+    tags,
+  };
+}
 
 async function loadOverpass() {
   const cached = await readJson(overpassCachePath, { elementsByQuery: {} });
-  const endpoints = ["https://overpass.osm.ch/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://overpass-api.de/api/interpreter"];
-  for (const [name, query] of Object.entries(overpassQueries)) {
+  // 舊快取只涵蓋林口／A7；範圍不同就整批重抓，避免新分區沿用舊範圍。
+  if (cached.bounds !== overpassBounds) {
+    cached.bounds = overpassBounds;
+    cached.elementsByQuery = {};
+  }
+  const endpoints = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+  ];
+  for (const [name, statement] of Object.entries(overpassQueries)) {
     if (cached.elementsByQuery[name]?.length) continue;
-    if (name === "station") {
-      cached.elementsByQuery[name] = [];
-      await writeFile(overpassCachePath, `${JSON.stringify(cached, null, 2)}\n`, "utf8");
-      continue;
-    }
+    const query = `[out:json][timeout:180];${statement}out center tags;`;
     let lastError;
     for (const endpoint of endpoints) {
-      try {
-        const response = await fetch(`${endpoint}?data=${encodeURIComponent(query)}`, {
-          headers: { "User-Agent": userAgent },
-          signal: AbortSignal.timeout(45_000),
-        });
-        if (!response.ok) throw new Error(`${response.status}`);
-        const data = await response.json();
-        cached.elementsByQuery[name] = data.elements || [];
-        console.log(`設施 ${name}: ${cached.elementsByQuery[name].length}`);
-        await writeFile(overpassCachePath, `${JSON.stringify(cached, null, 2)}\n`, "utf8");
-        lastError = null;
-        break;
-      } catch (error) {
-        lastError = error;
-        console.warn(`Overpass ${name} 暫時失敗（${endpoint}）：${error.message}`);
+      for (let attempt = 1; attempt <= 2 && !cached.elementsByQuery[name]?.length; attempt += 1) {
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            body: new URLSearchParams({ data: query }),
+            headers: { "User-Agent": userAgent },
+            signal: AbortSignal.timeout(240_000),
+          });
+          if (!response.ok) throw new Error(`${response.status}`);
+          const data = await response.json();
+          if (!data.elements?.length) throw new Error("沒有回傳任何設施");
+          cached.elementsByQuery[name] = data.elements.map(slimElement);
+          console.log(`設施 ${name}: ${cached.elementsByQuery[name].length}`);
+          await writeFile(overpassCachePath, `${JSON.stringify(cached)}\n`, "utf8");
+          lastError = null;
+        } catch (error) {
+          lastError = error;
+          console.warn(`Overpass ${name} 暫時失敗（${endpoint}，第 ${attempt} 次）：${error.message}`);
+          await sleep(15_000 * attempt);
+        }
       }
+      if (cached.elementsByQuery[name]?.length) break;
     }
-    if (lastError) {
-      cached.elementsByQuery[name] = [];
-      console.warn(`Overpass ${name} 本次無法取得，先保留空集合並使用可驗證的補充資料。`);
-      await writeFile(overpassCachePath, `${JSON.stringify(cached, null, 2)}\n`, "utf8");
-    }
-    await sleep(1000);
+    // 設施資料不完整時分數會失真，寧可讓整次更新失敗並回復舊資料。
+    if (lastError) throw new Error(`Overpass ${name} 無法取得：${lastError.message}`);
+    await sleep(2000);
   }
   return { elements: Object.values(cached.elementsByQuery).flat() };
 }
 
-async function loadNominatimAmenities() {
-  const cache = await readJson(nominatimAmenitiesCachePath, {});
-  for (const [category, query] of Object.entries(nominatimAmenityQueries)) {
-    if (cache[category]?.length || !geocoder) continue;
-    const params = new URLSearchParams({
-      q: query,
-      format: "jsonv2",
-      limit: "50",
-      bounded: "1",
-      viewbox: "121.335,25.110,121.420,25.025",
-      "accept-language": "zh-TW,zh-Hant",
-    });
-    const response = await fetch(`${geocoder.url}?${params}`, {
-      headers: { "User-Agent": userAgent, Referer: "https://jujian-north-taiwan.baka0406.chatgpt.site" },
-      signal: AbortSignal.timeout(30_000),
-    });
-    if (!response.ok) throw new Error(`Nominatim amenities ${response.status}: ${category}`);
-    cache[category] = await response.json();
-    await writeFile(nominatimAmenitiesCachePath, `${JSON.stringify(cache, null, 2)}\n`, "utf8");
-    await sleep(geocoder.intervalMs);
-  }
-
-  return Object.entries(cache).flatMap(([category, results]) => results.map((result) => ({
-    type: "nominatim",
-    id: result.place_id,
-    lat: Number(result.lat),
-    lon: Number(result.lon),
-    tags: {
-      name: result.name?.trim() || categories[category].label,
-      "addr:full": result.display_name || null,
-      ...(category === "park" ? { leisure: "park" } : { amenity: category === "market" ? "marketplace" : category }),
-    },
-  })));
+export function isCostcoStore(identity, tags = {}) {
+  if (/物流|倉儲|倉庫|配送|辦公|總部|logistics|depot|warehouses*office|distribution/iu.test(identity)) return false;
+  return Boolean(tags.shop || tags.building);
 }
 
-function classifyPoi(tags = {}) {
+export function classifyPoi(tags = {}) {
+  if (tags.disused || tags.abandoned) return null;
   const identity = [tags.name, tags["name:zh"], tags.brand, tags.operator].filter(Boolean).join(" ");
   if (tags.amenity === "parking") return "parking";
-  if (/好市多|costco/iu.test(identity) && (tags.shop || tags.building)) return "costco";
+  // 物流中心、倉庫、辦公室不是買得到東西的賣場（2026-11 曾把「好市多觀音物流中心」當成最近分店）。
+  if (/好市多|costco/iu.test(identity)) return isCostcoStore(identity, tags) ? "costco" : null;
   if (/全聯|px\s*mart|pxmart/iu.test(identity)) return "pxmart";
   if (tags.shop === "convenience") return "convenience";
   if (tags.railway === "station" || tags.railway === "halt") return "station";
@@ -544,8 +569,26 @@ function normalizePois(overpass) {
     { id: "node-9741206307", name: "樂善國小", category: "school", latitude: 25.0519917, longitude: 121.3843066, address: "桃園市龜山區樂學三路" },
     { id: "way-1310794583", name: "文青國中小", category: "school", latitude: 25.0449991, longitude: 121.3910210, address: "桃園市龜山區樂善二路778號" },
   ];
+  // OpenStreetMap 多半只寫「好市多」，看不出是哪一家；分店名依地址人工核對（2026-11-18）。
+  const costcoBranches = {
+    "way-217686003": "好市多 新竹店",
+    "way-253497020": "好市多 中和店",
+    "way-264407782": "好市多 汐止店",
+    "way-367111543": "好市多 中壢店",
+    "way-431645594": "好市多 新莊店",
+    "way-546761340": "好市多 北投店",
+    "way-183547237": "好市多 桃園南崁店",
+    "way-173002028": "好市多 內湖店",
+  };
+  for (const poi of pois) if (costcoBranches[poi.id]) poi.name = costcoBranches[poi.id];
   for (const poi of supplementalPois) {
-    if (seen.has(poi.id)) continue;
+    // 同一個地圖點已由 Overpass 取得時，保留人工核對過的站名（例：「A8 長庚醫院站」而非「長庚醫院」）。
+    if (seen.has(poi.id)) {
+      const existing = pois.find((item) => item.id === poi.id);
+      existing.name = poi.name;
+      existing.address ||= poi.address;
+      continue;
+    }
     seen.add(poi.id);
     pois.push(poi);
   }
@@ -593,16 +636,27 @@ async function main() {
   const { locationProjects, scoredProjects } = splitAmenityWork(projectDataset.projects);
   const geocoded = await geocodeProjects(locationProjects, previousDataset.projects || {});
   const locations = await applyManualOverrides(await refineOfficialIntersections(geocoded, locationProjects));
-  const [overpass, nominatimAmenities] = await Promise.all([loadOverpass(), loadNominatimAmenities()]);
-  const pois = normalizePois({ elements: [...overpass.elements, ...nominatimAmenities] });
+  const outside = locationProjects.filter((project) => locations[project.id].confidence !== "estimated" && !insideAmenityBounds(locations[project.id]));
+  if (outside.length) throw new Error(`建案位置超出設施查詢範圍：${outside.map((project) => project.name).join("、")}`);
+  const pois = normalizePois(await loadOverpass());
+  const poisByCategory = Object.groupBy(pois, (poi) => poi.category);
   const scoredProjectIds = new Set(scoredProjects.map((project) => project.id));
   const projects = Object.fromEntries(locationProjects
     .filter((project) => !scoredProjectIds.has(project.id))
     .map((project) => [project.id, unavailableAmenityProject(locations[project.id])]));
+  const mapPoiIds = new Set();
 
   for (const project of scoredProjects) {
     const location = locations[project.id];
-    const nearest = Object.fromEntries(Object.keys(categories).map((category) => [category, nearestPoi(location, pois, category)]));
+    const nearest = Object.fromEntries(Object.keys(categories).map((category) => [category, nearestPoi(location, poisByCategory[category] || [], category)]));
+    // 附近數量用完整設施清單計算；網頁只帶各建案最近的設施，避免檔案過大。
+    const nearbyCounts = Object.fromEntries(Object.keys(categories).map((category) => [
+      category,
+      (poisByCategory[category] || []).filter((poi) => haversineMeters(location, poi) <= densityRules[category].radiusMeters).length,
+    ]));
+    if (location.confidence !== "estimated") Object.values(nearest).forEach((poi) => poi && mapPoiIds.add(poi.id));
+    // 好市多分店很少，全部保留，路線步驟才能比較每一家的實際車程。
+    (poisByCategory.costco || []).forEach((poi) => mapPoiIds.add(poi.id));
     const rawScore = scoreRules.reduce((total, rule) => total + categoryScore(nearest[rule.category]?.distanceMeters, rule), 0);
     const scoreReliability = location.confidence === "estimated"
       ? "unavailable"
@@ -616,8 +670,10 @@ async function main() {
       grade: scoreReliability === "unavailable" ? null : gradeFor(rawScore),
       scoreReliability,
       nearest,
+      nearbyCounts,
     };
   }
+  const mapPois = pois.filter((poi) => mapPoiIds.has(poi.id));
 
   const payload = {
     generatedAt,
@@ -625,29 +681,32 @@ async function main() {
       name: "OpenStreetMap contributors",
       url: "https://www.openstreetmap.org/copyright",
       license: "ODbL",
-      service: "Nominatim 與 Overpass API",
+      service: "Overpass API",
     },
     methodology: {
       distance: "兩點間直線距離",
       walkingMetersPerMinute: 80,
       disclaimer: "距離與步行時間為直線距離換算，未考慮實際道路、坡度、圍牆、紅綠燈與出入口，不可當作導航時間。",
-      locationDisclaimer: "建案位置先讀官方申報街道；兩條道路可由國土測繪中心資料完全匹配時，顯示官方路口參考點。路口與道路點都不代表精確基地界址。",
+      locationDisclaimer: "建案位置先讀官方申報街道；兩條道路可由國土測繪中心資料完全匹配時，顯示官方路口參考點。只有路名或門牌時，若該路所有官方路口都在 500 公尺內，顯示這條路的中心點並標明誤差範圍；長路無法判斷在哪一段，維持未確認。路口與道路點都不代表精確基地界址。",
       locationSources: [
         { name: "內政部預售屋建案備查資料", url: "https://data.gov.tw/dataset/176351", role: "申報街道與基地" },
-        { name: "國土測繪中心路口 API", url: "https://data.gov.tw/dataset/167920", role: "路口坐標" },
+        { name: "國土測繪中心路口 API", url: "https://data.gov.tw/dataset/167920", role: "路口坐標與道路範圍" },
       ],
-      scoreDisclaimer: "只有官方路口、門牌或可辨識道路位置才顯示機能分數；區域估算位置不顯示分數。",
+      scoreDisclaimer: "官方路口位置的分數標為可信；道路概略位置的分數標為估算；位置未確認的建案不顯示分數。",
+      poiBounds: overpassBounds,
       scoreRules,
     },
     categories,
     poiCount: pois.length,
-    pois,
+    poiCountsByCategory: Object.fromEntries(Object.keys(categories).map((category) => [category, (poisByCategory[category] || []).length])),
+    mapPoiCount: mapPois.length,
+    pois: mapPois,
     projects,
   };
 
   await writeFile(outputPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
-  const counts = Object.keys(categories).map((category) => `${categories[category].label} ${pois.filter((poi) => poi.category === category).length}`).join("、");
-  console.log(`完成：定位 ${locationProjects.length} 個建案，機能評估 ${scoredProjects.length} 個建案，${pois.length} 個設施（${counts}）`);
+  const counts = Object.keys(categories).map((category) => `${categories[category].label} ${(poisByCategory[category] || []).length}`).join("、");
+  console.log(`完成：定位 ${locationProjects.length} 個建案，機能評估 ${scoredProjects.length} 個建案，${pois.length} 個設施（${counts}），地圖保留 ${mapPois.length} 個`);
   console.log(`輸出：${outputPath}`);
 }
 
