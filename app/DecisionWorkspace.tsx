@@ -57,7 +57,9 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   const [showMinor, setShowMinor] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const resultRef = useRef<HTMLElement>(null);
+  // 瀏覽器裡的舊紀錄只能在畫面載入後讀取（伺服器端沒有 localStorage），刻意在 effect 裡更新狀態，避免伺服器與瀏覽器畫面不一致。
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 載入後讀取 localStorage，見上方說明
     setToday(localDate());
     try { const value = localStorage.getItem(storageKey); if (value) setPlan(restore(value)); }
     catch { setStorageError('無法讀取舊紀錄；本次操作仍可使用。'); }
@@ -66,6 +68,7 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   useEffect(() => {
     if (!ready) return;
     try { localStorage.setItem(storageKey, JSON.stringify(plan)); }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 寫入 localStorage 失敗時才提示，只會發生一次
     catch { setStorageError('瀏覽器無法保存，請先匯出紀錄，避免關閉後遺失。'); }
   }, [plan, ready]);
   useEffect(() => {
