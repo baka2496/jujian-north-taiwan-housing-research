@@ -16,24 +16,28 @@ export function estimateLabelWidth(name: string, count?: number, padding = 28) {
 // merged centroid. Order is stable so selecting a project does not reshuffle it.
 // `width` can be a number, or a function giving each group's real label width;
 // `gap` keeps a little air between neighbouring labels.
+//
+// 2026-11 使用者：「滑動地圖，縮放地圖很卡」。效能：每組的寬度只在建立／合併時算一次（不在每次比對時重算），
+// 合併後繼續往下掃，不再從頭重來；仍重複掃到沒有任何重疊為止，所以結果一樣不會重疊。
 export function groupMapLabels(points: ScreenPoint[], width: number | ((ids: string[]) => number) = 128, height = 48, gap = 0): ScreenGroup[] {
   const widthOf = typeof width === "number" ? () => width : width;
-  const groups = [...points].sort((a, b) => a.id.localeCompare(b.id)).map((point) => ({ ids: [point.id], x: point.x, y: point.y }));
+  const groups = [...points].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)).map((point) => ({ ids: [point.id], x: point.x, y: point.y, w: widthOf([point.id]) }));
+  const maxY = height + gap;
   let changed = true;
   while (changed) {
     changed = false;
-    outer: for (let i = 0; i < groups.length; i += 1) {
+    for (let i = 0; i < groups.length; i += 1) {
       for (let j = i + 1; j < groups.length; j += 1) {
         const a = groups[i], b = groups[j];
-        const minX = (widthOf(a.ids) + widthOf(b.ids)) / 2 + gap;
-        if (Math.abs(a.x - b.x) >= minX || Math.abs(a.y - b.y) >= height + gap) continue;
+        if (Math.abs(a.y - b.y) >= maxY || Math.abs(a.x - b.x) >= (a.w + b.w) / 2 + gap) continue;
         const size = a.ids.length + b.ids.length;
-        groups[i] = { ids: [...a.ids, ...b.ids], x: (a.x * a.ids.length + b.x * b.ids.length) / size, y: (a.y * a.ids.length + b.y * b.ids.length) / size };
+        const ids = a.ids.concat(b.ids);
+        groups[i] = { ids, x: (a.x * a.ids.length + b.x * b.ids.length) / size, y: (a.y * a.ids.length + b.y * b.ids.length) / size, w: widthOf(ids) };
         groups.splice(j, 1);
         changed = true;
-        break outer;
+        j = i; // 合併後的新組重新和後面所有組比一次
       }
     }
   }
-  return groups;
+  return groups.map(({ ids, x, y }) => ({ ids, x, y }));
 }
