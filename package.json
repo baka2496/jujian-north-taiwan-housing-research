@@ -9,6 +9,7 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
+    "deploy": "npm run build && wrangler deploy --config dist/server/wrangler.json --name jujian-north-taiwan",
     "test": "npm run build && node --experimental-strip-types --test tests/*.test.mjs",
     "lint": "eslint app scripts tests --ignore-pattern dist --ignore-pattern .next",
     "data:update": "node scripts/update-all.mjs",

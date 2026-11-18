@@ -186,7 +186,7 @@ npm run lint
 npm test
 ```
 
-雙擊 `更新建案資料.cmd` 同樣執行日常更新。更新不會自行發布網站。`--snapshot` 使用 `data/source/lvr_buildcasecsv/` 與 `data/source/lvr_landcsv/`；一般下載使用 `current-buildcases/` 與 `current-transactions/`。CSV 需為官方 UTF-8 格式並保留原始欄名（建案名稱、鄉鎮市區、編號等），不接受自行猜測欄位的試算表。缺檔、無效欄位或驗證失敗均中止並還原 processed。請一次只執行一個更新程序；處理中的檔案不是可發布版本，應等 `pipeline.status=complete` 後才建置發布。
+雙擊 `更新建案資料.cmd` 同樣執行日常更新。更新不會自行發布網站；確認資料無誤後執行 `npm run deploy` 發布到 Cloudflare Workers（https://jujian-north-taiwan.baka9881.workers.dev，首次需 `npx wrangler login`）。`--snapshot` 使用 `data/source/lvr_buildcasecsv/` 與 `data/source/lvr_landcsv/`；一般下載使用 `current-buildcases/` 與 `current-transactions/`。CSV 需為官方 UTF-8 格式並保留原始欄名（建案名稱、鄉鎮市區、編號等），不接受自行猜測欄位的試算表。缺檔、無效欄位或驗證失敗均中止並還原 processed。請一次只執行一個更新程序；處理中的檔案不是可發布版本，應等 `pipeline.status=complete` 後才建置發布。
 
 每次更新都掃描來源中全部具名住宅建案，舊日期、同日補登、少量戶數與缺少日期不會被排除。能用備查編號、建照或名稱＋基地安全識別者直接納入；身分重複、衝突或缺乏識別資料保留於 `changes.ambiguous`。`--accept` 保留相容性，但已不需要用它逐筆加入舊案，也不會繞過歧義檢查。
 
