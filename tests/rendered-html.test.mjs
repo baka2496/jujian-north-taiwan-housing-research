@@ -205,8 +205,10 @@ test("map uses stable project coordinates and progressive zoom layers", async ()
 test("detail interface separates defect evidence and supports route-based custom amenity weights", async () => {
   const source = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
 
-  assert.match(source, /快速結論/);
-  assert.match(source, /先看答案，需要時再查看資料來源/);
+  // 2026-11「大道至簡」：總覽不再放標題說明與重複的速覽列；價差用金額，不用百分比
+  assert.doesNotMatch(source, /快速結論|先看答案，需要時再查看資料來源|className="drawer-glance"|summary-caution/);
+  assert.doesNotMatch(source, /Math\.abs\(difference\)\}%|Math\.abs\(change\.percent\)\}%/);
+  assert.match(source, /"便宜"\} \$\{Math\.abs\(difference\)\} 萬／坪/);
   assert.match(source, /每月固定支出/);
   assert.match(source, /className="summary-answer-list"/);
   assert.match(source, /查看官方基本資料/);
@@ -216,7 +218,7 @@ test("detail interface separates defect evidence and supports route-based custom
   assert.match(source, /調整各項權重/);
   assert.match(source, /查看其餘 \{activeMoreAmenityEntries\.length\} 類設施/);
   assert.match(source, /查看設施地圖與計算方式/);
-  assert.match(source, /不再只看最近一家/);
+  assert.doesNotMatch(source, /不再只看最近一家/); // 改版說明不放在使用者畫面
   assert.match(source, /查看 \{activeAmenityScore\} 分怎麼算/);
   assert.match(source, /amenityNearbyCountText/);
   assert.match(source, /routeTimeText\(nearest\)/);
@@ -246,7 +248,6 @@ test("the product keeps map mode focused and reveals information progressively",
   assert.match(source, /priceComparison\(active\)/);
   assert.match(source, /區域新屋供給/);
   assert.doesNotMatch(source, /setDetailTab\("supply"\)|快速前往|更多資料/);
-  assert.match(source, /快速結論/);
   assert.match(source, /className="summary-data-confidence"/);
   assert.match(source, /資料可信度/);
   assert.match(source, /\{activeConfidence\.covered\}／4 項可核對/);
@@ -324,4 +325,13 @@ test("project details provide a self-use-only holding cost calculator without tr
   assert.doesNotMatch(source, /出租情境|投資情境|非自住試算/);
   assert.match(css, /\.holding-cost-total/);
   assert.match(css, /\.holding-cost-breakdown/);
+});
+
+// 2026-11 使用者：「整個 UI 很亂」。8–11px 的小字是主因之一，任何樣式都不准再低於 12px。
+test("no stylesheet sets text smaller than 12px", async () => {
+  for (const file of ["../app/globals.css", "../app/decision.css"]) {
+    const css = await readFile(new URL(file, import.meta.url), "utf8");
+    const tiny = css.match(/font-size:\s*(?:[0-9]|1[01])(?:\.\d+)?px/g) ?? [];
+    assert.deepEqual(tiny, [], `${file} 有小於 12px 的字`);
+  }
 });
