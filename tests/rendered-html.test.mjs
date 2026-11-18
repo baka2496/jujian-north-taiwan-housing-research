@@ -377,3 +377,14 @@ test("the map sidebar area list is simple: one count per area, grouped by city",
   // 地區清單模式時不顯示「在地圖上／位置未確認」切換，少一層選擇
   assert.match(src, /\{!browseCities && !browseDistricts && <div className="map-result-tabs"/);
 });
+
+// 2026-11 使用者：「都要超出標籤了，太擠了」——不再用固定寬度的地區標籤，合併標籤不寫「N 個行政區」
+test("map area labels size to their text and merged labels stay short", async () => {
+  const src = await readFile(new URL("../app/InteractiveMap.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(src, /個\$\{tier === "area" \? "縣市" : "行政區"\}/);
+  assert.doesNotMatch(src, /"map-pin-host map-region-host", 116/);
+  assert.match(src, /groupMapLabels\(summaries, regionWidth, 34, 10\)/);
+  assert.match(src, /groupMapLabels\(points, pinWidth, 36, 8\)/);
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.map-region-pin \{ white-space:nowrap;/);
+});

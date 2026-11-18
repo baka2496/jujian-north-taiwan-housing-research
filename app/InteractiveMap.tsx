@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { groupMapLabels } from "./map-layout";
+import { estimateLabelWidth, groupMapLabels } from "./map-layout";
 
 type MapProject = {
   id: string; name: string; region: string; city: string; district: string;
@@ -172,21 +172,24 @@ export default function InteractiveMap({
           const point = map.latLngToContainerPoint(projectPoint(p, districtCenters));
           return { id: p.id, x: point.x, y: point.y };
         });
-        groupMapLabels(points).forEach((group) => {
+        const captionOf = (project: MapProject) => project.price ? `${project.price.median} 萬／坪` : project.name;
+        // 標籤寬度跟著文字（建案名稱最長 150px，其餘以 … 省略），碰撞判斷也用同一個寬度
+        const pinWidth = (ids: string[]) => ids.length === 1 ? Math.min(150, Math.max(64, estimateLabelWidth(captionOf(byId.get(ids[0])!), undefined, 26))) : Math.max(64, estimateLabelWidth("＋", ids.length, 34));
+        groupMapLabels(points, pinWidth, 36, 8).forEach((group) => {
           const items = group.ids.map((id) => byId.get(id)!);
           const selected = group.ids.includes(activeId);
           if (items.length === 1) {
             const project = items[0];
-            const caption = project.price ? `${project.price.median} 萬／坪` : project.name;
+            const caption = captionOf(project);
             const label = `查看 ${project.name}，${project.price ? caption : "成交資料待補"}，${project.amenity?.location.label || "道路參考位置"}`;
-            addMarker(projectPoint(project, districtCenters), `<span class="map-pin ${selected ? "is-selected" : ""} ${project.price ? "" : "no-price"}">${escapeHtml(caption)}</span>`, "map-pin-host", 120, label, () => callbacksRef.current.onSelect?.(project.id), selected);
+            addMarker(projectPoint(project, districtCenters), `<span class="map-pin ${selected ? "is-selected" : ""} ${project.price ? "" : "no-price"}">${escapeHtml(caption)}</span>`, "map-pin-host", pinWidth(group.ids), label, () => callbacksRef.current.onSelect?.(project.id), selected);
           } else {
             // Geographic centroid is stable and independent of screen offsets.
             const center: [number, number] = [
               items.reduce((sum, p) => sum + p.latitude!, 0) / items.length,
               items.reduce((sum, p) => sum + p.longitude!, 0) / items.length,
             ];
-            addMarker(center, `<span class="map-pin map-group-pin ${selected ? "is-selected" : ""}"><b>${items.length}</b> 案 <span aria-hidden="true">＋</span></span>`, "map-pin-host map-group-host", 76, `查看附近 ${items.length} 個建案`, () => {
+            addMarker(center, `<span class="map-pin map-group-pin ${selected ? "is-selected" : ""}"><b>${items.length}</b> 案 <span aria-hidden="true">＋</span></span>`, "map-pin-host map-group-host", pinWidth(group.ids), `查看附近 ${items.length} 個建案`, () => {
               map.setView(center, Math.min(map.getZoom() + 2, 19), { animate: false });
               callbacksRef.current.onClusterSelect?.(group.ids);
             }, selected);
@@ -207,13 +210,20 @@ export default function InteractiveMap({
           return { id, items, first, point, name, x: screen.x, y: screen.y };
         });
         const byId = new Map(summaries.map((summary) => [summary.id, summary]));
-        groupMapLabels(summaries, 124, 44).forEach((group) => {
+        // 2026-11 使用者：「都要超出標籤了，太擠了」——合併的標籤只寫「198 案 ＋」，不再寫「2 個行政區」；
+        // 每個標籤的寬度依文字估算，標籤之間至少留 10px。
+        const countOf = (ids: string[]) => ids.reduce((sum, id) => sum + byId.get(id)!.items.length, 0);
+        const regionWidth = (ids: string[]) => ids.length === 1 ? estimateLabelWidth(byId.get(ids[0])!.name, countOf(ids)) : estimateLabelWidth("＋", countOf(ids));
+        groupMapLabels(summaries, regionWidth, 34, 10).forEach((group) => {
           const members = group.ids.map((id) => byId.get(id)!);
           const first = members[0];
           const point: [number, number] = [members.reduce((sum, m) => sum + m.point[0], 0) / members.length, members.reduce((sum, m) => sum + m.point[1], 0) / members.length];
-          const name = members.length === 1 ? first.name : `${members.length} 個${tier === "area" ? "縣市" : "行政區"}`;
-          const count = members.reduce((sum, m) => sum + m.items.length, 0);
-          addMarker(point, `<span class="map-region-pin"><b>${escapeHtml(name)}</b><small>${count} 案</small></span>`, "map-pin-host map-region-host", 116, `${members.length === 1 ? "選擇" : "放大查看"} ${members.map((m) => m.first.city + (tier === "district" ? m.first.district : "")).join("、")}，${count} 個建案`, () => {
+          const count = countOf(group.ids);
+          const countText = `${count.toLocaleString("zh-TW")} 案`;
+          const html = members.length === 1
+            ? `<span class="map-region-pin"><b>${escapeHtml(first.name)}</b><small>${countText}</small></span>`
+            : `<span class="map-region-pin is-group"><b>${countText}</b><small aria-hidden="true">＋</small></span>`;
+          addMarker(point, html, "map-pin-host map-region-host", regionWidth(group.ids), `${members.length === 1 ? "選擇" : "放大查看"} ${members.map((m) => m.first.city + (tier === "district" ? m.first.district : "")).join("、")}，${count} 個建案`, () => {
             if (members.length > 1) map.setView(point, Math.min(map.getZoom() + 1, 19), { animate: false });
             else if (tier === "area") callbacksRef.current.onCitySelect?.(first.first.city);
             else callbacksRef.current.onDistrictSelect?.(first.first.city, first.first.district);

@@ -26,3 +26,21 @@ test('well-separated buildings keep their exact coordinate and singleton label',
   assert.deepEqual(groupMapLabels(points), points.map(p => ({ ids: [p.id], x: p.x, y: p.y })));
   assert.deepEqual(groupMapLabels([]), []);
 });
+
+// 2026-11 使用者：「都要超出標籤了，太擠了」
+test('label width follows the text, so long labels are not squeezed into a fixed box', async () => {
+  const { estimateLabelWidth } = await import('../app/map-layout.ts');
+  assert.ok(estimateLabelWidth('中壢區', 172) < estimateLabelWidth('新竹市東區', 1074));
+  // 「中壢區 172 案」實際約 110px，估計不得低於實際寬度
+  assert.ok(estimateLabelWidth('中壢區', 172) >= 105);
+  assert.ok(estimateLabelWidth('＋', 198) < estimateLabelWidth('中壢區', 198));
+});
+
+test('labels whose real widths overlap are merged; labels with room between them are not', () => {
+  const widths = { a: 150, b: 150, c: 60, d: 60 };
+  const widthOf = ids => Math.max(...ids.map(id => widths[id]));
+  // a、b 中心相距 140px，但各寬 150px → 會重疊，要合併
+  assert.equal(groupMapLabels([{ id: 'a', x: 0, y: 0 }, { id: 'b', x: 140, y: 0 }], widthOf, 34, 10).length, 1);
+  // c、d 各寬 60px，相距 80px（> 60 + 10 間距）→ 不合併
+  assert.equal(groupMapLabels([{ id: 'c', x: 0, y: 0 }, { id: 'd', x: 80, y: 0 }], widthOf, 34, 10).length, 2);
+});
