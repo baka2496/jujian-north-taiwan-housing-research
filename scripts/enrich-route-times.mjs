@@ -122,6 +122,39 @@ function normalizeRoute(result, profile, departure = null) {
   };
 }
 
+// 好市多只看開車時間，直線最近不一定開車最快（例如隔著河或要繞上高速公路），所以每一家都實測。
+export function fastestStore(stores, results) {
+  let best = null;
+  stores.forEach((store, index) => {
+    const seconds = results[index]?.time;
+    if (!Number.isFinite(seconds)) return;
+    if (!best || seconds < best.seconds) best = { store, seconds };
+  });
+  return best?.store || null;
+}
+
+async function chooseCostco(project, stores, peakDate, cache) {
+  if (!stores.length || !project.nearest.costco) return false;
+  let fetched = false;
+  const signature = [project.location.latitude.toFixed(6), project.location.longitude.toFixed(6), peakDate, ...stores.map((store) => store.id)].join("|");
+  let minutes = cache.costco?.[signature];
+  if (!minutes) {
+    const results = await fetchMatrix(project.location, stores, "auto", `${peakDate}T08:00`);
+    await sleep(250);
+    minutes = Object.fromEntries(stores.map((store, index) => [store.id, Number.isFinite(results[index]?.time) ? Math.max(1, Math.ceil(results[index].time / 60)) : null]));
+    cache.costco ||= {};
+    cache.costco[signature] = minutes;
+    fetched = true;
+  }
+  const fastest = fastestStore(stores, stores.map((store) => ({ time: Number.isFinite(minutes[store.id]) ? minutes[store.id] * 60 : NaN })));
+  if (!fastest) return fetched;
+  const distanceMeters = Math.round(haversineMeters(project.location, fastest));
+  if (fastest.id !== project.nearest.costco.id) project.nearest.costco = { ...fastest, distanceMeters, walkMinutes: Math.max(1, Math.ceil(distanceMeters / 80)) };
+  project.nearest.costco.chosenBy = "peak-driving";
+  project.nearest.costco.alternativesChecked = Object.values(minutes).filter(Number.isFinite).length;
+  return fetched;
+}
+
 async function routeProject(project, categories, peakDate) {
   const targetEntries = categories
     .map((category) => [category, project.nearest[category]])
@@ -213,6 +246,13 @@ async function main() {
       continue;
     }
 
+    const costcoStores = amenities.pois.filter((poi) => poi.category === "costco");
+    try {
+      if (await chooseCostco(project, costcoStores, peakDate, cache) && ++fetchedSinceSave >= 20) {
+        await writeFile(routeCachePath, `${JSON.stringify(cache)}\n`, "utf8");
+        fetchedSinceSave = 0;
+      }
+    } catch (error) { console.warn(`好市多車程暫時無法比較 ${projectId}：${error.message}`); }
     const signature = matrixSignature(project, categories, peakDate);
     let routes = cache.projects[projectId]?.signature === signature ? cache.projects[projectId].routes : null;
     if (!routes) {

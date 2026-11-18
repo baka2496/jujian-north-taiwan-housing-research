@@ -67,3 +67,24 @@ test("amenity scoring is only enabled where facility data was fetched for the wh
   assert.equal(amenities.methodology.poiBounds, `${amenityBounds.south},${amenityBounds.west},${amenityBounds.north},${amenityBounds.east}`);
   for (const [category, count] of Object.entries(amenities.poiCountsByCategory)) assert.ok(count > 0, `${category} 沒有設施資料`);
 });
+
+// 2026-11 使用者要求查證好市多：曾把「好市多觀音物流中心」當成最近分店，且只用直線距離挑分店。
+test("costco stores exclude warehouses and are chosen by measured peak driving time", async () => {
+  const { classifyPoi, isCostcoStore } = await import("../scripts/enrich-amenities.mjs");
+  assert.equal(classifyPoi({ name: "好市多觀音物流中心", building: "warehouse" }), null);
+  assert.equal(classifyPoi({ name: "好市多", shop: "wholesale" }), "costco");
+  assert.equal(isCostcoStore("Costco Logistics Depot", { building: "yes" }), false);
+
+  const stores = amenities.pois.filter((poi) => poi.category === "costco");
+  assert.equal(stores.length, 8, "雙北桃竹範圍內應有 8 家好市多賣場");
+  assert.ok(stores.every((poi) => !/物流|倉儲|倉庫/u.test(poi.name)));
+
+  const scored = Object.values(amenities.projects).filter((project) => project.score !== null && project.nearest.costco);
+  assert.ok(scored.length > 1000);
+  for (const project of scored) {
+    assert.equal(project.nearest.costco.chosenBy, "peak-driving");
+    assert.ok(project.nearest.costco.alternativesChecked >= 2);
+  }
+  // 人工實測（Valhalla 平日 8 時）：京懋明日和到南崁店 20 分、中和店 28 分、中壢店 31 分。
+  assert.equal(amenities.projects["new-taipei-87b8ebf622"].nearest.costco.id, "way-183547237");
+});

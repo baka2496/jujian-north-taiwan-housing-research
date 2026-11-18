@@ -364,7 +364,10 @@ function amenityReliabilityText(project: Project) {
 }
 
 function amenityNearbyCountText(project: Project, category: AmenityCategory) {
-  if (category === "costco") return "好市多只看車程";
+  if (category === "costco") {
+    const checked = (project.amenity.nearest.costco as { alternativesChecked?: number } | null)?.alternativesChecked;
+    return checked ? `比過 ${checked} 家分店，這家車程最短` : "好市多只看車程";
+  }
   const rule = amenityData.methodology.densityRules[category];
   return `${formatDistance(rule.radiusMeters)}內 ${project.amenity.nearbyCounts[category]} 個選擇`;
 }

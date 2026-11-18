@@ -94,6 +94,12 @@ for (const project of projects.projects) {
     fail(amenityCategories.every((category) => !amenity.nearest[category] || amenity.nearest[category].routes?.walking), `${project.name} 缺少道路步行時間`);
     fail(amenityCategories.every((category) => !amenity.nearest[category] || amenity.nearest[category].routes?.driving), `${project.name} 缺少道路開車時間`);
     fail(amenityCategories.every((category) => !amenity.nearest[category] || amenity.nearest[category].routes?.peakDriving), `${project.name} 缺少平日尖峰路線時間`);
+    // 2026-11 曾把「好市多觀音物流中心」當成最近分店，且只用直線距離挑分店。
+    const costco = amenity.nearest.costco;
+    if (costco) {
+      fail(!/物流|倉儲|倉庫|配送|辦公|總部/u.test(costco.name), `${project.name} 的最近好市多不是賣場：${costco.name}`);
+      fail(costco.chosenBy === "peak-driving" && costco.alternativesChecked >= 2, `${project.name} 的好市多沒有比較各分店實際車程`);
+    }
   }
   fail(Array.isArray(quality.projects[project.id]?.events), `${project.name} 的品質事件格式無效`);
   fail(quality.projects[project.id]?.publishedEventCount === quality.projects[project.id]?.events.length, `${project.name} 的品質事件計數不同步`);

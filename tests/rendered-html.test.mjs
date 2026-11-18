@@ -78,7 +78,9 @@ test("processed amenity data is scored and source-labelled", async () => {
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.densityScores).length === 10));
   assert.ok(Object.values(dataset.projects).every((project) => Object.keys(project.nearbyCounts).length === 10));
   // 2026-11 設施範圍擴大到全北台灣後，家睦中山 323 公尺外的醒吾高中、54 公尺外的自強公園才被納入（舊資料學校、公園都是 0）。
-  assert.equal(dataset.projects["林口-11-c4a9a4"].score, 65);
+  // 2026-11 好市多改成實測車程挑分店：新莊店 27 分 → 南崁店 24 分，總分 65 → 67。
+  assert.equal(dataset.projects["林口-11-c4a9a4"].score, 67);
+  assert.equal(dataset.projects["林口-11-c4a9a4"].nearest.costco.name, "好市多 桃園南崁店");
   assert.equal(dataset.projects["林口-11-c4a9a4"].nearbyCounts.convenience, 11);
   assert.equal(dataset.projects["林口-11-c4a9a4"].nearest.school.name, "醒吾高中");
   assert.equal(dataset.pois.find((poi) => poi.id === "node-4653352241")?.name, "A8 長庚醫院站");

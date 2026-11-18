@@ -510,11 +510,17 @@ async function loadOverpass() {
   return { elements: Object.values(cached.elementsByQuery).flat() };
 }
 
-function classifyPoi(tags = {}) {
+export function isCostcoStore(identity, tags = {}) {
+  if (/物流|倉儲|倉庫|配送|辦公|總部|logistics|depot|warehouses*office|distribution/iu.test(identity)) return false;
+  return Boolean(tags.shop || tags.building);
+}
+
+export function classifyPoi(tags = {}) {
   if (tags.disused || tags.abandoned) return null;
   const identity = [tags.name, tags["name:zh"], tags.brand, tags.operator].filter(Boolean).join(" ");
   if (tags.amenity === "parking") return "parking";
-  if (/好市多|costco/iu.test(identity) && (tags.shop || tags.building)) return "costco";
+  // 物流中心、倉庫、辦公室不是買得到東西的賣場（2026-11 曾把「好市多觀音物流中心」當成最近分店）。
+  if (/好市多|costco/iu.test(identity)) return isCostcoStore(identity, tags) ? "costco" : null;
   if (/全聯|px\s*mart|pxmart/iu.test(identity)) return "pxmart";
   if (tags.shop === "convenience") return "convenience";
   if (tags.railway === "station" || tags.railway === "halt") return "station";
@@ -563,6 +569,18 @@ function normalizePois(overpass) {
     { id: "node-9741206307", name: "樂善國小", category: "school", latitude: 25.0519917, longitude: 121.3843066, address: "桃園市龜山區樂學三路" },
     { id: "way-1310794583", name: "文青國中小", category: "school", latitude: 25.0449991, longitude: 121.3910210, address: "桃園市龜山區樂善二路778號" },
   ];
+  // OpenStreetMap 多半只寫「好市多」，看不出是哪一家；分店名依地址人工核對（2026-11-18）。
+  const costcoBranches = {
+    "way-217686003": "好市多 新竹店",
+    "way-253497020": "好市多 中和店",
+    "way-264407782": "好市多 汐止店",
+    "way-367111543": "好市多 中壢店",
+    "way-431645594": "好市多 新莊店",
+    "way-546761340": "好市多 北投店",
+    "way-183547237": "好市多 桃園南崁店",
+    "way-173002028": "好市多 內湖店",
+  };
+  for (const poi of pois) if (costcoBranches[poi.id]) poi.name = costcoBranches[poi.id];
   for (const poi of supplementalPois) {
     // 同一個地圖點已由 Overpass 取得時，保留人工核對過的站名（例：「A8 長庚醫院站」而非「長庚醫院」）。
     if (seen.has(poi.id)) {
@@ -637,6 +655,8 @@ async function main() {
       (poisByCategory[category] || []).filter((poi) => haversineMeters(location, poi) <= densityRules[category].radiusMeters).length,
     ]));
     if (location.confidence !== "estimated") Object.values(nearest).forEach((poi) => poi && mapPoiIds.add(poi.id));
+    // 好市多分店很少，全部保留，路線步驟才能比較每一家的實際車程。
+    (poisByCategory.costco || []).forEach((poi) => mapPoiIds.add(poi.id));
     const rawScore = scoreRules.reduce((total, rule) => total + categoryScore(nearest[rule.category]?.distanceMeters, rule), 0);
     const scoreReliability = location.confidence === "estimated"
       ? "unavailable"
