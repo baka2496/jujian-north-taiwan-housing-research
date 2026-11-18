@@ -525,9 +525,12 @@ function streetViewEmbedUrl(project: Project) {
 
 const listPageSize = 24;
 
+// 2026-11 使用者：「滑動地圖，縮放地圖很卡」——地圖位置只在重新開啟地圖時用來還原，
+// 放在元件外直接記錄（不呼叫 setState），移動地圖時不會觸發整頁重畫。
+const mapCameraMemory = new Map<string, MapCamera>();
+
 export default function Home() {
   const viewScroll = useRef<Record<string, number>>({});
-  const [mapCameraMemory, setMapCameraMemory] = useState<Record<string, MapCamera>>({});
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("全部");
   const [city, setCity] = useState("全部");
@@ -927,7 +930,7 @@ export default function Home() {
       {visibleFilterCount > 0 && <div className="active-filter-list" aria-label="已套用條件"><span>已套用</span>{query.trim() && <button type="button" onClick={() => setQuery("")}>搜尋：{query} ×</button>}{district !== "全部" ? <button type="button" onClick={() => { setDistrict("全部"); }}>地區：{city !== "全部" ? `${city}・` : ""}{district} ×</button> : region !== "全部" ? <button type="button" onClick={() => { setRegion("全部"); }}>生活圈：{region} ×</button> : city !== "全部" ? <button type="button" onClick={() => { setCity("全部"); }}>縣市：{city} ×</button> : null}{budgetFilter !== "all" && <button type="button" onClick={() => setBudgetFilter("all")}>單價：{budgetFilter === "under50" ? "50 萬以下" : budgetFilter === "50to60" ? "50–60 萬" : "60 萬以上"} ×</button>}{stageFilter !== "all" && <button type="button" onClick={() => setStageFilter("all")}>{stageFilter === "presale" ? "尚無首次登記資料" : "已首次登記"} ×</button>}{priceOnly && <button type="button" onClick={() => setPriceOnly(false)}>有成交資料 ×</button>}{minHouseholds > 0 && <button type="button" onClick={() => setMinHouseholds(0)}>{minHouseholds} 戶以上 ×</button>}{amenityFilter !== "all" && <button type="button" onClick={() => setAmenityFilter("all")}>{amenityFilter === "score80" ? "機能 80 分以上" : amenityFilter === "convenience500" ? "超商步行 10 分內" : amenityFilter === "pxmart1000" ? "全聯步行 20 分內" : "車站步行 15 分內"} ×</button>}{qualityFilter !== "all" && <button type="button" onClick={() => setQualityFilter("all")}>{qualityFilter === "defect" ? "有瑕疵履歷" : qualityFilter === "official-result" ? "有官方結果" : qualityFilter === "attention" ? "有需注意事項" : "已查核無刊登事件"} ×</button>}<button type="button" className="active-filter-clear" onClick={clearFilters}>清除全部</button></div>}
       {viewMode === "map" ? (
         <MapExplorer key={`${mapScopeKey}:${builderMapFocus?.sequence ?? 0}`} projects={baseFiltered} scopeKey={mapScopeKey} city={city} district={district} region={region}
-          districtCenters={regionConfig.districtMap.centers} initialCamera={builderMapFocus?.id === validMapPreviewId ? builderMapFocus.camera : mapCameraMemory[mapScopeKey]} onCameraChange={(camera) => { setMapCameraMemory((memory) => { const previous = memory[mapScopeKey]; return previous?.zoom === camera.zoom && previous.center[0] === camera.center[0] && previous.center[1] === camera.center[1] ? memory : { ...memory, [mapScopeKey]: camera }; }); }} selectedId={validMapPreviewId}
+          districtCenters={regionConfig.districtMap.centers} initialCamera={builderMapFocus?.id === validMapPreviewId ? builderMapFocus.camera : mapCameraMemory.get(mapScopeKey)} onCameraChange={(camera) => { mapCameraMemory.set(mapScopeKey, camera); }} selectedId={validMapPreviewId}
           onSelect={(id) => { const project = projects.find((item) => item.id === id); if (project) previewProject(project); }}
           onClosePreview={() => setMapPreviewId(null)} onOpenFilters={() => setAdvancedFiltersOpen(true)}
           onGeography={(nextCity, nextDistrict) => { setCity(nextCity); setDistrict(nextDistrict); setRegion((current) => regionAfterMapNavigation(current, nextCity, nextDistrict, regionConfig.regions)); setMapPreviewId(null); setDetailOpen(false); }}

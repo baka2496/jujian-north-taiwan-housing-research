@@ -248,7 +248,7 @@ test("the product keeps map mode focused and reveals information progressively",
   assert.match(source, />品質<\/button>/);
   assert.match(source, />機能<\/button>/);
   assert.match(source, />建商<\/button>/);
-  assert.match(source, /initialCamera=\{builderMapFocus\?\.id === validMapPreviewId \? builderMapFocus\.camera : mapCameraMemory\[mapScopeKey\]\}/);
+  assert.match(source, /initialCamera=\{builderMapFocus\?\.id === validMapPreviewId \? builderMapFocus\.camera : mapCameraMemory\.get\(mapScopeKey\)\}/);
   assert.match(source, /className="map-tools-control"/);
   assert.doesNotMatch(source, /map-marker-zoom-hint|map-coverage-note|map-gesture-hint/);
   assert.match(source, /priceComparison\(active\)/);
@@ -387,4 +387,13 @@ test("map area labels size to their text and merged labels stay short", async ()
   assert.match(src, /groupMapLabels\(points, pinWidth, 36, 8\)/);
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(css, /\.map-region-pin \{ white-space:nowrap;/);
+});
+
+// 2026-11 使用者：「滑動地圖，縮放地圖很卡」——移動地圖不可觸發整頁重畫；圖磚在拖曳中就載入
+test("moving the map does not re-render the whole page", async () => {
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(page, /setMapCameraMemory/);
+  assert.match(page, /onCameraChange=\{\(camera\) => \{ mapCameraMemory\.set\(mapScopeKey, camera\); \}\}/);
+  const map = await readFile(new URL("../app/InteractiveMap.tsx", import.meta.url), "utf8");
+  assert.match(map, /updateWhenIdle: false/);
 });

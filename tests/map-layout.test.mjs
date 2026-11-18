@@ -44,3 +44,20 @@ test('labels whose real widths overlap are merged; labels with room between them
   // c、d 各寬 60px，相距 80px（> 60 + 10 間距）→ 不合併
   assert.equal(groupMapLabels([{ id: 'c', x: 0, y: 0 }, { id: 'd', x: 80, y: 0 }], widthOf, 34, 10).length, 2);
 });
+
+// 2026-11 使用者：「滑動地圖，縮放地圖很卡」——1,500 個點的標籤合併以前要 4.6 秒，現在必須在 150ms 內
+test('label merging stays fast with many points and still leaves no overlaps', async () => {
+  const { estimateLabelWidth } = await import('../app/map-layout.ts');
+  let seed = 42; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const points = Array.from({ length: 1500 }, (_, i) => ({ id: `p${String(i).padStart(5, '0')}`, x: rnd() * 1100, y: rnd() * 760 }));
+  const widthOf = ids => ids.length === 1 ? estimateLabelWidth('48.5 萬／坪', undefined, 26) : Math.max(64, estimateLabelWidth('＋', ids.length, 34));
+  const started = performance.now();
+  const groups = groupMapLabels(points, widthOf, 36, 8);
+  assert.ok(performance.now() - started < 150, `took ${Math.round(performance.now() - started)}ms`);
+  assert.equal(groups.reduce((sum, g) => sum + g.ids.length, 0), 1500);
+  for (let i = 0; i < groups.length; i += 1) for (let j = i + 1; j < groups.length; j += 1) {
+    const a = groups[i], b = groups[j];
+    const overlap = Math.abs(a.x - b.x) < (widthOf(a.ids) + widthOf(b.ids)) / 2 + 8 && Math.abs(a.y - b.y) < 36 + 8;
+    assert.ok(!overlap, `${i} and ${j} overlap`);
+  }
+});

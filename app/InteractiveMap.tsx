@@ -87,7 +87,7 @@ export default function InteractiveMap({
       const camera = initialRef.current.initialCamera;
       map.setView(camera?.center || overviewCenter, camera?.zoom ?? 10);
       leaflet.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19, updateWhenIdle: true, keepBuffer: 3, attribution: "© OpenStreetMap contributors",
+        maxZoom: 19, updateWhenIdle: false, updateInterval: 120, keepBuffer: 4, attribution: "© OpenStreetMap contributors",
       }).addTo(map);
       if (!compact) leaflet.control.zoom({ position: "bottomright" }).addTo(map);
       leaflet.control.attribution({ position: "bottomright", prefix: false }).addTo(map);
