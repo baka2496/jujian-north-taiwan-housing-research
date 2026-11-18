@@ -1,0 +1,36 @@
+# 每次 push 到 main、每個 PR 都在乾淨環境跑一次完整檢查。
+# 合併前必須全部通過（見使用者工作規則）。
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: 安裝套件
+        run: npm ci
+      - name: 型別檢查
+        run: npm run typecheck
+      - name: 程式風格檢查（lint）
+        run: npm run lint
+      - name: 資料檢查
+        run: npm run data:check
+      - name: 建置並跑測試
+        run: npm test
