@@ -337,3 +337,15 @@ test("no stylesheet sets text smaller than 12px", async () => {
     assert.deepEqual(tiny, [], `${file} 有小於 12px 的字`);
   }
 });
+
+// 2026-11 使用者：「整個 UI 有點太老套」。改用 Inter＋Noto Sans TC 與統一的 --ui-* 配色，避免退回 Arial 與舊的橘／深藍配色。
+test("the site uses the modern type and colour system", async () => {
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const decisionCss = await readFile(new URL("../app/decision.css", import.meta.url), "utf8");
+  assert.match(layout, /family=Inter[^"]*family=Noto\+Sans\+TC/);
+  assert.match(css, /--ui-font:"Inter","Noto Sans TC"/);
+  assert.match(css, /html, body \{ background:var\(--ui-bg\); color:var\(--ui-text\); font-family:var\(--ui-font\)/);
+  assert.match(css, /--orange:var\(--ui-accent\); --orange-dark:var\(--ui-accent-ink\); --navy:var\(--ui-primary\)/);
+  assert.match(decisionCss, /\.decision-workspace\{--forest:var\(--ui-accent-ink\);--cream:var\(--ui-bg\)[^}]*font-family:var\(--ui-font\)/);
+});

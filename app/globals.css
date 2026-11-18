@@ -1181,3 +1181,72 @@ html,body { font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
 .regional-supply-card > summary { cursor:pointer; font-size:14px; font-weight:700; color:#33484f; }
 .regional-supply-card[open] > summary { margin-bottom:10px; }
 .builder-profile strong { margin-top:0; }
+
+/* ============================================================
+   2026-11 視覺改版：使用者覺得「整個 UI 有點太老套」。
+   一套配色：近黑主色 + 祖母綠點綴；淺灰底、白卡片、大圓角、柔和陰影、膠囊按鈕。
+   ============================================================ */
+:root {
+  --ui-bg:#f6f7f9; --ui-surface:#ffffff; --ui-text:#0f172a; --ui-sub:#64748b; --ui-border:#e6e8ec;
+  --ui-primary:#0f172a; --ui-accent:#059669; --ui-accent-ink:#047857; --ui-accent-soft:#ecfdf5;
+  --ui-warn:#b45309; --ui-warn-soft:#fffbeb; --ui-bad:#be123c; --ui-bad-soft:#fff1f2;
+  --ui-radius:16px; --ui-radius-sm:10px;
+  --ui-shadow-sm:0 1px 2px rgba(15,23,42,.04),0 2px 8px rgba(15,23,42,.04);
+  --ui-shadow-md:0 4px 12px rgba(15,23,42,.06),0 12px 32px rgba(15,23,42,.08);
+  --ui-font:"Inter","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --orange:var(--ui-accent); --orange-dark:var(--ui-accent-ink); --navy:var(--ui-primary); --ink:var(--ui-text); --muted:var(--ui-sub); --line:var(--ui-border); --green:var(--ui-accent);
+}
+html, body { background:var(--ui-bg); color:var(--ui-text); font-family:var(--ui-font); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; font-feature-settings:"tnum" 1; }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible { outline:3px solid rgba(5,150,105,.28); outline-offset:2px; }
+
+/* 頂部列：毛玻璃白底、膠囊分頁 */
+.site-header { background:rgba(255,255,255,.82); backdrop-filter:saturate(1.6) blur(14px); -webkit-backdrop-filter:saturate(1.6) blur(14px); border-bottom:1px solid rgba(15,23,42,.06); }
+.site-brand > span { border-radius:11px; background:linear-gradient(135deg,#0f172a,#1e3a35); font-family:var(--ui-font); font-size:18px; box-shadow:0 4px 12px rgba(15,23,42,.18); }
+.site-brand strong { font-size:18px; font-weight:800; letter-spacing:.06em; }
+.site-brand small { letter-spacing:.02em; }
+.site-header nav { height:auto; align-self:center; justify-self:center; gap:2px; padding:4px; border-radius:999px; background:#eef0f3; }
+.site-header nav button { height:34px; padding:0 18px; border-radius:999px; color:var(--ui-sub); font-size:14px; font-weight:600; transition:background .15s,color .15s,box-shadow .15s; }
+.site-header nav button:hover { color:var(--ui-text); }
+.site-header nav button.active { background:#fff; color:var(--ui-text); box-shadow:var(--ui-shadow-sm); }
+.site-header nav button.active::after { display:none; }
+.header-tools button { padding:8px 14px; border-radius:999px; color:var(--ui-text); font-size:13px; font-weight:600; }
+.header-tools button:hover { background:#eef0f3; }
+
+/* 篩選列與輸入框 */
+.filter-bar { background:rgba(255,255,255,.9); box-shadow:none; border-bottom:1px solid var(--ui-border); }
+.global-search,.filter-select,.filter-chip,.clear-filters,.view-switch { border-radius:var(--ui-radius-sm); border-color:var(--ui-border); }
+.global-search > span { color:var(--ui-sub); }
+.view-switch button { border-radius:7px; }
+.view-switch button.active { background:var(--ui-primary); }
+.filter-chip.active { border-color:#a7f3d0; background:var(--ui-accent-soft); color:var(--ui-accent-ink); }
+
+/* 詳細頁：白色標題區、黑色分頁底線、卡片圓角 */
+.detail-drawer { border-left:0; box-shadow:-24px 0 64px rgba(15,23,42,.16); background:var(--ui-bg); }
+.detail-drawer > header { background:#fff; color:var(--ui-text); padding:18px 22px 16px; }
+.detail-drawer > header > button { color:var(--ui-sub); font-weight:600; }
+.detail-drawer > header h2 { font-size:24px; font-weight:800; letter-spacing:-.01em; }
+.drawer-header-meta > span { color:var(--ui-sub); }
+.drawer-header-meta > b,.drawer-header-meta > b.completed { padding:3px 10px; border-radius:999px; background:#eef0f3; color:#334155; }
+.detail-drawer > nav { background:#fff; border-bottom:1px solid var(--ui-border); }
+.detail-drawer > nav button { background:#fff; color:var(--ui-sub); font-weight:600; }
+.detail-drawer > nav button.active { border-bottom-color:var(--ui-primary); color:var(--ui-text); }
+.summary-answer-list { border:0; border-radius:var(--ui-radius); box-shadow:var(--ui-shadow-sm); }
+.summary-answer-list button { border-bottom-color:#f1f3f5; box-shadow:none!important; }
+.summary-answer-list button > span { color:var(--ui-sub); font-weight:600; }
+.summary-answer-list button > strong { color:var(--ui-text); font-weight:700; }
+.summary-answer-list button > b,.summary-answer-list button.attention > b { color:var(--ui-accent-ink); }
+.summary-answer-list button.attention { background:var(--ui-warn-soft); }
+.summary-answer-list button.attention > strong { color:var(--ui-warn); }
+.summary-official-details,.summary-visual-details,.regional-supply-card { border-radius:var(--ui-radius-sm); }
+.drawer-price { border-radius:var(--ui-radius); background:var(--ui-surface); color:var(--ui-text); box-shadow:var(--ui-shadow-sm); }
+.drawer-price span,.drawer-price small,.drawer-price p { color:var(--ui-sub); }
+.drawer-price strong { font-weight:800; letter-spacing:-.02em; }
+.region-benchmark { border-radius:var(--ui-radius-sm); border-color:#d1fae5; background:var(--ui-accent-soft); }
+.region-benchmark strong,.region-benchmark b { color:var(--ui-accent-ink); }
+.drawer-note { border-left:0; border-radius:var(--ui-radius-sm); background:#f1f5f9; color:var(--ui-sub); }
+
+/* 地圖頁 */
+.map-results-heading h1 { color:var(--ui-text); font-weight:800; }
+.map-results-heading p { color:var(--ui-sub); }
+.map-project-preview { border-radius:var(--ui-radius); border-color:rgba(15,23,42,.08); box-shadow:var(--ui-shadow-md); }
+.map-pin { border-radius:999px; border-color:rgba(15,23,42,.12); box-shadow:var(--ui-shadow-sm); }

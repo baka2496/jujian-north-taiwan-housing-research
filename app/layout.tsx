@@ -33,6 +33,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-Hant-TW">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* 2026-11 使用者覺得「太老套」：改用 Inter（數字、英文）＋ Noto Sans TC（中文），取代 Arial／微軟正黑體 */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" />
+      </head>
       <body>{children}</body>
     </html>
   );
