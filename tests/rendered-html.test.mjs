@@ -37,7 +37,11 @@ test("opens with buyer requirements, evidence gaps, and historical research", as
   assert.match(html, /已先收起 [\d,]+ 個估計超出底線的候選/);
   // 2026-11 使用者：「整個 UI 很亂」「大道至簡」。首屏不放裝飾性標語、步驟列與編號，卡片直接給估計總價。
   assert.doesNotMatch(html, /不知道，就留白|decision-steps|decision-principle|01 \/ 我的底線|02 \/ 看懂取捨|decision-disclosure/);
-  assert.match(html, /估計總價/);
+  // 2026-11「太擠、想要圖片」：卡片上方是真實位置小地圖（OpenStreetMap 圖磚），不是示意照片；位置未確認就寫出來
+  assert.match(html, /class="mini-map[ "]/);
+  assert.match(html, /tile\.openstreetmap\.org\/15\/\d+\/\d+\.png|位置未確認/);
+  assert.match(html, /© OpenStreetMap/);
+  assert.doesNotMatch(html, /unsplash|pexels|stock-photo|placeholder\.com/i);
   assert.match(html, /約 [\d,]+(?:–[\d,]+)? 萬/);
   assert.doesNotMatch(html, /class="project-grid-card"/);
   assert.doesNotMatch(html, /data-map-engine="leaflet"/);
@@ -336,4 +340,51 @@ test("no stylesheet sets text smaller than 12px", async () => {
     const tiny = css.match(/font-size:\s*(?:[0-9]|1[01])(?:\.\d+)?px/g) ?? [];
     assert.deepEqual(tiny, [], `${file} 有小於 12px 的字`);
   }
+});
+
+// 2026-11 使用者：「整個 UI 有點太老套」。改用 Inter＋Noto Sans TC 與統一的 --ui-* 配色，避免退回 Arial 與舊的橘／深藍配色。
+test("the site uses the modern type and colour system", async () => {
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const decisionCss = await readFile(new URL("../app/decision.css", import.meta.url), "utf8");
+  assert.match(layout, /family=Inter[^"]*family=Noto\+Sans\+TC/);
+  assert.match(css, /--ui-font:"Inter","Noto Sans TC"/);
+  assert.match(css, /html, body \{ background:var\(--ui-bg\); color:var\(--ui-text\); font-family:var\(--ui-font\)/);
+  assert.match(css, /--orange:var\(--ui-accent\); --orange-dark:var\(--ui-accent-ink\); --navy:var\(--ui-primary\)/);
+  assert.match(decisionCss, /\.decision-workspace\{--forest:var\(--ui-accent-ink\);--cream:var\(--ui-bg\)[^}]*font-family:var\(--ui-font\)/);
+});
+
+// 使用者 2026-11：「地圖沒有改」——地圖頁也要跟著新風格：標籤是膠囊
+// 使用者 2026-11：「黑白的看得很不清楚」——底圖不准再去色
+test("the map page follows the modern style, not only the list page", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.doesNotMatch(css, /filter:[^;}]*grayscale/);
+  assert.match(css, /\.leaflet-tile-pane[^{]*\{ filter:saturate\(\.85\); \}/);
+  assert.match(css, /\.map-region-pin \{[^}]*border-radius:999px;[^}]*background:var\(--ui-primary\)/);
+  assert.match(css, /\.map-pin \{[^}]*border-radius:999px;[^}]*background:#fff/);
+  const decisionCss = await readFile(new URL("../app/decision.css", import.meta.url), "utf8");
+  // 卡片小地圖也保留顏色
+  assert.doesNotMatch(decisionCss, /filter:[^;}]*grayscale/);
+});
+
+// 使用者 2026-11：「左邊這個很難用」——地區清單只顯示一個數字，不再出現「參考點 N / 全部 N 案」兩組數字與術語
+test("the map sidebar area list is simple: one count per area, grouped by city", async () => {
+  const src = await readFile(new URL("../app/MapExplorer.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(src, /參考點 \{area\.located/);
+  assert.doesNotMatch(src, /有參考位置|位置待確認|地址待補|道路／路口參考點/);
+  assert.match(src, /\{area\.total\.toLocaleString\("zh-TW"\)\} 案 ›/);
+  assert.match(src, /className="map-area-group"/);
+  // 地區清單模式時不顯示「在地圖上／位置未確認」切換，少一層選擇
+  assert.match(src, /\{!browseCities && !browseDistricts && <div className="map-result-tabs"/);
+});
+
+// 2026-11 使用者：「都要超出標籤了，太擠了」——不再用固定寬度的地區標籤，合併標籤不寫「N 個行政區」
+test("map area labels size to their text and merged labels stay short", async () => {
+  const src = await readFile(new URL("../app/InteractiveMap.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(src, /個\$\{tier === "area" \? "縣市" : "行政區"\}/);
+  assert.doesNotMatch(src, /"map-pin-host map-region-host", 116/);
+  assert.match(src, /groupMapLabels\(summaries, regionWidth, 34, 10\)/);
+  assert.match(src, /groupMapLabels\(points, pinWidth, 36, 8\)/);
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.map-region-pin \{ white-space:nowrap;/);
 });

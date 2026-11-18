@@ -23,3 +23,63 @@
 .decision-card footer{margin-top:auto}.decision-card footer button{font-size:14px;padding:13px 0}.decision-card footer .decision-card-main{text-align:left;flex:1;color:var(--forest);font-weight:700}.decision-card footer button:last-child{font-size:13px}
 .decision-more{font-size:14px!important}.decision-footer{font-size:13px}.decision-footer button{font-size:13px}
 @media(max-width:640px){.decision-intro{padding:20px 16px 0}.decision-intro h1{font-size:22px}.decision-intro p{font-size:13px}.decision-tabs{gap:16px}.decision-tabs button{font-size:14px}.decision-sort{margin-left:0;flex-basis:100%}.decision-result-count{font-size:13px}.decision-card h3{font-size:20px}.decision-text-button{font-size:13px!important}}
+
+/* 2026-11 視覺改版（配合 globals.css 的 --ui-* 變數） */
+.decision-workspace{--forest:var(--ui-accent-ink);--cream:var(--ui-bg);--edge:var(--ui-border);--sub:var(--ui-sub);color:var(--ui-text);font-family:var(--ui-font)}
+.decision-intro{padding-top:36px}.decision-intro h1{font-size:32px;font-weight:800;letter-spacing:-.02em;color:var(--ui-text)}.decision-intro p{color:var(--ui-sub)}.decision-intro a{color:var(--ui-accent-ink)}
+.decision-preferences{border:0;border-radius:var(--ui-radius);box-shadow:var(--ui-shadow-sm);padding:24px 22px}.decision-preferences h2{font-size:18px;font-weight:800}
+.decision-workspace input:not([type=checkbox]),.decision-workspace select,.decision-workspace textarea{border-color:var(--ui-border);border-radius:var(--ui-radius-sm);background:#f8fafc}
+.decision-workspace input:not([type=checkbox]):focus,.decision-workspace select:focus,.decision-workspace textarea:focus{outline:0;border-color:var(--ui-accent);background:#fff;box-shadow:0 0 0 4px rgba(5,150,105,.12)}
+.decision-workspace input[type=checkbox]{accent-color:var(--ui-primary)}
+.decision-primary{background:var(--ui-primary);border-radius:999px;padding:12px 20px}.decision-primary:hover{background:#1e293b}
+.decision-tabs{border-bottom:0;gap:4px;padding:4px;border-radius:999px;background:#eef0f3;align-items:center;width:max-content;max-width:100%}
+.decision-tabs button{padding:7px 16px;border:0;border-radius:999px;font-weight:600}.decision-tabs button[aria-pressed=true]{background:#fff;color:var(--ui-text);box-shadow:var(--ui-shadow-sm);border:0}
+.decision-tabs b{background:#e2e8f0;border-radius:999px}.decision-tabs .decision-export{margin-left:8px;padding:7px 12px;color:var(--ui-sub)}
+.decision-search{border:1px solid var(--ui-border);border-radius:12px;box-shadow:var(--ui-shadow-sm)}.decision-search input{background:transparent!important}.decision-search>span{color:var(--ui-sub)}
+.decision-result-count strong{font-weight:800}
+.decision-cards{gap:18px}
+.decision-card{border:0;border-radius:var(--ui-radius);box-shadow:var(--ui-shadow-sm);padding:20px 22px 0;transition:transform .18s,box-shadow .18s}
+.decision-card:hover{transform:translateY(-2px);box-shadow:var(--ui-shadow-md)}
+.decision-card.fail,.decision-card.unknown.estimate-over{border:0;box-shadow:var(--ui-shadow-sm),inset 0 0 0 1px #fecdd3}
+.decision-card h3{font-size:21px;font-weight:800;letter-spacing:-.01em}
+.decision-card .decision-status{border-radius:999px;font-weight:600}
+.decision-status.estimate-within,.decision-status.pass{color:var(--ui-accent-ink);background:var(--ui-accent-soft)}
+.decision-status.estimate-tight{color:var(--ui-warn);background:var(--ui-warn-soft)}
+.decision-status.estimate-over,.decision-status.fail{color:var(--ui-bad);background:var(--ui-bad-soft)}
+.decision-status.estimate-unknown,.decision-status.unknown{color:#475569;background:#f1f5f9}
+.decision-evidence{border-top:1px solid #f1f3f5}.decision-evidence strong{color:var(--ui-text);font-size:26px;font-weight:800;letter-spacing:-.02em}.decision-evidence .decision-unit-price{font-size:18px;font-weight:700}
+.decision-card .decision-verdict{color:var(--ui-bad)}
+.decision-card footer{border-top:1px solid #f1f3f5}.decision-card footer .decision-card-main{color:var(--ui-text)}.decision-card footer button:last-child{color:var(--ui-sub)}
+.decision-card-head button{color:var(--ui-text);font-weight:600}.decision-card-head button[aria-pressed=true]{color:var(--ui-accent-ink)}
+.decision-more{border-radius:999px;border-color:var(--ui-border);background:#fff;color:var(--ui-text);font-weight:600;box-shadow:var(--ui-shadow-sm)}
+.decision-hidden-note button{color:var(--ui-text)}
+.decision-footer strong{color:var(--ui-text)}
+.decision-dialog{border-radius:20px}.decision-dialog form>header{background:#fff}
+@media(max-width:640px){.decision-intro h1{font-size:24px}.decision-tabs{width:100%}.decision-tabs button{flex:1;padding:7px 8px}.decision-tabs .decision-export{flex:0 0 auto}}
+
+/* 2026-11 使用者：「還是太擠、太多字」「想要有照片或圖片」。卡片上方放真實位置小地圖，下方只留名稱、總價、單價 */
+.decision-card{position:relative;padding:0;overflow:hidden}
+.decision-card-media{position:relative;display:block;width:100%;height:150px;padding:0;border:0;background:#e9ecef;cursor:pointer}
+.decision-card-media .decision-status{position:absolute;left:12px;top:12px;margin:0;box-shadow:0 2px 8px rgba(15,23,42,.12)}
+.decision-card-media .decision-status.estimate-within,.decision-card-media .decision-status.pass{background:#ecfdf5f2}
+.decision-save{position:absolute;right:12px;top:12px;z-index:2;width:36px;height:36px;border:0;border-radius:999px;background:rgba(255,255,255,.94);color:var(--ui-text);font-size:18px;line-height:36px;box-shadow:0 2px 8px rgba(15,23,42,.14)}
+.decision-save[aria-pressed=true]{color:#d97706}
+.decision-card-body{padding:16px 20px 14px}
+.decision-card-body .decision-card-location{font-size:13px;color:var(--ui-sub)}
+.decision-card-body h3{margin-top:2px!important}
+.decision-card .decision-evidence{display:block;margin-top:10px;padding:0;border:0}
+.decision-card .decision-evidence strong{display:block;font-size:28px;line-height:1.3}
+.decision-card .decision-evidence small{display:block;margin-top:2px;font-size:13px;color:var(--ui-sub)}
+.decision-card .decision-verdict{padding:8px 0 0;margin:0}
+.decision-card footer{margin:0 20px}
+.mini-map{position:relative;width:100%;height:100%;overflow:hidden;background:#e9ecef}
+.mini-map-tiles{position:absolute;width:512px;height:512px;filter:saturate(.85)}
+.mini-map-tiles img{position:absolute;width:256px;height:256px;max-width:none}
+.mini-map-pin{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border:3px solid #fff;border-radius:50%;background:var(--ui-accent);box-shadow:0 0 0 6px rgba(5,150,105,.22),0 3px 8px rgba(15,23,42,.3)}
+.mini-map-area{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:2px dashed rgba(5,150,105,.7);border-radius:50%;background:rgba(5,150,105,.14)}
+.mini-map-label,.mini-map-credit{position:absolute;bottom:8px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.9);font-size:12px;color:var(--ui-sub)}
+.mini-map-label{left:10px}.mini-map-credit{right:10px;padding:1px 6px;font-size:12px;opacity:.85}
+.mini-map-unknown{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:linear-gradient(135deg,#eef2f6,#e2e8f0)}
+.mini-map-unknown span{font-size:18px;font-weight:800;color:#94a3b8}.mini-map-unknown small{font-size:12px;color:#94a3b8}
+.decision-result-count .decision-sort{color:var(--ui-sub)}
+@media(max-width:640px){.decision-card-media{height:140px}}
