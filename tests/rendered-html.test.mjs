@@ -397,3 +397,10 @@ test("moving the map does not re-render the whole page", async () => {
   const map = await readFile(new URL("../app/InteractiveMap.tsx", import.meta.url), "utf8");
   assert.match(map, /updateWhenIdle: false/);
 });
+
+// 2026-11 使用者：「每次縮放畫面都會閃一下」——縮放要有動畫，舊圖磚頂著直到新圖磚載入，不准再關掉
+test("map zoom keeps old tiles on screen instead of flashing blank", async () => {
+  const map = await readFile(new URL("../app/InteractiveMap.tsx", import.meta.url), "utf8");
+  assert.match(map, /zoomAnimation: true, fadeAnimation: true, markerZoomAnimation: true/);
+  assert.doesNotMatch(map, /zoomAnimation: false/);
+});

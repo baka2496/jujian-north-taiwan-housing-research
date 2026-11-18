@@ -81,7 +81,8 @@ export default function InteractiveMap({
       if (cancelled || !containerRef.current) return;
       const map = leaflet.map(containerRef.current, {
         zoomControl: false, attributionControl: false, scrollWheelZoom: true,
-        inertia: false, zoomAnimation: false, fadeAnimation: false, markerZoomAnimation: false,
+        // 2026-11 使用者：「每次縮放畫面都會閃一下」——開啟縮放動畫：舊圖磚放大／縮小頂著，新圖磚載入後淡入，不再出現灰底空白
+        inertia: false, zoomAnimation: true, fadeAnimation: true, markerZoomAnimation: true,
         minZoom: 8, maxZoom: 19, wheelPxPerZoomLevel: 120,
       });
       const camera = initialRef.current.initialCamera;
