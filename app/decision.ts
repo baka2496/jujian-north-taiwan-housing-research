@@ -3,7 +3,7 @@ export type Visit = { unit?: string; asking?: string; indoor?: string; completed
 export type Check = { key: string; label: string; state: 'pass' | 'fail' | 'unknown'; detail: string };
 export type ProjectFacts = { price?: { median: number; low: number; count: number } | null; firstRegistrationDate?: string | null };
 export type EstimateLevel = 'within' | 'tight' | 'over' | 'unknown';
-export type Prescreen = { level: EstimateLevel; rank: number; budget: { level: EstimateLevel; detail: string; short: string }; age: { level: 'over' | 'unknown'; detail: string; short: string } | null; headline: string; short: string };
+export type Prescreen = { level: EstimateLevel; rank: number; budget: { level: EstimateLevel; detail: string; short: string; total?: string }; age: { level: 'over' | 'unknown'; detail: string; short: string } | null; headline: string; short: string };
 
 // 預估公設比：用來把「室內坪」換算成成交單價所用的「權狀坪」。新成屋多在 30–36%，取 33% 並寫在說明裡。
 export const ASSUMED_PUBLIC_RATIO = 0.33;
@@ -32,9 +32,9 @@ export function prescreenCandidate(needs: Needs, project: ProjectFacts, today: s
     const lowTotal = price.low * registeredArea;
     const medianTotal = price.median * registeredArea;
     const basis = `室內 ${needs.indoor} 坪約等於權狀 ${Math.round(registeredArea * 10) / 10} 坪（假設公設比 ${Math.round(ASSUMED_PUBLIC_RATIO * 100)}%），未含車位`;
-    if (lowTotal > needs.budget) budget = { level: 'over', detail: `用歷史最低成交單價估算約 ${wan(lowTotal)} 萬起，已超過你的 ${exact(needs.budget)} 萬上限。${basis}`, short: `估算 ${wan(lowTotal)} 萬起，超過上限` };
-    else if (medianTotal > needs.budget) budget = { level: 'tight', detail: `用歷史成交估算約 ${wan(lowTotal)}–${wan(medianTotal)} 萬，接近你的 ${exact(needs.budget)} 萬上限，可能只剩低樓層或小戶。${basis}`, short: `估算約 ${wan(lowTotal)}–${wan(medianTotal)} 萬，接近上限` };
-    else budget = { level: 'within', detail: `用歷史成交中位數估算約 ${wan(medianTotal)} 萬，在你的 ${exact(needs.budget)} 萬上限內，車位要另外加。${basis}`, short: `估算約 ${wan(medianTotal)} 萬（不含車位）` };
+    if (lowTotal > needs.budget) budget = { level: 'over', detail: `用歷史最低成交單價估算約 ${wan(lowTotal)} 萬起，已超過你的 ${exact(needs.budget)} 萬上限。${basis}`, short: `估算 ${wan(lowTotal)} 萬起，超過上限`, total: `${wan(lowTotal)} 萬起` };
+    else if (medianTotal > needs.budget) budget = { level: 'tight', detail: `用歷史成交估算約 ${wan(lowTotal)}–${wan(medianTotal)} 萬，接近你的 ${exact(needs.budget)} 萬上限，可能只剩低樓層或小戶。${basis}`, short: `估算約 ${wan(lowTotal)}–${wan(medianTotal)} 萬，接近上限`, total: `約 ${wan(lowTotal)}–${wan(medianTotal)} 萬` };
+    else budget = { level: 'within', detail: `用歷史成交中位數估算約 ${wan(medianTotal)} 萬，在你的 ${exact(needs.budget)} 萬上限內，車位要另外加。${basis}`, short: `估算約 ${wan(medianTotal)} 萬（不含車位）`, total: `約 ${wan(medianTotal)} 萬` };
   }
   let age: Prescreen['age'] = null;
   const registered = project.firstRegistrationDate;

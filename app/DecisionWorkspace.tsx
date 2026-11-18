@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import dataset from '@/data/processed/projects.json';
 import { assessCandidate, compareByPrescreen, estimateLabels, prescreenCandidate, ASSUMED_PUBLIC_RATIO, type Needs, type Visit } from './decision';
-import { displayBuilder, isMinorListing } from './catalogue';
+import { isMinorListing } from './catalogue';
 import './decision.css';
 
 const sinyiCity: Record<string, string> = { 臺北市: 'Taipei-city', 新北市: 'NewTaipei-city', 桃園市: 'Taoyuan-city', 新竹市: 'Hsinchu-city', 新竹縣: 'Hsinchu-county' };
@@ -52,7 +52,6 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   const [message, setMessage] = useState('');
   const [replacing, setReplacing] = useState(false);
   const [reconfirmed, setReconfirmed] = useState(false);
-  const [showExcluded, setShowExcluded] = useState(true);
   const [showOverEstimate, setShowOverEstimate] = useState(false);
   const [showMinor, setShowMinor] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -86,8 +85,8 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   const districts = [...new Set(dataset.projects.filter(p => p.city === plan.city).map(p => p.district))].sort();
   const screened = useMemo(() => dataset.projects.filter(p =>
     (tab === 'saved' ? plan.saved.includes(p.id) : (plan.city === '全部' || p.city === plan.city) && (plan.district === '全部' || p.district === plan.district)) &&
-    (!query || `${p.name}${p.district}${p.address}${p.builder}`.includes(query.trim())) && (showExcluded || plan.visits[p.id]?.decision !== '先排除')
-  ).map(project => ({ project, prescreen: prescreenCandidate(plan.needs, project, today) })).sort(compareByPrescreen), [plan.city, plan.district, plan.saved, plan.visits, plan.needs, showExcluded, query, tab, today]);
+    (!query || `${p.name}${p.district}${p.address}${p.builder}`.includes(query.trim()))
+  ).map(project => ({ project, prescreen: prescreenCandidate(plan.needs, project, today) })).sort(compareByPrescreen), [plan.city, plan.district, plan.saved, plan.needs, query, tab, today]);
   // 少於 10 戶或用地號當名稱的備查資料先收起；搜尋或「我的清單」時照常顯示
   const hideMinor = tab === 'discover' && !query.trim() && !showMinor;
   const minorCount = tab === 'discover' && !query.trim() ? screened.filter(s => isMinorListing(s.project)).length : 0;
@@ -101,7 +100,6 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   const tightCount = screened.filter(s => s.prescreen.level === 'tight').length;
   const selected = dataset.projects.filter(p => plan.saved.includes(p.id));
   const assess = (p: Project) => assessCandidate(plan.needs, plan.visits[p.id] || {}, today, p);
-  const failCount = candidates.filter(p => assess(p).status === 'fail').length;
   const needs = plan.needs;
   function need<K extends keyof Needs>(key: K, value: Needs[K]) { setPlan(p => ({ ...p, needs: { ...p.needs, [key]: value } })); }
   function toggle(id: string) { setPlan(p => ({ ...p, saved: p.saved.includes(id) ? p.saved.filter(x => x !== id) : [...p.saved, id] })); }
@@ -126,45 +124,48 @@ export default function DecisionWorkspace({ onHistory }: { onHistory: (id?: stri
   }
   return <div className="decision-workspace">
     <section className="decision-intro">
-      <div className="decision-eyebrow"><span /> 給第一次買房的你 · 看屋前的功課</div>
-      <div className="decision-intro-row"><div><h1>少看幾間，<br /><em>更接近適合的家。</em></h1><p>先說不能妥協的條件。把不適合的理由、<br className="desktop-break" />還沒確認的事，在出門看屋之前攤開。</p></div>
-        <aside className="decision-principle"><span>居鑑的判斷原則</span><strong>不知道，就留白。</strong><p>不把歷史成交當成開價，<br />不把查無紀錄當成沒有問題。</p><div>有依據的取捨，比一個分數更有用。 <span>↗</span></div></aside>
-      </div>
-      <ol className="decision-steps"><li><b>01</b> 設定你的底線</li><li><b>02</b> 看懂取捨與缺口</li><li><b>03</b> 帶著問題去看屋</li></ol>
+      <h1>少看幾間，更接近適合的家</h1>
+      <p>填好條件，就會用政府實價登錄的歷史成交幫你估算總價。這些是歷史成交建案，還不是在售房源（資料更新至 {dataset.generatedAt.slice(0, 10)}）。<a href={`https://www.sinyi.com.tw/buy/list/${sinyiCity[plan.city] || 'NewTaipei-city'}/presale/default-desc/1`} target="_blank" rel="noopener noreferrer">看信義房屋在售物件 ↗</a></p>
     </section>
     <div className="decision-layout">
-      <aside className="decision-preferences"><div className="decision-section-label">01 / 我的底線</div><h2>先顧好不能妥協的。</h2><p className="decision-muted">條件隨時可改，判斷會一起更新。</p>
+      <aside className="decision-preferences"><h2>我的條件</h2>
         <form onSubmit={e => { e.preventDefault(); resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>
           <div className="decision-field-pair"><label>縣市<select value={plan.city} onChange={e => { setPlan(p => ({ ...p, city: e.target.value, district: '全部' })); setLimit(6); }}><option>全部</option>{cities.map(c => <option key={c}>{c}</option>)}</select></label><label>行政區<select value={plan.district} onChange={e => { setPlan(p => ({ ...p, district: e.target.value })); setLimit(6); }}><option>全部</option>{districts.map(d => <option key={d}>{d}</option>)}</select></label></div>
           <label>總預算上限 <span>含車位</span><div className="decision-unit"><input type="number" aria-label="總預算上限" min="1" max="100000" required value={needs.budget || ''} onChange={e => need('budget', Number(e.target.value))} /><span>萬元</span></div></label>
-          <label>室內至少 <span>不含公設、車位</span><div className="decision-unit"><input type="number" aria-label="室內至少" min="1" max="1000" required value={needs.indoor || ''} onChange={e => need('indoor', Number(e.target.value))} /><span>坪</span></div></label>
+          <label>室內至少 <span>不含公設</span><div className="decision-unit"><input type="number" aria-label="室內至少" min="1" max="1000" required value={needs.indoor || ''} onChange={e => need('indoor', Number(e.target.value))} /><span>坪</span></div></label>
           <label>屋齡需求<select value={needs.maxAge} onChange={e => need('maxAge', Number(e.target.value))}><option value="5">只考慮 5 年內成屋</option><option value="0">不限，預售屋也考慮</option></select></label>
           <label className="decision-checkbox"><input type="checkbox" checked={needs.elevator} onChange={e => need('elevator', e.target.checked)} /> 一定要有電梯</label>
           <details className="decision-commute"><summary>＋ 加入通勤底線{needs.destinationA || needs.destinationB ? '（已設定）' : ''}</summary><label>目的地 A<input placeholder="例如：台北車站" value={needs.destinationA} maxLength={100} onChange={e => need('destinationA', e.target.value)} /></label><label>目的地 B（選填）<input placeholder="另一位家人的上班地點" value={needs.destinationB} maxLength={100} onChange={e => need('destinationB', e.target.value)} /></label><label>每人單程最多（分鐘）<input type="number" min="1" max="300" value={needs.commute || ''} onChange={e => need('commute', Number(e.target.value))} /></label><small>先記錄目的地；路線時間需實測或補充來源，不用直線距離推算。</small></details>
-          <button className="decision-primary" type="submit">查看候選與缺口 <span>↓</span></button>
-        </form><p className="decision-storage">{storageError || '條件與紀錄只保存在這個瀏覽器。'}</p>
+          <button className="decision-primary" type="submit">看結果 <span>↓</span></button>
+        </form><p className="decision-storage">{storageError || '條件只存在這個瀏覽器。'}</p>
       </aside>
       <section className="decision-results" ref={resultRef}>
-        <div className="decision-results-top"><div><div className="decision-section-label">02 / 看懂取捨</div><h2>{tab === 'saved' ? '你的看屋候選清單' : '先研究社區，再決定看哪一戶。'}</h2></div><button className="decision-text-button" onClick={exportPlan}>匯出紀錄 ↗</button></div>
-        <div className="decision-disclosure"><span>i</span><p><strong>這裡是研究候選，還不是在售房源。</strong>政府資料更新至 {dataset.generatedAt.slice(0, 10)}。屋齡、電梯與當前可售戶要逐案確認。<a href={`https://www.sinyi.com.tw/buy/list/${sinyiCity[plan.city] || 'NewTaipei-city'}/presale/default-desc/1`} target="_blank" rel="noopener noreferrer">看信義房屋在售物件 ↗</a></p></div>
-        <div className="decision-tabs" role="group" aria-label="候選範圍"><button aria-pressed={tab === 'discover'} onClick={() => { setTab('discover'); setQuery(''); setLimit(6); }}>探索候選</button><button aria-pressed={tab === 'saved'} onClick={() => { setTab('saved'); setQuery(''); setLimit(6); }}>我的清單 <b>{plan.saved.length}</b></button></div>
+        <div className="decision-tabs" role="group" aria-label="候選範圍"><button aria-pressed={tab === 'discover'} onClick={() => { setTab('discover'); setQuery(''); setLimit(6); }}>符合條件的建案</button><button aria-pressed={tab === 'saved'} onClick={() => { setTab('saved'); setQuery(''); setLimit(6); }}>我的清單 <b>{plan.saved.length}</b></button><button className="decision-text-button decision-export" onClick={exportPlan}>匯出紀錄</button></div>
         <label className="decision-search"><span>⌕</span><input aria-label="搜尋候選社區" placeholder="搜尋社區、路段或建商" value={query} onChange={e => { setQuery(e.target.value); setLimit(6); }} />{query && <button aria-label="清除候選搜尋" onClick={() => setQuery('')}>×</button>}</label>
-        <label className="decision-checkbox decision-excluded"><input type="checkbox" checked={showExcluded} onChange={e => setShowExcluded(e.target.checked)} /> 顯示我已排除的候選</label>
-        <div className="decision-result-count"><span>{candidates.length} 個研究候選{failCount > 0 ? ` · ${failCount} 個條件不符` : ''}{withinCount + tightCount > 0 ? ` · ${withinCount} 個估計在預算內、${tightCount} 個接近上限` : ''}</span><span>依你的底線預估排序 · 非推薦排名</span></div>
-        {overCount > 0 && tab === 'discover' && <div className="decision-over-note" role="status"><p>{hideOver ? `已先收起 ${overCount} 個估計超出底線的候選` : `含 ${overCount} 個估計超出底線的候選，排在最後`}<small>用歷史最低成交單價、室內 {needs.indoor} 坪與公設比 {Math.round(ASSUMED_PUBLIC_RATIO * 100)}% 估算，或首次登記已超過屋齡上限；不是開價。</small></p><button type="button" className="decision-text-button" aria-pressed={showOverEstimate} onClick={() => setShowOverEstimate(v => !v)}>{hideOver ? '仍要顯示' : '收起'}</button></div>}
-        {minorCount > 0 && <div className="decision-minor-note"><span>{hideMinor ? `另有 ${minorCount} 個少於 10 戶或以地號命名的小案已收起` : `含 ${minorCount} 個少於 10 戶或以地號命名的小案`}</span><button type="button" className="decision-text-button" aria-pressed={showMinor} onClick={() => setShowMinor(v => !v)}>{hideMinor ? '顯示' : '收起'}</button></div>}
-        <div className="decision-cards">{candidates.slice(0, limit).map((p, i) => {
-          const result = assess(p); const record = plan.visits[p.id]; const failures = result.checks.filter(c => c.state === 'fail'); const gaps = result.checks.filter(c => c.state === 'unknown');
+        <div className="decision-result-count"><strong>{candidates.length} 個建案</strong>{withinCount + tightCount > 0 && <span>{withinCount} 個估計在預算內 · {tightCount} 個接近上限</span>}<span className="decision-sort">依你的底線預估排序</span></div>
+        {tab === 'discover' && (overCount > 0 || minorCount > 0) && <div className="decision-hidden-note" role="status">
+          {overCount > 0 && <p title={`用歷史最低成交單價、室內 ${needs.indoor} 坪與公設比 ${Math.round(ASSUMED_PUBLIC_RATIO * 100)}% 估算，或首次登記已超過屋齡上限；不是開價。`}>{hideOver ? `已先收起 ${overCount} 個估計超出底線的候選` : `含 ${overCount} 個估計超出底線的候選，排在最後`}<button type="button" className="decision-text-button" aria-pressed={showOverEstimate} onClick={() => setShowOverEstimate(v => !v)}>{hideOver ? '顯示' : '收起'}</button></p>}
+          {minorCount > 0 && <p>{hideMinor ? `另有 ${minorCount} 個 10 戶以下或以地號命名的小案已收起` : `含 ${minorCount} 個 10 戶以下的小案`}<button type="button" className="decision-text-button" aria-pressed={showMinor} onClick={() => setShowMinor(v => !v)}>{hideMinor ? '顯示' : '收起'}</button></p>}
+        </div>}
+        <div className="decision-cards">{candidates.slice(0, limit).map(p => {
+          const result = assess(p); const record = plan.visits[p.id]; const failures = result.checks.filter(c => c.state === 'fail');
           const estimate = prescreenById.get(p.id) ?? prescreenCandidate(needs, p, today);
+          const saved = plan.saved.includes(p.id);
           const badgeClass = record?.decision === '先排除' ? 'fail' : result.status !== 'unknown' ? result.status : `estimate-${estimate.level}`;
           const badgeText = record?.decision === '先排除' ? '我已排除' : result.status !== 'unknown' ? labels[result.status] : estimateLabels[estimate.level];
-          const verdictTitle = failures.length ? '先排除的理由' : result.status === 'pass' ? '下一步' : estimate.level === 'over' ? '估計不符合的地方' : estimate.level !== 'unknown' ? '依成交紀錄估算' : '出門前先確認';
-          const verdictText = failures[0]?.detail || (result.status === 'unknown' && estimate.level !== 'unknown' ? estimate.short : '') || gaps[0]?.detail || '依你的紀錄符合已填條件，仍需現場確認屋況與交易文件。';
-          return <article className={`decision-card ${result.status} estimate-${estimate.level}`} key={p.id}><div className="decision-card-head"><span className="decision-card-location">{p.city} / {p.district}</span><button aria-label={`${plan.saved.includes(p.id) ? '移出' : '加入'}清單：${p.name}`} aria-pressed={plan.saved.includes(p.id)} onClick={() => toggle(p.id)}>{plan.saved.includes(p.id) ? '✓ 已加入' : '＋ 加入清單'}</button></div><div className="decision-card-title"><h3>{p.name}</h3><span className={`decision-status ${badgeClass}`}>{badgeText}</span></div><p className="decision-address">{p.address || '地址待確認'} · {displayBuilder(p.builder)}</p>
-            <div className="decision-evidence"><div><small>歷史成交中位單價</small><strong>{p.price ? <>{p.price.median}<span> 萬／坪</span></> : '尚無可用樣本'}</strong></div><p>{p.price ? <>{p.price.count} 筆成交<br />最新 {p.price.latestDate || '日期待補'}</> : <>樣本不足<br />無法判斷行情</>}</p></div>
-            <div className="decision-verdict"><span>{verdictTitle}</span><p>{verdictText}</p><small>{failures.length ? `另有 ${gaps.length} 項待確認` : gaps.length ? `還有 ${gaps.length} 項要現場確認` : '依個人紀錄判斷，非平台驗證'}</small></div>
+          // 卡片只留一句理由：真的不符合、或估計超出時才說明；其餘細節放在詳細頁。
+          const reason = failures[0]?.detail || (estimate.level === 'over' ? estimate.short : '');
+          return <article className={`decision-card ${result.status} estimate-${estimate.level}`} key={p.id}>
+            <div className="decision-card-head"><span className="decision-card-location">{p.city} · {p.district}</span><button aria-label={`${saved ? '移出' : '加入'}清單：${p.name}`} aria-pressed={saved} onClick={() => toggle(p.id)}>{saved ? '★ 已加入' : '☆ 加入清單'}</button></div>
+            <h3>{p.name}</h3>
+            <span className={`decision-status ${badgeClass}`}>{badgeText}</span>
+            <div className="decision-evidence">
+              <div><small>估計總價</small><strong>{estimate.budget.total || '無法估算'}</strong><small>{estimate.budget.total ? `室內 ${needs.indoor} 坪，不含車位` : p.price ? '成交樣本不足' : '尚無成交紀錄'}</small></div>
+              <div><small>成交中位單價</small><strong className="decision-unit-price">{p.price ? <>{p.price.median}<span> 萬/坪</span></> : '—'}</strong><small>{p.price ? `${p.price.count} 筆成交` : '樣本不足'}</small></div>
+            </div>
+            {reason && <p className="decision-verdict">{reason}</p>}
             {record?.decision && <p className="decision-personal">我的決定：{record.decision}</p>}
-            <footer><button onClick={() => open(p)}>看屋清單 <span>→</span></button><button aria-label={`查看${p.name}詳細資料`} onClick={() => onHistory(p.id)}>價格、機能與品質</button></footer><span className="decision-card-index">{String(i + 1).padStart(2, '0')}</span>
+            <footer><button className="decision-card-main" aria-label={`查看${p.name}詳細資料`} onClick={() => onHistory(p.id)}>看詳細資料 <span>→</span></button><button onClick={() => open(p)}>{record ? '看屋紀錄' : '記錄看屋'}</button></footer>
           </article>;
         })}</div>
         {!candidates.length && <div className="decision-empty"><h3>{tab === 'saved' && !plan.saved.length ? '先留下值得研究的候選。' : '這個範圍還沒有候選。'}</h3><p>{tab === 'saved' && !plan.saved.length ? '在探索候選中加入清單，就能並排看取捨、保存看屋紀錄。' : '試試其他關鍵字或地區。沒有收錄，不代表當地沒有房子。'}</p><button onClick={() => { setQuery(''); setTab('discover'); setPlan(p => ({ ...p, city: '全部', district: '全部' })); }}>探索所有候選 →</button></div>}

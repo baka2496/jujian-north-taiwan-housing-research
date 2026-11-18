@@ -35,6 +35,10 @@ test("opens with buyer requirements, evidence gaps, and historical research", as
   assert.match(html, /依你的底線預估排序/);
   assert.match(html, /估計在預算內|估計接近上限/);
   assert.match(html, /已先收起 [\d,]+ 個估計超出底線的候選/);
+  // 2026-11 使用者：「整個 UI 很亂」「大道至簡」。首屏不放裝飾性標語、步驟列與編號，卡片直接給估計總價。
+  assert.doesNotMatch(html, /不知道，就留白|decision-steps|decision-principle|01 \/ 我的底線|02 \/ 看懂取捨|decision-disclosure/);
+  assert.match(html, /估計總價/);
+  assert.match(html, /約 [\d,]+(?:–[\d,]+)? 萬/);
   assert.doesNotMatch(html, /class="project-grid-card"/);
   assert.doesNotMatch(html, /data-map-engine="leaflet"/);
   assert.doesNotMatch(html, /class="map-project-card"/);
